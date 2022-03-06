@@ -1,0 +1,37 @@
+.nav {
+  text-decoration: none;
+  font-size: 1.4rem;
+  display: block;
+  color: var(--text-color);
+  margin-top: 20px;
+}
+.nav:hover {
+  color: var(--color-hover);
+}
+.nav_content {
+  max-height: 480px;
+  display: block;
+  overflow-y: auto;
+}
+.sub__nav {
+  border: 1px solid #ccc;
+  display: block;
+}
+.nav__img {
+  margin: 0 auto;
+  display: block;
+  width: 80px;
+  height: 80px;
+}
+.nav__description {
+  display: block;
+  padding: 10px 12px;
+}
+.nav__footer {
+  margin: 20px;
+  text-align: center;
+}
+.nav_quantity {
+  color: var(--primary-color);
+  font-weight: 700;
+}
