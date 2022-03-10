@@ -1,0 +1,9 @@
+.slider {
+  height: 600px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  width: 100%;
+  background-position: center;
+}
