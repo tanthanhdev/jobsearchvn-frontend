@@ -1,0 +1,235 @@
+/* nav */
+.nav{
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+    color: var(--text-color);
+    margin-top: 20px;
+    
+}
+.nav:hover{
+    color: var(--color-hover);
+}
+.nav_content{
+    max-height: 460px;
+    overflow-y: auto;
+}
+.sub__nav{
+    border: 1px solid #ccc;
+    display: block;
+}
+.nav__img{
+    margin:0 auto;
+    display: block;
+}
+.nav__description{
+    display: block;
+    padding: 10px 12px;
+}
+.nav__footer{
+    margin: 20px;
+    text-align: center;
+}
+.nav_quantity{
+    color: var(--primary-color);
+    font-weight: 700;
+}
+/* nav_sub-content-link */
+.nav_sub-content{
+    max-height: 560px;
+
+}
+.nav_sub-content .nav_sub-content-link{
+    text-decoration: none;
+    display: flex;
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 20px 0px;
+   
+}
+.sub-content{
+    position: relative;
+}
+.sub-content__btn-next{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    font-size: 2rem ;
+    cursor: pointer;
+}
+.sub-content__btn-prev{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    font-size:2rem;
+    cursor: pointer;
+}
+
+.nav_sub-content-link:hover{
+    color: var(--color-hover);
+}
+.nav_sub-content-logo{
+    display: flex;
+    width: 50px!important;
+    height: 40px;
+    margin-top: 30px;
+}
+.nav_sub-content-description{
+    margin-left: 10px;
+}
+.nav_sub-content-description header{
+    display: block;
+    max-height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 10px 2px;
+}
+.nav_sub-content-pay{
+    color: var(--primary-color);
+    padding: 4px 0;
+}
+.nav_sub-content-name{
+    color: var(--primary-color);
+}
+.nav_sub-content-description header h3{
+    margin: 0;
+    padding: 4px 0;
+}
+.sub-content .nav_sub-content{
+    /* display: none; */
+}
+.nav_sub-content.nav_sub-primary{
+    /* display: flex; */
+}
+.nextt{
+    animation: left_to_right 1s forwards;
+}
+@keyframes left_to_right{
+    from{
+        transform: translateX(0%);
+    }
+    to{
+        transform: translateY(100%);
+    }
+}
+.prevv{
+    animation: left_to_right 1s forwards;
+}
+@keyframes left_to_right{
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+}
+
+
+
+/* nut chuyển giao diện */
+.sub-content__btn-list{
+    position: absolute;
+    width: 99%;
+    text-align: center;
+}
+.sub-content__btn-list ul{
+    list-style: none;
+    padding-left: 0;
+}
+.sub-content__btn-item{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    cursor: pointer;
+    margin: 0 6px;
+}
+.sub-content__btn-primary{
+    background-color: var(--primary-color);
+}
+
+
+/* Custom carousel2 */
+.owl-dot {
+    width: 16px;
+    height: 16px;
+    margin: 0 4px;
+    background-color: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    opacity: 0.4;
+    transform: scale(0.75);
+    transition: opacity 0.6s, transform 0.6s;
+    cursor: pointer;
+}
+
+.owl-dot:hover {
+    opacity: 0.8;
+    transform: none;
+}
+
+.owl-dot.active {
+    background-color: #000000;
+}
+
+.owl-prev {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    color: var(--primary-color);
+    background: #ffff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+    border-radius: 100%;
+    border: 1px solid;
+    width: 32px;
+    height: 32px;
+}
+
+.owl-next:hover, .owl-prev:hover {
+    background: #ddebff;
+}
+
+.owl-next {
+    position: absolute;
+    top: 45%;
+    right: 0;
+    color: var(--primary-color);
+    background: #ffff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+    border-radius: 100%;
+    border: 1px solid;
+    width: 32px;
+    height: 32px;
+}
+
+/* Main */
+.hide {
+    display: none;
+}
+
+.black {
+    color: #000;
+}
+
+i[aria-hidden="true"] {
+    display: none;
+}
+
+i[aria-hidden="false"] {
+    display: block;
+}
+
+.flex-dec-column {
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}

@@ -1,17 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
-import AuthService from "../services/auth.service";
+import AuthService from "services/auth.service";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ firstname, lastname, email, password }, thunkAPI) => {
+  async ({ first_name, last_name, email, password }, thunkAPI) => {
     try {
-      const response = await AuthService.register(firstname, lastname, email, password);
-      thunkAPI.dispatch(setMessage(response.data.message));
-      return response.data;
+      const response = await AuthService.register(first_name, last_name, email, password);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
     } catch (error) {
       const message =
         (error.response &&
@@ -26,7 +28,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "/api/auth/login/",
+  "auth/login/",
   async ({ email, password }, thunkAPI) => {
     try {
       const data = await AuthService.login(email, password);
@@ -55,6 +57,16 @@ const initialState = user
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {
+    updateUser: (state, action) => {
+      state.user = action.payload
+      console.log(3333, action.payload);
+    },
+    logout: state => {
+      state.isLoggedIn = false;
+      state.user = undefined;
+    }
+  },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
@@ -74,14 +86,16 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
     },
-  },
-  reducers: {
-    updateUser: (state, action) => {
-      state.user = action.payload
-      console.log(3333, action.payload);
-    }
   }
 });
-export const { updateUser } = authSlice.actions
-const { reducer } = authSlice;
-export default reducer;
+
+// Actions
+export const authActions = authSlice.actions
+
+// Selectors
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectIsLogging = state => state.auth.logging;
+
+// Reducer
+const authReducer = authSlice.reducer;
+export default authReducer;

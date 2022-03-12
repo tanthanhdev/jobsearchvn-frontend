@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { register } from "../slices/auth";
-import { clearMessage } from "../slices/message";
+import { register } from "slices/auth";
+import { clearMessage } from "slices/message";
 
 const Register = () => {
   const [successful, setSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
@@ -17,14 +18,14 @@ const Register = () => {
   }, [dispatch]);
 
   const initialValues = {
-    firstname: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object().shape({
-    firstname: Yup.string()
+    first_name: Yup.string()
       .test(
         "len",
         "The First name must be between 3 and 20 characters.",
@@ -34,7 +35,7 @@ const Register = () => {
           val.toString().length <= 20
       )
       .required("This field is required!"),
-    lastname: Yup.string()
+    last_name: Yup.string()
     .test(
       "len",
       "The Last name must be between 3 and 20 characters.",
@@ -50,28 +51,29 @@ const Register = () => {
     password: Yup.string()
       .test(
         "len",
-        "The password must be between 6 and 40 characters.",
+        "The password must be between 6 and 20 characters.",
         (val) =>
           val &&
           val.toString().length >= 6 &&
-          val.toString().length <= 40
+          val.toString().length <= 20
       )
       .required("This field is required!"),
   });
 
   const handleRegister = (formValue) => {
-    const { firstname, lastname, email, password } = formValue;
+    const { first_name, last_name, email, password } = formValue;
     
     setSuccessful(false);
+    setLoading(true);
 
-    dispatch(register({ firstname, lastname, email, password }))
+    dispatch(register({ first_name, last_name, email, password }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
       })
       .catch(() => {
         setSuccessful(false);
-        console.log(message);
+        setLoading(false);
       });
   };
 
@@ -92,20 +94,20 @@ const Register = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="firstname">First Name</label>
-                  <Field name="firstname" type="text" className="form-control" />
+                  <label htmlFor="first_name">First Name</label>
+                  <Field name="first_name" type="text" className="form-control" />
                   <ErrorMessage
-                    name="firstname"
+                    name="first_name"
                     component="div"
                     className="alert alert-danger"
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="lastname">Last Name</label>
-                  <Field name="lastname" type="text" className="form-control" />
+                  <label htmlFor="last_name">Last Name</label>
+                  <Field name="last_name" type="text" className="form-control" />
                   <ErrorMessage
-                    name="lastname"
+                    name="last_name"
                     component="div"
                     className="alert alert-danger"
                   />
@@ -119,6 +121,13 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
+                  {/* {!successful && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {messageEmail}
+                      </div>
+                    </div>
+                  )} */}
                 </div>
 
                 <div className="form-group">
@@ -136,7 +145,13 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                  <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                    {loading && (
+                      <span className="spinner-border spinner-border-sm"></span>
+                    )}
+                    <span>Sign Up</span>
+                  </button>
+                  {/* <button type="submit" className="btn btn-primary btn-block">Sign Up</button> */}
                 </div>
               </div>
             )}

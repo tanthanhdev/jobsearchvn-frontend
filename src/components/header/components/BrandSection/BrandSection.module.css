@@ -1,0 +1,45 @@
+@import '../../../../assets/styles/_var.css';
+
+
+.logo {
+  cursor: pointer;
+}
+
+.logo img {
+    width: 60px;
+}
+
+@media (max-width: 1200px) {
+    .logo img {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 36px;
+    }
+}
+
+.companyName {
+  color: var(--primary);
+  cursor: pointer;
+  font-family: var(--Jaldi);
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 54px;
+  text-decoration: none;
+  text-shadow: 0 0 80px rgba(34, 177, 76, 0.07), 0 0 34.875px rgba(34, 177, 76, 0.04725),
+    0 0 13px rgba(34, 177, 76, 0.035), 0 0 4.625px rgba(34, 177, 76, 0.02275);
+}
+@media (max-width: var(--desktop)) {
+  .companyName{
+      font-size: 28px;
+  }
+}
+
+@media (max-width: var(--mobile)) {
+  .companyName{
+      font-size: 14px;
+  }
+}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../slices/auth";
-import { clearMessage } from "../slices/message";
-import { updateUser } from "../slices/auth"
+import { login } from "slices/auth";
+import { clearMessage } from "slices/message";
+import { authActions } from "slices/auth"
 
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ const Login = (props) => {
     dispatch(login({ email, password }))
       .unwrap()
       .then((res) => {
-        dispatch(updateUser(res.user))
+        dispatch(authActions.updateUser(res.user))
         props.history.push("/profile");
         window.location.reload();
       })
@@ -46,9 +46,9 @@ const Login = (props) => {
       });
   };
 
-  // if (isLoggedIn) {
-  //   return <Redirect to="/profile" />;
-  // }
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="col-md-12 login-form">
