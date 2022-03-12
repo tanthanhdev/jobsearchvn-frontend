@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
+import { updateUser } from "../slices/auth"
 
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,8 @@ const Login = (props) => {
 
     dispatch(login({ email, password }))
       .unwrap()
-      .then(() => {
+      .then((res) => {
+        dispatch(updateUser(res.user))
         props.history.push("/profile");
         window.location.reload();
       })
@@ -44,9 +46,9 @@ const Login = (props) => {
       });
   };
 
-  if (isLoggedIn) {
-    return <Redirect to="/profile" />;
-  }
+  // if (isLoggedIn) {
+  //   return <Redirect to="/profile" />;
+  // }
 
   return (
     <div className="col-md-12 login-form">

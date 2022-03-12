@@ -17,22 +17,33 @@ const Register = () => {
   }, [dispatch]);
 
   const initialValues = {
-    username: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
+    firstname: Yup.string()
       .test(
         "len",
-        "The username must be between 3 and 20 characters.",
+        "The First name must be between 3 and 20 characters.",
         (val) =>
           val &&
           val.toString().length >= 3 &&
           val.toString().length <= 20
       )
       .required("This field is required!"),
+    lastname: Yup.string()
+    .test(
+      "len",
+      "The Last name must be between 3 and 20 characters.",
+      (val) =>
+        val &&
+        val.toString().length >= 3 &&
+        val.toString().length <= 20
+    )
+    .required("This field is required!"),
     email: Yup.string()
       .email("This is not a valid email.")
       .required("This field is required!"),
@@ -49,17 +60,18 @@ const Register = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { username, email, password } = formValue;
-
+    const { firstname, lastname, email, password } = formValue;
+    
     setSuccessful(false);
 
-    dispatch(register({ username, email, password }))
+    dispatch(register({ firstname, lastname, email, password }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
       })
       .catch(() => {
         setSuccessful(false);
+        console.log(message);
       });
   };
 
@@ -80,10 +92,20 @@ const Register = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <Field name="username" type="text" className="form-control" />
+                  <label htmlFor="firstname">First Name</label>
+                  <Field name="firstname" type="text" className="form-control" />
                   <ErrorMessage
-                    name="username"
+                    name="firstname"
+                    component="div"
+                    className="alert alert-danger"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastname">Last Name</label>
+                  <Field name="lastname" type="text" className="form-control" />
+                  <ErrorMessage
+                    name="lastname"
                     component="div"
                     className="alert alert-danger"
                   />
