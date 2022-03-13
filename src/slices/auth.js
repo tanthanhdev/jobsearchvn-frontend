@@ -15,13 +15,24 @@ export const register = createAsyncThunk(
         return response.data;
       }
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
+      if (error.response.data) {
+        let { first_name, last_name, email, password } = error.response.data;
+        const message = {
+          first_name: first_name ? first_name : '',
+          last_name: last_name ? last_name : '',
+          email: email ? email : '',
+          password: password ? password : ''
+        };
+        thunkAPI.dispatch(setMessage(message));
+      } else {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        thunkAPI.dispatch(setMessage(message));
+      }
       return thunkAPI.rejectWithValue();
     }
   }

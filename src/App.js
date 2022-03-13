@@ -16,7 +16,7 @@ import EventBus from "common/EventBus";
 
 const App = () => {
 
-  // const authToken = localStorage.getItem('user');
+  // const authToken = localStorage.getItem('access_token');
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 

@@ -1,8 +1,30 @@
+import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import BrandSection from './components/BrandSection/BrandSection';
-import styles from './Header.module.css';
 import { icons } from 'utils/icons';
+import { logout } from "slices/auth";
+import EventBus from "common/EventBus";
+import styles from './Header.module.css';
 
 export const Header = () => {
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const logOut = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
+  useEffect(() => {
+
+    EventBus.on("logout", () => {
+      logOut();
+    });
+
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, [currentUser, logOut]);
 
   return (
     <section className={`${styles.header} ${styles.gnav}`} id={styles["gnav-main-container"]}>
@@ -60,18 +82,33 @@ export const Header = () => {
               </footer>
             </div>
           </li>
-          <li className={`${styles.header__left__item} ${styles["header-login"]}`}>
-            <a href="login" className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+          {currentUser ? (
+          <>
+            <li className={`${styles.header__left__item} ${styles["header-login"]}`}>
+              <Link to={"/profile"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+                {currentUser.first_name + ' ' + currentUser.last_name}
+              </Link>
+            </li>
+            <li className={`${styles.header__left__item} ${styles["header-post-job"]}`}>
+              <a href="/" onClick={logOut} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+                LogOut
+              </a>
+            </li>
+          </>
+          ) : (
+          <>
+            <li className={`${styles.header__left__item} ${styles["header-login"]}`}>
+              <Link to={"/login"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
                 Đăng nhập
-            </a>
-            {/* Dynamic html */}
-          </li>
-          <li className={`${styles.header__left__item} ${styles["header-post-job"]}`}>
-            <a href="sign-up/employer" className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
-              Nhà tuyển dụng/Đăng tuyển
-            </a>
-            {/* Dynamic html */}
-          </li>
+              </Link>
+            </li>
+            <li className={`${styles.header__left__item} ${styles["header-post-job"]}`}>
+              <Link to={"/sing-up/employer"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+                Nhà tuyển dụng/Đăng tuyển
+              </Link>
+            </li>
+          </>
+          )}
         </ul>
       </div>
       {/* <div className={styles.container}>

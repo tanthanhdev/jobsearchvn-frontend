@@ -12,7 +12,7 @@ const Login = (props) => {
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
+  const { messageError } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
@@ -72,6 +72,13 @@ const Login = (props) => {
                 component="div"
                 className="alert alert-danger"
               />
+              {(messageError ? Object.keys(messageError).length : 0) > 1 && (
+                <div className="form-group">
+                  <div className="alert alert-danger" role="alert">
+                    {messageError.email ? messageError.email : ""}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="form-group">
@@ -82,6 +89,13 @@ const Login = (props) => {
                 component="div"
                 className="alert alert-danger"
               />
+              {(messageError ? Object.keys(messageError).length : 0) > 1 && (
+                <div className="form-group">
+                  <div className="alert alert-danger" role="alert">
+                    {messageError.password ? messageError.password : ""}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="form-group">
@@ -96,10 +110,10 @@ const Login = (props) => {
         </Formik>
       </div>
 
-      {message && (
+      {messageError && (
         <div className="form-group">
           <div className="alert alert-danger" role="alert">
-            {message}
+            {messageError}
           </div>
         </div>
       )}

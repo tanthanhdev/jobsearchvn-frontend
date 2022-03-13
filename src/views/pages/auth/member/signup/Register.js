@@ -101,6 +101,13 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
+                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {message.first_name ? message.first_name : ""}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -111,6 +118,13 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
+                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {message.last_name ? message.last_name : ""}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -121,13 +135,13 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {/* {!successful && (
+                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
-                        {messageEmail}
+                        {message.email ? message.email : ""}
                       </div>
                     </div>
-                  )} */}
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -142,6 +156,13 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
+                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {message.password ? message.password : ""}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -159,7 +180,7 @@ const Register = () => {
         </Formik>
       </div>
 
-      {message && (
+      {(message ? Object.keys(message).length : 0) === 1 && (
         <div className="form-group">
           <div
             className={successful ? "alert alert-success" : "alert alert-danger"}
