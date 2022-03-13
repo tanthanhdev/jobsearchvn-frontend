@@ -11,6 +11,7 @@ export const register = createAsyncThunk(
     try {
       const response = await AuthService.register(first_name, last_name, email, password);
       if (response.status === 200 || response.status === 201) {
+        console.log(response.data.message);
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
       }
