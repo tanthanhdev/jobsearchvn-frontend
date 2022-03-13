@@ -15,23 +15,22 @@ export const register = createAsyncThunk(
         return response.data;
       }
     } catch (error) {
-      if (error.response.data) {
+      if (!error.response.data.message) {
         let { first_name, last_name, email, password } = error.response.data;
-        const message = {
+        const messageError = {
           first_name: first_name ? first_name : '',
           last_name: last_name ? last_name : '',
           email: email ? email : '',
-          password: password ? password : ''
+          password: password ? password : '',
         };
-        thunkAPI.dispatch(setMessage(message));
+        thunkAPI.dispatch(setMessage(messageError));
       } else {
-        const message =
-          (error.response &&
-            error.response.data &&
+        const messageError =
+          (error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();
-        thunkAPI.dispatch(setMessage(message));
+        thunkAPI.dispatch(setMessage(messageError));
       }
       return thunkAPI.rejectWithValue();
     }
@@ -45,13 +44,21 @@ export const login = createAsyncThunk(
       const data = await AuthService.login(email, password);
       return { user: data };
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
+      if (!error.response.data.message) {
+        let { email, password } = error.response.data;
+        const messageError = {
+          email: email ? email : '',
+          password: password ? password : '',
+        };
+        thunkAPI.dispatch(setMessage(messageError));
+      } else {
+        const messageError =
+          (error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        thunkAPI.dispatch(setMessage(messageError));
+      }
       return thunkAPI.rejectWithValue();
     }
   }

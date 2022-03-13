@@ -101,7 +101,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                  {!successful && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.first_name ? message.first_name : ""}
@@ -118,7 +118,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                  {!successful && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.last_name ? message.last_name : ""}
@@ -135,7 +135,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                  {!successful && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.email ? message.email : ""}
@@ -156,7 +156,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && (
+                  {!successful && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.password ? message.password : ""}
@@ -186,7 +186,7 @@ const Register = () => {
             className={successful ? "alert alert-success" : "alert alert-danger"}
             role="alert"
           >
-            {message}
+            {message.message ? message.message : message}
           </div>
         </div>
       )}
