@@ -13,10 +13,10 @@ const Register = () => {
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(clearMessage());
-  // }, [dispatch]);
-  console.log(1111, message, successful);
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
   const initialValues = {
     first_name: "",
     last_name: "",
@@ -203,7 +203,7 @@ const Register = () => {
         </Formik>
       </div>
 
-      {(message && (
+      {(message ? Object.keys(message).length : 0) === 1 && (
         <div className="form-group">
           <div
             className={successful ? "alert alert-success" : "alert alert-danger"}
@@ -212,7 +212,7 @@ const Register = () => {
             {message}
           </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };

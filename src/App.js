@@ -7,6 +7,7 @@ import "./App.css";
 
 import Login from "views/pages/auth/login/Login";
 import Register from "views/pages/auth/member/signup/Register";
+import RegisterEmployer from "views/pages/auth/member/signup/RegisterEmployer";
 import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 
@@ -25,7 +26,6 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-
     EventBus.on("logout", () => {
       logOut();
     });
@@ -90,6 +90,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-up" element={<Register />} />
+        <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <Login />} />)
         <Route

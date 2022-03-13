@@ -102,8 +102,13 @@ export const Header = () => {
                 Đăng nhập
               </Link>
             </li>
+            <li className={`${styles.header__left__item} ${styles["header-login"]}`}>
+              <Link to={"/sign-up"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+                Đăng ký
+              </Link>
+            </li>
             <li className={`${styles.header__left__item} ${styles["header-post-job"]}`}>
-              <Link to={"/sing-up/employer"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
+              <Link to={"/sign-up/employer"} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
                 Nhà tuyển dụng/Đăng tuyển
               </Link>
             </li>
