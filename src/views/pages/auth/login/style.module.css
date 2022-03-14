@@ -88,13 +88,13 @@
 }
 .icon-email {
    position: absolute;
-   top: 15%;
+   top: 4%;
    padding-left: 9px;
    width: 24px;
 }
 .icon-password {
    position: absolute;
-   top: 15%;
+   top: 4%;
    padding-left: 9px;
    width: 24px;
 }
@@ -153,12 +153,10 @@
 /* cùng 1 hàng */
 .container__footer-footer{
    display:flex;
-   /* cách ra 2 bên */
-   /* justify-content: space-between;
-   display: flex; */
    justify-content: space-evenly;
    flex-wrap: nowrap;
    align-content: flex-end;
+   align-items: baseline;
    flex-direction: row;
 }
 .container__footer-question {

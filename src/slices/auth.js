@@ -11,29 +11,12 @@ export const register = createAsyncThunk(
     try {
       const response = await AuthService.register(first_name, last_name, email, password);
       if (response.status === 200 || response.status === 201) {
-        console.log(response.data.message);
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
       }
     } catch (error) {
-      if (!error.response.data.message) {
-        let { first_name, last_name, email, password } = error.response.data;
-        const messageError = {
-          first_name: first_name ? first_name : '',
-          last_name: last_name ? last_name : '',
-          email: email ? email : '',
-          password: password ? password : '',
-        };
-        thunkAPI.dispatch(setMessage(messageError));
-      } else {
-        const messageError =
-          (error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        thunkAPI.dispatch(setMessage(messageError));
-      }
-      return thunkAPI.rejectWithValue();
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message)
     }
   }
 );
@@ -45,22 +28,8 @@ export const login = createAsyncThunk(
       const data = await AuthService.login(email, password);
       return { user: data };
     } catch (error) {
-      if (!error.response.data.message) {
-        let { email, password } = error.response.data;
-        const messageError = {
-          email: email ? email : '',
-          password: password ? password : '',
-        };
-        thunkAPI.dispatch(setMessage(messageError));
-      } else {
-        const messageError =
-          (error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        thunkAPI.dispatch(setMessage(messageError));
-      }
-      return thunkAPI.rejectWithValue();
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -69,9 +38,14 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });
 
-const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+const initialState = {
+  user: user ? user : null,
+  isLoggedIn: user ? true : false,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: '',
+}
 
 const authSlice = createSlice({
   name: "auth",
@@ -84,22 +58,48 @@ const authSlice = createSlice({
     logout: state => {
       state.isLoggedIn = false;
       state.user = undefined;
-    }
+      state.message = '';
+    },
+    reset: (state) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.isError = false
+      state.message = ''
+    },
   },
   extraReducers: {
+    [register.pending]: (state, action) => {
+      state.isLoading = true
+    },
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
+      state.isLoading = false
+      state.isSuccess = true
     },
     [register.rejected]: (state, action) => {
+      console.log( action.payload);
       state.isLoggedIn = false;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [login.pending]: (state, action) => {
+      state.isLoading = true
     },
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload.user;
+      state.isLoading = false
+      state.isSuccess = true
     },
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
     },
     [logout.fulfilled]: (state, action) => {
       state.isLoggedIn = false;

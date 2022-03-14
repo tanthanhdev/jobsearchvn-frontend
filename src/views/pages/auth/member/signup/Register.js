@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect }from "react";  
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from 'react-router-dom'
 
-import { register } from "slices/auth";
-import { clearMessage } from "slices/message";
+import { register, authActions } from "slices/auth";
 
 const Register = () => {
-  const [successful, setSuccessful] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const { message } = useSelector((state) => state.message);
+  const { message, isError, isSuccess, isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   dispatch(clearMessage());
-  // }, [dispatch]);
-  console.log(1111, message, successful);
   const initialValues = {
     first_name: "",
     last_name: "",
     email: "",
     password: "",
   };
+
+  useEffect(() => {
+    // if (isError) {
+    //   toast.error(message)
+    // }
+
+    if (isSuccess || user) {
+      // dispatch(authActions.reset())
+      navigate('/');
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const validationSchema = Yup.object().shape({
     first_name: Yup.string()
@@ -65,17 +70,12 @@ const Register = () => {
   const handleRegister = (formValue) => {
     const { first_name, last_name, email, password } = formValue;
     
-    setSuccessful(false);
-    setLoading(true);
-
     dispatch(register({ first_name, last_name, email, password }))
       .unwrap()
       .then(() => {
-        setSuccessful(true);
       })
       .catch(() => {
-        setSuccessful(false);
-        setLoading(false);
+        console.log(isError)
       });
   };
 
@@ -93,7 +93,7 @@ const Register = () => {
           onSubmit={handleRegister}
         >
           <Form>
-            {!successful && (
+            {!isSuccess && (
               <div>
                 <div className="form-group">
                   <label htmlFor="first_name">First Name</label>
@@ -103,7 +103,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && message.first_name &&(
+                  {isError && message.first_name &&(
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.first_name ? message.first_name : ""}
@@ -120,7 +120,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && message.last_name &&(
+                  {isError && message.last_name &&(
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.last_name ? message.last_name : ""}
@@ -137,7 +137,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && message.email &&(
+                  {isError && message.email &&(
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.email ? message.email : ""}
@@ -158,7 +158,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && message.password &&(
+                  {isError && message.password &&(
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.password ? message.password : ""}
@@ -179,7 +179,7 @@ const Register = () => {
                     component="div"
                     className="alert alert-danger"
                   />
-                  {!successful && (message ? Object.keys(message).length : 0) > 1 && message.confirm_password &&(
+                  {isError && message.confirm_password &&(
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.confirm_password ? message.confirm_password : ""}
@@ -189,8 +189,8 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-                    {loading && (
+                  <button type="submit" className="btn btn-primary btn-block" disabled={isLoading}>
+                    {isLoading && (
                       <span className="spinner-border spinner-border-sm"></span>
                     )}
                     <span>Sign Up</span>
@@ -203,10 +203,10 @@ const Register = () => {
         </Formik>
       </div>
 
-      {(message && (
+      {(message.message && (
         <div className="form-group">
           <div
-            className={successful ? "alert alert-success" : "alert alert-danger"}
+            className={isSuccess ? "alert alert-success" : "alert alert-danger"}
             role="alert"
           >
             {message.message ? message.message : message}
