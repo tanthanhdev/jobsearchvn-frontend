@@ -77,7 +77,6 @@ const authSlice = createSlice({
       state.isSuccess = true
     },
     [register.rejected]: (state, action) => {
-      console.log( action.payload);
       state.isLoggedIn = false;
       state.isLoading = false
       state.isError = true

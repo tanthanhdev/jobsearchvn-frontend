@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import Login from "views/pages/auth/login/Login";
-import Register from "views/pages/auth/member/signup/Register";
-import RegisterEmployer from "views/pages/auth/member/signup/RegisterEmployer";
+import Register from "views/pages/auth/member/signup";
+import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
 import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 

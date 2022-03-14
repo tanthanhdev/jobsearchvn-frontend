@@ -80,7 +80,7 @@ const Login = (props) => {
                   <Field name="email" type="email" className={styles["container__center-input--email"]} />
                   <ErrorMessage name="email" component="div" className="alert alert-danger"
                   />
-                  {message && (message ? Object.keys(message).length : 0) > 1 && message.email && (
+                  {isError && message.email && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.email ? message.email : ""}
@@ -95,7 +95,7 @@ const Login = (props) => {
                   <Field name="password" type="password" className={styles["container__center-input--password"]} />
                   <ErrorMessage name="password" component="div" className="alert alert-danger"
                   />
-                  {message && (message ? Object.keys(message).length : 0) > 1 && message.password && (
+                  {isError && message.password && (
                     <div className="form-group">
                       <div className="alert alert-danger" role="alert">
                         {message.password ? message.password : ""}
@@ -132,7 +132,7 @@ const Login = (props) => {
                 className={isLoggedIn ? "alert alert-success" : "alert alert-danger"}
                 role="alert"
               >
-                {message}
+                {message.message}
               </div>
             </div>
           )}

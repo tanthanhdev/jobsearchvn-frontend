@@ -32,6 +32,10 @@ label {
   border-radius: 50%;
 }
 
+.hide {
+    display: none;
+}
+
 /* Grid */
 .grid {
   width: 100%;
