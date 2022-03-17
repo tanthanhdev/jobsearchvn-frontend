@@ -1,3 +1,9 @@
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  scroll-behavior: smooth;
+  font-family: Arial, Helvetica, sans-serif;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,8 +12,107 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+a {
+  text-decoration: none !important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --primary-color: #5993ec;
+  --text-white-color: #fff;
+  --icon-color: #ffe600;
+  --text-color: #000;
+  --white-color: #fff;
+  --color-hover: rgb(255, 40, 40);
+  --text-color-xam: rgb(119, 119, 119);
+  --red-color: #ea2635;
+  --height-header: 54px;
+}
+
+/* responsive home page */
+/* mobile */
+@keyframes menu {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 739px) {
+  .header__notifi {
+    display: none;
+  }
+  .header__right__list {
+    display: none;
+  }
+  .header__left-icon.header__comment {
+    display: none;
+  }
+  .header__left__item-link {
+    font-size: 1.2rem;
+  }
+  .header__left__item:first-child {
+    display: none;
+  }
+  .header__right__list {
+    display: none;
+  }
+  .nav_sub-content {
+    max-height: 1300px;
+  }
+  .sub-content__btn-next {
+    display: none;
+  }
+  .sub-content__btn-prev {
+    display: none;
+  }
+  .sub-content__btn-list {
+    margin-left: 34%;
+  }
+  .sub__nav-content-list {
+    max-height: 550px;
+  }
+  .sub__nav-content-btn-list {
+    padding-left: 25%;
+  }
+  .sub__nav-content-next-btn {
+    display: none;
+  }
+  .sub__nav-content-prev-btn {
+    display: none;
+  }
+  .footer__footer-info-sub {
+    max-width: 500px;
+  }
+  .footer__footer-info-sub {
+    max-width: 330px;
+    font-size: 1rem;
+  }
+  .header__notifi {
+    width: 300px;
+    max-height: 400px;
+  }
+}
+/* tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+  .header__right__item:last-child {
+    display: none;
+  }
+  .nav_sub-content {
+    max-height: 650px;
+  }
+  .sub-content__btn-list {
+    margin-left: 40%;
+  }
+  .sub__nav-content-list {
+    max-height: 500px;
+  }
+  .sub__nav-content-btn-list {
+    padding-left: 40%;
+  }
 }
