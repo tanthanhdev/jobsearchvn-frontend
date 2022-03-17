@@ -1,0 +1,9 @@
+.container {
+    width: 100%;
+    background-color: #E5E5E5;
+    padding-top: 48px;
+}
+.container__content {
+    display: flex;
+    padding: 60px 150px;
+}

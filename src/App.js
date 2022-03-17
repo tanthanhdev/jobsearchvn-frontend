@@ -10,6 +10,7 @@ import Register from "views/pages/auth/member/signup";
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
 import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
+import CVTemplate from "views/pages/CVTemplates";
 
 import { logout } from "slices/auth";
 
@@ -94,6 +95,16 @@ const App = () => {
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <Login />} />)
+        <Route path="/cv-template" element={(!currentUser)
+          ? <CVTemplate />
+          : (
+            (currentUser.is_active && !currentUser.is_staff)
+              ? <CVTemplate />
+              : <h1 style={{ textAlign: 'center', textDecoration: 'underline' }}>
+                PAGE NOT FOUND <i style={{ color: 'red' }}>404</i>
+              </h1>
+          )
+        } />
         <Route
           render={() => (
             <h1 style={{ textAlign: 'center', textDecoration: 'underline' }}>

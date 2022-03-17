@@ -38,7 +38,10 @@ export const Header = () => {
             <a href="company-reviews" className={`${styles.header__link} ${styles.header__right__item_link}`}>Đánh giá công ty</a>
           </li>
           <li className={styles.header__right__item}>
-            <a href="#" className={`${styles.header__link} ${styles.header__right__item_link}`}>Blog</a>
+            <a href="blogs" className={`${styles.header__link} ${styles.header__right__item_link}`}>Blog</a>
+          </li>
+          <li className={styles.header__right__item}>
+            <a href="cv-template" className={`${styles.header__link} ${styles.header__right__item_link}`}>Mẫu CV</a>
           </li>
         </ul>
       </div>

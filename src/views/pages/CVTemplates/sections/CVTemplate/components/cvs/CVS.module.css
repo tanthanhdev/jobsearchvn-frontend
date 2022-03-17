@@ -1,0 +1,28 @@
+.container__list {
+    width: 100%;
+}
+.container__list-heading {
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+}
+.list__info{
+    display: flex;
+    flex-wrap: wrap;
+}
+.list__info a{
+    list-style: none;
+    text-decoration: none;
+}
+.container__footer {
+    text-align: center;
+    margin-top: 20px;
+}
+.see-more {
+    color: var(--white-color);
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
