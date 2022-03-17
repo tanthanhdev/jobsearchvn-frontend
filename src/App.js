@@ -7,6 +7,8 @@ import "./App.css";
 
 import Login from "views/pages/auth/login/Login";
 import Register from "views/pages/auth/member/signup";
+import ForgotPassword from "views/pages/auth/member/forgot-password"
+import ResetPassword from "views/pages/auth/member/forgot-password/reset-password"
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
 import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
@@ -94,6 +96,8 @@ const App = () => {
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <Login />} />)
         <Route path="/cv-template" element={(!currentUser)
           ? <CVTemplate />

@@ -29,6 +29,26 @@ const login = (email, password) => {
     });
 };
 
+const forgotPass = (email) => {
+  return axios
+    .post(API_URL + "/auth/forgot-password/", {
+      email,
+    })
+    .then((response) => {
+      return response
+    });
+};
+
+const resetPass = ({password, confirm_password, token}) => {
+  return axios
+    .put(API_URL + "/auth/reset-password/", {
+      password, confirm_password, access_token: token,
+    })
+    .then((response) => {
+      return response
+    });
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -37,6 +57,8 @@ const authService = {
   register,
   login,
   logout,
+  forgotPass,
+  resetPass
 };
 
 export default authService;
