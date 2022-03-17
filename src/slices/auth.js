@@ -34,6 +34,32 @@ export const login = createAsyncThunk(
   }
 );
 
+export const forgotPass = createAsyncThunk(
+  "auth/forgot-password/",
+  async ({ email }, thunkAPI) => {
+    try {
+      const data = await AuthService.forgotPass(email);
+      return data.data;
+    } catch (error) {
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const resetPass = createAsyncThunk(
+  "auth/reset-password/",
+  async ({ password, confirm_password, token }, thunkAPI) => {
+    try {
+      const data = await AuthService.resetPass({ password, confirm_password, token });
+      return data.data
+    } catch (error) {
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });
