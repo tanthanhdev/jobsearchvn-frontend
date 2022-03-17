@@ -14,6 +14,7 @@ import Profile from "views/pages/auth/member/profile/Profile";
 import { logout } from "slices/auth";
 
 import EventBus from "common/EventBus";
+import HomePage from "containers/HomePage";
 
 const App = () => {
 
@@ -88,7 +89,7 @@ const App = () => {
       </nav> */}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
