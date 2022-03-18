@@ -12,19 +12,16 @@ function TopJobs(props) {
   useEffect(()=>{
     const fetchProducts=async ()=>{
         const topJobs= await jobApi.getAll();
-        console.log(topJobs);
         setJobs(topJobs)
     }
     fetchProducts();
   },[])
-  console.log("jobb",jobs); 
+  console.log("jobs",jobs);
   // check jobList isActived
   const isActivejobs=jobs.filter((job,index)=>{
     return job.is_active===true;
 
   });
-
-  console.log("isActivejobs",isActivejobs);
 
   return (
     
@@ -41,7 +38,7 @@ function TopJobs(props) {
             <img className="nav__img" src={job.employer.logo} alt={job.employer.company_name} />
             <span className="nav__description">{job.employer.description}</span>
             <footer className="nav__footer">
-              <span className="nav_quantity">{job.tag.length} jobs</span>
+              <span className="nav_quantity">{job.tag.length}jobs</span>
               -
               <span className="nav_location">{job.country.name}</span>
             </footer>
