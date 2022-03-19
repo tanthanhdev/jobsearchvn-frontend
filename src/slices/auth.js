@@ -49,9 +49,22 @@ export const forgotPass = createAsyncThunk(
 
 export const resetPass = createAsyncThunk(
   "auth/reset-password/",
-  async ({ password, confirm_password, token }, thunkAPI) => {
+  async ({ password, confirm_password, access_token }, thunkAPI) => {
     try {
-      const data = await AuthService.resetPass({ password, confirm_password, token });
+      const data = await AuthService.resetPass({ password, confirm_password, access_token });
+      return data.data
+    } catch (error) {
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const activeAccount = createAsyncThunk(
+  "auth/active-account/",
+  async ({ access_token }, thunkAPI) => {
+    try {
+      const data = await AuthService.activeAccount({ access_token });
       return data.data
     } catch (error) {
       const message = error.response.data;

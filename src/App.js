@@ -14,6 +14,7 @@ import Register from "views/pages/auth/member/signup";
 import ForgotPassword from "views/pages/auth/member/forgot-password/"
 import ResetPassword from "views/pages/auth/member/forgot-password/reset-password"
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
+import ActiveAccount from "views/pages/auth/member/signup/active-account"
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
@@ -51,7 +52,8 @@ const App = () => {
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/reset-password/:access_token" element={<ResetPassword />} />
+        <Route path="/active-account/:access_token" element={<ActiveAccount />} />
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <Login />} />)
         <Route path="/cv-template" element={(!currentUser)
           ? <CVTemplate />

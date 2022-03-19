@@ -40,10 +40,20 @@ const forgotPass = (email) => {
     });
 };
 
-const resetPass = ({password, confirm_password, token}) => {
+const resetPass = ({password, confirm_password, access_token}) => {
   return axios
     .put(API_URL + "/auth/reset-password/", {
-      password, confirm_password, access_token: token,
+      password, confirm_password, access_token,
+    })
+    .then((response) => {
+      return response
+    });
+};
+
+const activeAccount = ({access_token}) => {
+  return axios
+    .post(API_URL + "/auth/active-account/", {
+      access_token,
     })
     .then((response) => {
       return response
@@ -59,7 +69,8 @@ const authService = {
   login,
   logout,
   forgotPass,
-  resetPass
+  resetPass,
+  activeAccount
 };
 
 export default authService;
