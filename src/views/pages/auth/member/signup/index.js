@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom'
-import { Button } from 'primereact/button';
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
-import { register, authActions } from "slices/auth";
+import { register } from "slices/auth";
 
 const Register = () => {
   const { message, isError, isSuccess, isLoading, user } = useSelector((state) => state.auth);
@@ -85,7 +84,7 @@ const Register = () => {
     <div className={styles["main"]}>
         <div className={styles["header"]}>
             <div className={styles["header_left"]}>
-                <img src={icons.logo} alt="icon" className={styles["header__icon"]}/>
+                <img src={icons.logo} alt="icon" className={styles["header__icon"]} />
                 <span className={styles["header_name"]}>
                     <h1>JOB SEARCH VN </h1>
                 </span>
@@ -151,7 +150,7 @@ const Register = () => {
                                 </div>
                                 <div className={`${styles["container__center-input"]} flex-dec-column`}>
                                     <span className={styles["icon-email"]}>
-                                        <img className={`${styles["container__center-icon--email"]}`} src={icons.envelope_solid}></img>
+                                        <img className={`${styles["container__center-icon--email"]}`} src={icons.envelope_solid} alt="icon" />
                                     </span>
                                     <Field
                                         name="email"
@@ -174,7 +173,7 @@ const Register = () => {
                                 )}
                                 <div className={`${styles["container__center-input"]} flex-dec-column`}>
                                     <span className={styles["icon-password"]}>
-                                        <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}></img>
+                                        <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}  alt="icon" ></img>
                                     </span>
                                     <Field
                                         name="password"
@@ -197,7 +196,7 @@ const Register = () => {
                                 )}
                                 <div className={`${styles["container__center-input"]} flex-dec-column`}>
                                     <span className={styles["icon-password-2"]}>
-                                        <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}></img>
+                                        <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}  alt="icon" ></img>
                                     </span>
                                     <Field
                                         name="confirm_password"

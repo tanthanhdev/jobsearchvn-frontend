@@ -12,7 +12,7 @@ import { icons } from 'utils/icons';
 // }
 
 // const JobCards: FC<IJobCards> = ({ logo, title, salary, currency, country, company_name }) => {
-export const Filter = ({}) => {
+export const Filter = () => {
   return (
     <div className={`${styles.filter}`}>
         <header className={`${styles.filter__heading}`}>
@@ -20,15 +20,15 @@ export const Filter = ({}) => {
         </header>
         <div className={`${styles.filter__list}`}>
             <span className={`${styles["filter__list-lable"]}`}>Tiếng việt</span>
-            <img className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
+            <img alt="icon" className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
         </div>
         <div className={`${styles.filter__list}`}>
             <span className={`${styles["filter__list-lable"]}`}>Tất cả ngành nghề</span>
-            <img className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
+            <img alt="icon" className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
         </div>
         <div className={`${styles.filter__list}`}>
             <span className={`${styles["filter__list-lable"]}`}>Tất cả loại thiết kế</span>
-            <img className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
+            <img alt="icon" className={`${styles["filter__list-icon"]}`} src={icons.angle_down_solid}/>
         </div>
 
         <div className={`${styles.filter__checkbox}`}>
@@ -46,7 +46,7 @@ export const Filter = ({}) => {
 
     // <div>
     //   <a href="#" className={styles["nav_sub-content-link"]}>
-    //     <img src={company_avatar} alt="logo" className={styles["nav_sub-content-logo"]}/>
+    //     <img alt="icon" src={company_avatar} alt="logo" className={styles["nav_sub-content-logo"]}/>
     //     <div className={styles["nav_sub-content-description"]}>
     //       <h3>{title}</h3>
     //       <nav>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Link, useParams } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -7,13 +7,13 @@ import * as Yup from "yup";
 
 import { resetPass } from "slices/auth";
 import { clearMessage, setMessage } from "slices/message";
-import { authActions } from "slices/auth"
+// import { authActions } from "slices/auth"
 
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
-const ResetPassword = (props) => {
-  const { isLoggedIn, message, isError, isSuccess, isLoading } = useSelector((state) => state.auth);
+const ResetPassword = () => {
+  const { isLoggedIn, message, isError, isLoading } = useSelector((state) => state.auth);
   const { message: mess } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
@@ -77,7 +77,7 @@ const ResetPassword = (props) => {
               <div className={styles.container__center}>
                 <div  className={styles["container__center-input"]}>
                   <span className={styles["icon-password"]}>
-                    <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}></img>
+                    <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid} alt="img"></img>
                   </span>
                   <Field name="password" type="password" placeHolder="Mật khẩu mới" className={styles["container__center-input--password"]} />
                   <ErrorMessage name="password" component="div" className="alert alert-danger"
@@ -92,7 +92,7 @@ const ResetPassword = (props) => {
                 </div>
                 <div  className={styles["container__center-input"]}>
                   <span className={styles["icon-password"]}>
-                    <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid}></img>
+                    <img className={`${styles["container__center-icon--password"]}`} src={icons.key_solid} alt="img"></img>
                   </span>
                   <Field name="confirm_password"
                     type="password" placeHolder="Nhập lại mật khẩu mới" className={styles["container__center-input--password"]} />

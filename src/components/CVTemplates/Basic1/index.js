@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Duplicated } from "./components/duplicated/Duplicated";
+import { CVView } from "./components/CVView";
 
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
@@ -8,18 +9,20 @@ import { icons } from 'utils/icons';
 const Basic1 = () => {
     const isLoggedIn = localStorage.getItem('user');
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
+    const toggleShow = () => setShowModal(p => !p);
+    const toggleShow2 = () => setShowModal2(p => !p);
 
-    const handleDuplicate = () => {
-        setShowModal(true);
-    };
-    
     return (
         <>
         <div className={`${styles.list__sample}`}>
             <div className={`${styles.CV}`}>
                 <div className={`${styles["list__sample-img"]}`}></div>
                 <a className={`${styles.list__btn}`}>
-                    <button className={`${styles["btn-using"]}`} onClick={handleDuplicate}>
+                    <button className={`${styles["btn-using"]} ${styles["btn-using-view"]}`} onClick={toggleShow2}>
+                        Bản xem trước
+                    </button>
+                    <button className={`${styles["btn-using"]} ${styles["btn-using-duplicate"]}`} onClick={toggleShow}>
                         Dùng mẫu này
                     </button>
                 </a>
@@ -46,22 +49,26 @@ const Basic1 = () => {
                 <div className={`${styles["pagination-item"]}`}></div>
             </div>
         </div>
-        {/* Show modal */}
-        <div className={styles.cv_modal}>
-            {showModal 
-            ? <Duplicated 
-                isLoggedIn = {isLoggedIn}
-                cv_design = {[
-                    {"id": 1},
-                    {"id": 2}
-                ]}
-                cv_career = {[
-                    {"id": 1},
-                    {"id": 2}
-                ]}
-            />
-            : null}
-        </div>
+            {/* Show modal */}
+            <>
+                <Duplicated 
+                    showModal={showModal}
+                    toggleShow={toggleShow}
+                    isLoggedIn = {isLoggedIn}
+                    cv_design = {[
+                        {"id": 1},
+                        {"id": 2}
+                    ]}
+                    cv_career = {[
+                        {"id": 1},
+                        {"id": 2}
+                    ]}
+                />
+                <CVView 
+                    showModal={showModal2}
+                    toggleShow={toggleShow2}
+                />
+            </>
         </>
     );
 };

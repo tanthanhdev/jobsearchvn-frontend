@@ -1,100 +1,12 @@
-import React, { useState, useEffect, useRef }from "react";  
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import React from "react";  
 import { Modal } from 'react-bootstrap';
-import { Button } from 'primereact/button';
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'primereact/button';
 
-import { Education } from './sections/educations';
-
-import { icons } from 'utils/icons';
-import { create_cv } from "slices/cv";
 import styles from './style.module.css';
+import { icons } from 'utils/icons';
 
-export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_career}) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const { message, isError, isSuccess, isLoading, cv } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
-
-    const formRef = useRef();
-
-    const initialValues = {
-        title : 'Nhân viên kinh doanh',
-        target_major : 'Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.',
-    };
-    
-    const [ title, setTitle ] = useState(initialValues.title);
-    const [ target_major, setTarget_major ] = useState(initialValues.target_major);
-    const [ cv_cv_educations, setCv_cv_educations ] = useState([]);
-    const [ cv_cv_experiences, setCv_cv_experiences ] = useState([]);
-    const [ cv_cv_skills, setCv_cv_skills ] = useState([]);
-    const [ cv_cv_social_activities, setCv_cv_social_activities ] = useState([]);
-    const [ cv_cv_certificates, setCv_cv_certificates ] = useState([]);
-    const [ isPostForm, setIsPostForm ] = useState(false);
-  
-  
-    useEffect(() => {
-        // if (isError) {
-            //   toast.error(message)
-        // }
-    
-        if (isSuccess || cv) {
-            // dispatch(authActions.reset())
-            navigate('/');
-        }
-
-        if (cv_cv_educations.length) {
-            console.log('cv_cv_educations: ', cv_cv_educations);
-            dispatch(create_cv({ cv_career, cv_design, title, target_major, cv_cv_educations, cv_cv_experiences,
-                cv_cv_skills, cv_cv_social_activities, cv_cv_certificates }))
-                .unwrap()
-                .then(() => {
-            })
-            .catch(() => {
-                console.log(isError)
-            });
-        }
-    }, [cv, isError, isSuccess, message, navigate, dispatch,
-        cv_cv_educations, cv_cv_experiences, cv_cv_skills, cv_cv_social_activities])
-  
-    const validationSchema = Yup.object().shape({
-        title: Yup.string()
-        .required("This field is required!"),
-        target_major: Yup.string()
-        .required("This field is required!")
-    });
-
-    const handleDuplicateCVTemplate = () => {
-        console.log('submited duplicated file')
-        setIsPostForm(true);
-    };
-
-    const onHandleEducation = data => {
-        setCv_cv_educations([data]);
-    }
-
-    const submitButton = () => {
-        if (formRef.current) {
-            formRef.current.handleSubmit();
-            if (formRef.current.isValid) {
-            }
-        }
-    }
-
-    if (!isLoggedIn) {
-        if (showModal){
-            return <Navigate to="/login" />;
-        }
-    } else {
-        if (!JSON.parse(isLoggedIn).is_active) {
-            return <Navigate to="/login" />;
-        }
-    }
-  
-
+export const CVView = ({showModal, toggleShow}) => {
     return (
         <Modal show={showModal} onHide={toggleShow} dialogClassName={`${styles["custom-modal"]}`}>
            
@@ -159,14 +71,6 @@ export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_car
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <Formik
-                                                            initialValues={initialValues}
-                                                            validationSchema={validationSchema}
-                                                            onSubmit={handleDuplicateCVTemplate}
-                                                            innerRef={formRef}
-                                                            >
-                                                            {({setFieldValue}) => (
-                                                                <Form className={styles["form"]} id="duplicateForm">
                                                                     <div  className={`${styles["p-16"]} ${styles["pb-0"]} ${styles["group-header"]}`}>
                                                                         <div className={`${styles["h-content"]}`}>
                                                                             <div className={`${styles["top-content"]}`}>
@@ -175,56 +79,22 @@ export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_car
                                                                                 </div>
                                                                                 <div className={`${styles["cvo-profile-fullname-and-title"]}`}>
                                                                                     <div className={`${styles["cvo-profile-fullname-wraper"]}`}>
-                                                                                        <span className={`${styles["text-primary"]} ${styles["cvo-profile-fullname"]}`}>{(user && (
-                                                                                            <>
-                                                                                                {(user.first_name && user.last_name) ? user.first_name + " " + user.last_name : "Nguyễn Văn A"}
-                                                                                            </>
-                                                                                        ))}</span>
+                                                                                        <span className={`${styles["text-primary"]} ${styles["cvo-profile-fullname"]}`}>Nguyễn Văn A</span>
                                                                                     </div>
                                                                                     <div className={`${styles["cvo-profile-title-wraper"]}`}>
-                                                                                        <input
-                                                                                            name="title"
-                                                                                            type="text"
-                                                                                            className={`${styles["text-primary"]} ${styles["cvo-profile-title"]}`}
-                                                                                            value={title}
-                                                                                            onChange={e =>
-                                                                                                {setFieldValue("title", e.target.value);
-                                                                                                setTitle(e.target.value);}
-                                                                                            }
-                                                                                        />
-                                                                                        <ErrorMessage
-                                                                                            name="title"
-                                                                                            component="div"
-                                                                                            className="alert alert-danger"
-                                                                                        />
-                                                                                        {/* <span ${styles["cvo-profile-title"]}`} className={`${styles["text-primary"]}`}>Nhân viên kinh doanh</span> */}
+                                                                                        <span className={`${styles["text-primary"]} ${styles["cvo-profile-title"]}`}>Nhân viên kinh doanh</span>
                                                                                     </div>
                                                                                     <div className={`${styles.information}`}>
                                                                                         <div className={`${styles["cvo-profile-info-row"]} ${styles["cvo-profile-dob-wraper"]}`} >
-                                                                                            {/* <i className={`${styles.custommodal}`}"fa fa-calendar-o" aria-hidden="true"></i> */}
-                                                                                            <span className={`${styles["cvo-profile-info-value"]}  ${styles["cvo-profile-dob"]}`}>
-                                                                                            {(user && (
-                                                                                            <>
-                                                                                                {user.birthday ? user.birthday : "19/05/1992"}
-                                                                                            </>
-                                                                                            ))}
-                                                                                            </span>
+                                                                                        19/05/1992
                                                                                         </div>
                                                                                         <div className={`${styles["cvo-profile-info-row"]}`}>
                                                                                             {/* <i className={`${styles.custommodal}`}"fa fa-phone" aria-hidden="true"></i> */}
-                                                                                            <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-phone"]}`} >{(user && (
-                                                                                            <>
-                                                                                                {user.phone_number ? user.phone_number : "(024) 6680 5588"}
-                                                                                            </>
-                                                                                        ))}</span>
+                                                                                            <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-phone"]}`} >(024) 6680 5588</span>
                                                                                         </div>
                                                                                         <div className={`${styles["cvo-profile-info-row"]} ${styles["cvo-profile-email-wraper"]}`} >
                                                                                             {/* <i className={`${styles.custommodal}`}"fa fa-envelope" aria-hidden="true"></i> */}
-                                                                                            <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-email"]}`}>{(user && (
-                                                                                            <>
-                                                                                                {user.email ? user.email : "hotro@jobsearch.vn"}
-                                                                                            </>
-                                                                                        ))}</span>
+                                                                                            <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-email"]}`}>hotro@jobsearch.vn</span>
                                                                                         </div>
                                                                                         <div className={`${styles["cvo-profile-info-row"]}`}>
                                                                                             {/* <i className={`${styles.custommodal}`}"fa fa-globe" aria-hidden="true"></i> */}
@@ -233,23 +103,13 @@ export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_car
                                                                                         <div className={`${styles["cvo-profile-info-row"]}  ${styles["cvo-profile-address-wraper"]}`}>
                                                                                             {/* <i className={`${styles.custommodal}`}"fa fa-location-arrow" aria-hidden="true"></i> */}
                                                                                             <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-address"]}`} >
-                                                                                            {(user && (
-                                                                                                <>
-                                                                                                    {user.address ? user.adress : "Số 10, đường 10, TopCV"}
-                                                                                                </>
-                                                                                            ))}
+                                                                                            Số 10, đường 10, TopCV
                                                                                             </span>
                                                                                         </div>
                                                                                         <div className={`${styles["cvo-profile-info-row"]}  ${styles["cvo-profile-gender-wraper"]}`}>
                                                                                             {/* <i className={`${styles.custommodal}`}"fa fa-user" aria-hidden="true"></i> */}
                                                                                             <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-gender"]}`} >
-                                                                                            {(user && (
-                                                                                                <>
-                                                                                                    {user.gender === 'female' ? "Nữ" : 
-                                                                                                    user.gender === 'male' ? "Nam" : 
-                                                                                                    user.gender === 'other' ? "Khác" : "Nam"}
-                                                                                                </>
-                                                                                            ))}
+                                                                                            Nam
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
@@ -258,42 +118,49 @@ export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_car
                                                                             <div className={`${styles["h-description"]}`}>
                                                                                 <div className={`${styles["cvo-block"]} ${styles["cvo-objective"]}`}>
                                                                                     <div className={`${styles["cvo-block-body"]}`}>
-                                                                                        <Field
-                                                                                            component="textarea"
-                                                                                            rows={6}
-                                                                                            cols={67}
-                                                                                            name="target_major"
-                                                                                            type="text"
-                                                                                            className={`${styles["cvo-objective-objective"]}`}
-                                                                                            value={target_major}
-                                                                                            onChange={e =>
-                                                                                                {setFieldValue("target_major", e.target.value);
-                                                                                                setTarget_major(e.target.value);}
-                                                                                            }
-                                                                                        />
-                                                                                        <ErrorMessage
-                                                                                            name="target_major"
-                                                                                            component="div"
-                                                                                            className="alert alert-danger"
-                                                                                        />
-                                                                                        {/* <div ${styles["cvo-objective-objective"]}`}>Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</div> */}
+                                                                                        <div className={`${styles["cvo-objective-objective"]}`}>Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </Form>
-                                                            )}
-                                                        </Formik>   
                                                         {/* cvo block left */}
                                                         <div className={`${styles["cvo-col-7"]}`}>
                                                             <div className={`${styles["group-left"]}`}>
-                                                                {/* Educations */}
-                                                                <Education
-                                                                    onHandleEducation={onHandleEducation}
-                                                                    isPostForm={isPostForm}
-                                                                    setIsPostForm={setIsPostForm}
-                                                                />
+                                                                <div className={`${styles["cvo-block"]} ${styles["cvo-education"]}`}>
+                                                                    <div className={`${styles["cvo-block-header"]} ${styles["text-primary"]}`}>
+                                                                        <span className={`${styles["cvo-education-blocktitle"]}`}>
+                                                                            {/* <i className={`${styles.custommodal}`}"fa fa-graduation-cap" aria-hidden="true"></i> */}
+                                                                            Học vấn
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className={`${styles["cvo-block-body"]} ${styles["education-table"]}`}>
+                                                                        <div className={`${styles.row}`}>
+                                                                            <div className={`${styles["cvo-section-info"]}`}>
+                                                                                <div className={`${styles["cvo-education-school-wraper"]}`}>
+                                                                                    <span className={`${styles["cvo-education-school"]}`}>
+                                                                                    Đại học Duy Tân
+                                                                                    </span>
+                                                                                </div>
+                                                                            <div className={`${styles["cvo-education-time"]}`}>
+                                                                                <span className={`${styles["time-background"]}`}>
+                                                                                    <span className={`${styles["cvo-education-start"]}`}>
+                                                                                    2016-03-02</span>
+                                                                                    - <span className={`${styles["cvo-education-end"]}`}>
+                                                                                    2018-03-02
+                                                                                    </span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className={`${styles["cvo-education-wrapper"]}`}><span className={`${styles["cvo-education-title"]}`}>
+                                                                            Quản trị doanh nghiệp
+                                                                            (Bằng cấp Cử Nhân)
+                                                                            </span></div>
+                                                                            <div className={`${styles["cvo-education-details"]}`}>
+                                                                            Tốt nghiệp loại Khá, điểm trung bình 3.1</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div className={`${styles["cvo-block"]} ${styles["cvo-experience"]}`}>
                                                                     <div className={`${styles["cvo-block-header"]} ${styles["text-primary"]}`}>
                                                                         <span className={`${styles["cvo-experience-blocktitle"]}`}>
@@ -435,14 +302,7 @@ export const Duplicated = ({showModal, toggleShow, isLoggedIn, cv_design, cv_car
                     </Modal.Body>
                     <Modal.Footer>
                     {/* onClick={toggleShow}  */}
-                    {/* disabled={isLoading} */}
-                        <Button
-                            onClick={() => submitButton()}
-                            disabled={isLoading} variant="primary" label="Lưu CV" icon="pi pi-check" type="submit" id="duplicateForm"> 
-                            {isLoading && (
-                                <span className="spinner-border spinner-border-sm"></span>
-                            )}
-                        </Button>
+                       <Button onClick={toggleShow}>Thoát</Button>
                     </Modal.Footer>
               
         </Modal>

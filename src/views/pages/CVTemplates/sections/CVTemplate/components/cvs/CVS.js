@@ -1,8 +1,7 @@
 // import { FC } from 'react';
 import { useState, useEffect } from 'react';
 import styles from './CVS.module.css';
-// import { icons } from 'utils/icons';
-import { Basic1, Basic2, Basic3 } from 'components/CVTemplates';
+import { Basic1 } from 'components/CVTemplates';
 
 // interface IJobCards {
 //   logo: string;
@@ -14,15 +13,11 @@ import { Basic1, Basic2, Basic3 } from 'components/CVTemplates';
 // }
 
 // const JobCards: FC<IJobCards> = ({ logo, title, salary, currency, country, company_name }) => {
-export const CVS = ({}) => {
+export const CVS = () => {
   const [list, setList] = useState([]);
-  // const company_avatar = logo
-  //   ? `${process.env.REACT_APP_API_DOMAIN}${logo}`
-  //   : icons.logo_default;
-  const myComponents = [Basic1, Basic2, Basic3];
+  const myComponents = [Basic1];
   useEffect(() => {
     setList(myComponents);
-    console.log('change state');
   }, []);
  
   return (

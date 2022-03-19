@@ -60,6 +60,19 @@ export const resetPass = createAsyncThunk(
   }
 );
 
+export const accountVerified = createAsyncThunk(
+  "auth/active-account/",
+  async ({ access_token }, thunkAPI) => {
+    try {
+      const data = await AuthService.resetPass({ access_token });
+      return data.data
+    } catch (error) {
+      const message = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });

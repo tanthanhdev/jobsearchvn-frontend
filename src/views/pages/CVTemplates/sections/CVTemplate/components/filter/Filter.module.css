@@ -8,7 +8,7 @@
     margin-right: 20px;
 }
 .filter__heading {
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
 }
 .filter__list {
@@ -22,14 +22,14 @@
     align-items: center;
 }
 .filter__list-lable {
-    font-size: 1rem;
+    font-size: 16px;
     padding-left: 10px;
 }
 .filter__list-icon {
     width: 16px;
     height: auto;
     padding-right: 6px;
-    font-size: 1.25rem;
+    font-size: 20px;
     color: #666;
 }
 .filter__checkbox {
@@ -55,7 +55,7 @@
     padding-bottom: 10px;
 }
 .checkbox-lable {
-    font-size: 1rem;
+    font-size: 16px;
     padding-left: 8px;
 }
 .checkbox-check {

@@ -2,7 +2,7 @@
     width: 100%;
 }
 .container__list-heading {
-    font-size: 1.5rem;
+    font-size: 24px;
     padding-bottom: 20px;
 }
 .list__info{
@@ -20,7 +20,7 @@
 .see-more {
     color: var(--white-color);
     border: none;
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 600;
     padding: 8px 20px;
     background-color: var(--primary-color);

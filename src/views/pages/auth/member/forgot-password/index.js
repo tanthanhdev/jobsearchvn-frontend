@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -7,13 +7,13 @@ import * as Yup from "yup";
 
 import { forgotPass } from "slices/auth";
 import { clearMessage, setMessage } from "slices/message";
-import { authActions } from "slices/auth"
+// import { authActions } from "slices/auth"
 
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
 const ForgotPassword = (props) => {
-  const { isLoggedIn, message, isError, isSuccess, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn, message, isError,isLoading } = useSelector((state) => state.auth);
   const { message: mess } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
@@ -62,7 +62,7 @@ const ForgotPassword = (props) => {
               <div className={styles.container__center}>
                 <div className={styles["container__center-input"]}>
                   <span className={styles["icon-email"]}>
-                    <img className={`${styles["container__center-icon--email"]}`} src={icons.envelope_solid}></img>
+                    <img className={`${styles["container__center-icon--email"]}`} src={icons.envelope_solid} alt="img"></img>
                   </span>
                   <Field name="email" type="email" className={styles["container__center-input--email"]} />
                   <ErrorMessage name="email" component="div" className="alert alert-danger"

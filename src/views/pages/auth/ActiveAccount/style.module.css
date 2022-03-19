@@ -114,7 +114,6 @@
    padding: 8px 0;
    width: 456px;
    height: 100%;
-   justify-content: center;
 }
 .container__footer-login:hover {
    color: rgba(255, 255, 255, 0.2);
