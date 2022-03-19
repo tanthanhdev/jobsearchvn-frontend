@@ -46,8 +46,8 @@ const ResetPassword = (props) => {
 
   const handleResetPass = (formValue) => {
     const { password, confirm_password } = formValue;
-    const token = params.token
-    dispatch(resetPass({ password, confirm_password, token }))
+    const access_token = params.access_token
+    dispatch(resetPass({ password, confirm_password, access_token }))
       .unwrap()
       .then((res) => {
         dispatch(setMessage(res.message))
