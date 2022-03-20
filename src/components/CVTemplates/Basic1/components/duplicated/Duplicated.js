@@ -155,10 +155,29 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
             Yup.ref('starting_date'),
             "Completion date can't be before starting date"
           ).required("This field is required!"), 
-          })
-        )
+        }))
         .min(1, "Need at least a education")
         .max(5, 'You can only provide 5 educations'),
+    cv_cv_experiences: Yup.array()
+      .of(Yup.object().shape({
+        job_title: Yup.string()
+        .required("This field is required!"),
+        company_name: Yup.string()
+        .required("This field is required!"),
+        job_location: Yup.string()
+        .required("This field is required!"),
+        // job_country: Yup.string()
+        // .required("This field is required!"),
+        description: Yup.string()
+        .required("This field is required!"),
+        start_date: Yup.date().default(() => {
+          return new Date();
+        })
+        .required("This field is required!"),
+        end_date: Yup.string().required("This field is required!"),
+      }))
+      .min(1, "Need at least a education")
+      .max(5, 'You can only provide 5 educations'),
   });
 
   const handleDuplicateCVTemplate = (formValue) => {
