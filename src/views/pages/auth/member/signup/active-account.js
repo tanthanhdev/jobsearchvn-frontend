@@ -1,19 +1,17 @@
-import React, { useState, useEffect  } from "react";
+import React, { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Link, useParams } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Button } from 'primereact/button';
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import { resetPass } from "slices/auth";
-import { clearMessage, setMessage } from "slices/message";
+import { setMessage } from "slices/message";
 import { activeAccount } from "slices/auth"
 
 import styles from './style.module.css';
-import { icons } from 'utils/icons';
 
 const ActiveAccount = (props) => {
-  const { isLoggedIn, message, isError, isSuccess, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { message: mess } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 

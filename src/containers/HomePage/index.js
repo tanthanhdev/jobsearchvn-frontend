@@ -17,7 +17,7 @@ function HomePage(props) {
       {/* Header */}
       {/* banner */}
       <Banner></Banner>
-      <main className="grid main">
+      <main className="grid main" style={{paddingTop: "48px"}}>
         {/* Top jobs */}
         <TopJobs></TopJobs>
         <Job></Job>

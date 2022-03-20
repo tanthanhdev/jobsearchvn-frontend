@@ -1,18 +1,17 @@
 import React, {  useEffect  } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Button } from 'primereact/button';
 import * as Yup from "yup";
-
-import { login } from "slices/auth";
+// reducers
+import { useDispatch, useSelector } from "react-redux";
 import { clearMessage } from "slices/message";
-import { authActions } from "slices/auth"
-
+import { login, authActions } from "slices/auth";
+// utils
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
-const Login = (props) => {
+const Login = () => {
   const { isLoggedIn, message, isError, isLoading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -47,8 +46,6 @@ const Login = (props) => {
       .unwrap()
       .then((res) => {
         dispatch(authActions.updateUser(res.user))
-        props.history.push("/profile");
-        // window.location.reload();
       })
       .catch(() => {
       });

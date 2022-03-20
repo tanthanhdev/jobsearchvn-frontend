@@ -62,6 +62,7 @@ const activeAccount = ({access_token}) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("authentication");
 };
 
 const authService = {

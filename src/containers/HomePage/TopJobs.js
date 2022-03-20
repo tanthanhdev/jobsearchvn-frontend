@@ -31,7 +31,7 @@ function TopJobs(props) {
     <div className="grid wide content">
       
       <header className="content__header">
-        <h1>Nhà tuyển dụng hàng đầu</h1>
+        <h2>Nhà tuyển dụng hàng đầu</h2>
       </header>
       <div className="nav_content roww">
         {/* 4 cột */}

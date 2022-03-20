@@ -15,7 +15,7 @@ const Basic3 = () => {
       </div>
       
       <div className={`${styles.list__status}`}>
-          <img className={`${styles["list__status-icon"]}`} src={icons.circle_solid}/>
+          <img className={`${styles["list__status-icon"]}`} src={icons.circle_solid} alt='icon'/>
           <span className={`${styles["list__status-lable"]}`} >Mới</span>
       </div>
       <div className={`${styles.list__style}`}>

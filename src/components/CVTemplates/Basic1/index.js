@@ -7,7 +7,8 @@ import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
 const Basic1 = () => {
-    const isLoggedIn = localStorage.getItem('user');
+    const localUser = localStorage.getItem('user');
+    const [isLoggedIn, setIsLoggedIn] = useState(localUser ? true : false);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const toggleShow = () => setShowModal(p => !p);
@@ -55,6 +56,7 @@ const Basic1 = () => {
                     showModal={showModal}
                     toggleShow={toggleShow}
                     isLoggedIn = {isLoggedIn}
+                    setIsLoggedIn = {setIsLoggedIn}
                     cv_design = {[
                         {"id": 1},
                         {"id": 2}

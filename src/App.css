@@ -629,3 +629,7 @@ label {
   }
 }
 
+/* Css margin/padding */
+.ml-8 {
+  margin-left: 8px;
+}

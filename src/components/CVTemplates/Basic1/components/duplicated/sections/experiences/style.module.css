@@ -15,7 +15,6 @@
     border-radius: 50%;
 }
 .cvo-profile-title {
-    width: 100%;
     border-radius: 4px;
     border: none;
     outline: 1pt dashed #77a5cc;
@@ -38,16 +37,15 @@
 .information .cvo-profile-info-row>i {
     padding-right: 10px;
 }
-.text-primary {
-    color: #0a84ff;
-}
 .group-header .cvo-block {
     background: 0 0;
     box-shadow: none;
     margin: initial;
     padding: initial;
 }
-
+.text-primary {
+    color: #0a84ff;
+}
 .cvo-block {
     background: #fff;
     border-radius: 15px;
@@ -79,8 +77,6 @@
     display: flex;
     margin-bottom: 15px;
     position: relative;
-    width: 100%;
-    justify-content: space-between;
 }
 .cvo-experience-wrapper, .cvo-activity-wrapper, .cvo-award-wrapper, .cvo-skill-group-wrapper, .cvo-education-wrapper, .cvo-experience-wrapper {
     margin-bottom: 15px;
@@ -93,8 +89,7 @@
 
 .cvo-section-info>div:first-child {
     font-weight: 600;
-    width: 100%;
-    max-width: 150px;
+    width: 55%;
 }
 .cvo-section-info>div {
     display: inline-table;
@@ -109,7 +104,6 @@
     padding: 6px 12px;
     border-radius: 15px;
     float: right;
-    max-width: 168px;
 }
 .cvo-section-info>div {
     display: inline-table;
@@ -166,33 +160,60 @@
 
 .time-background {
     display: flex;
-    max-width: 265px;
+    max-width: 148px;
 }
 
 .cvo-education-details {
     display: flex;
 }
 
-.cvo-profile-title[name="gpa"] {
-    max-width: 28px;
-    margin-left: 4px;
+.cvo-experience-company_name {
+    width: 100%;
+    max-width: 150px;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
 }
-.cvo-education-title {
-    display: flex;
-}
-.cvo-profile-title[name="major"] {
-    max-width: 168px;
-    margin-right: 4px;
-}
-.cvo-profile-title[name="degree_name"] {
-    max-width: 144px;
-    margin-right: 4px;
-}
-.cvo-educations-gpa {
+.cvo-experience-job_title {
     width: 100%;
     border-radius: 4px;
     border: none;
     outline: 1pt dashed #77a5cc;
-    max-width: 28px;
-    margin-left: 4px;
+}
+.cvo-experience-start_date {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+.cvo-experience-end_date {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+.cvo-experience-description {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+.cvo-experience-job_location {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+.cvo-experience-job_country {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+.cvo-experience-position:nth-child(3) {
+    display: inline-block;
+    margin: 16px 0;
+}
+.cvo-experience-details {
+    margin-bottom: 16px;
 }

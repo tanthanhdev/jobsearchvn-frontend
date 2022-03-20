@@ -1,0 +1,48 @@
+
+.cvo-block>div, .cvo-block>.block-content {
+    padding: 16px;
+}
+.cvo-block .cvo-block-header i {
+    padding-right: 10px;
+}
+.row {
+    margin-bottom: 28px;
+}
+.cvo-experience-wrapper, .cvo-activity-wrapper, .cvo-award-wrapper, .cvo-skill-group-wrapper, .cvo-education-wrapper, .cvo-experience-wrapper {
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #333;
+}
+.cvo-block .cvo-block-header {
+    padding: 16px;
+    border-bottom: 2px solid #eaeaea;
+    font-size: 18px;
+    font-weight: 700;
+    position: relative;
+}
+.text-primary {
+    color: #0a84ff;
+}
+.cvo-block {
+    background: #fff;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px 0 rgb(97 97 97 / 15%);
+    color: #999;
+}
+/* CVO certificate */
+.cvo-certificate-year {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+
+.cvo-certificate-name {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+    margin-bottom: 8px;
+}
+/* CVo certificate end */
