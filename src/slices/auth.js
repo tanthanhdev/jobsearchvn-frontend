@@ -9,7 +9,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ first_name, last_name, email, password, company_name, address, status }, thunkAPI) => {
     try {
-      const response = await AuthService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
+      const response = await authService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;

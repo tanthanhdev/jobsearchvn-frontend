@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 // services
-import AuthService from "services/auth.service";
+import authService from "services/auth.service";
 // utils
 import { icons } from 'utils/icons';
 import styles from './style.module.css';
@@ -42,7 +42,7 @@ const Login = ({showModal, toggleShow, isLoggedIn, setIsLoggedIn, setIsShowLogin
     const handleLogin = (formValue) => {
         const { email, password } = formValue;
         setIsLoading(true);
-        AuthService.login(email, password).then((response) => {
+        authService.login(email, password).then((response) => {
             console.log(response)
             setDataLogin(response);
             toggleShow();
