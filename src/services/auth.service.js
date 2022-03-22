@@ -29,6 +29,21 @@ const register = (firstname, lastname, email, password) => {
   });;
 };
 
+const registerEmployer = (first_name, last_name, email, password, company_name, address, status) => {
+  return axios.post(API_URL + "/auth/sign-up/employer/", {
+    first_name,
+    last_name,
+    email,
+    password,
+    company_name,
+    address, 
+    status,
+    group: "employer"
+  }).then((response) => {
+    return response
+  });;
+};
+
 const login = (email, password) => {
   return axios
     .post(API_URL + "/auth/login/", {
@@ -88,6 +103,7 @@ const authService = {
   resetPass,
   activeAccount,
   isLoggedIn,
+  registerEmployer
 };
 
 export default authService;
