@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from 'react-bootstrap';
 // import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
+import CvTemplateService from 'services/cv-template';
+
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
-export const CVView = ({ showModal, toggleShow }) => {
+export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
+  useEffect(() => {
+    if(showModal) {
+      CvTemplateService.setViewCvTemplate(CvTemplate.id).then(data => {console.log(data);});
+    }
+  }, [showModal]);
+
   return (
     <Modal show={showModal} onHide={toggleShow} dialogClassName={`${styles["custom-modal"]}`}>
 

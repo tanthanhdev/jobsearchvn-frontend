@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { Field, ErrorMessage, FieldArray } from "formik";
 import styles from './style.module.css';
 
 export const Experience = ({ values, errors, isSubmitting }) => {
- 
   return (
     <FieldArray name="cv_cv_experiences">
       {({ remove, push }) => (
@@ -66,6 +64,7 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                               className="alert alert-danger"
                             />
                           </span>
+                          
                         </span>
                       </div>
                     </div>
@@ -83,7 +82,6 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                       />
                     </span>
                     (<span className={`${styles["cvo-experience-position"]}`}>
-                      
                       <Field
                         name={`cv_cv_experiences.${index}.job_country`}
                         type="text"
@@ -113,6 +111,8 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                     </div>
                     <div className={`${styles["cvo-experience-details"]}`}>
                       <Field
+                        component="textarea"
+                        rows={4}
                         name={`cv_cv_experiences.${index}.description`}
                         type="text"
                         className={`${styles["cvo-experience-description"]}`}
@@ -137,7 +137,15 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                         type="button"
                         className="p-button-sm ml-8"
                         disabled={isSubmitting}
-                        onClick={() => push({ name: '', year: '', })}
+                        onClick={() => push({
+                          job_title: "",
+                          company_name: "",
+                          job_location: "",
+                          job_country: "",
+                          description: "",
+                          start_date: "",
+                          end_date: ""
+                        })}
                       >
                         +
                       </Button>
@@ -151,7 +159,15 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                   type="button"
                   className="p-button-sm"
                   disabled={isSubmitting}
-                  onClick={() => push({ name: '', year: '', })}
+                  onClick={() => push({
+                    job_title: "",
+                    company_name: "",
+                    job_location: "",
+                    job_country: "",
+                    description: "",
+                    start_date: "",
+                    end_date: ""
+                  })}
                 >
                   +
                 </Button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'primereact/button';
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
@@ -8,21 +9,52 @@ import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
 // components
 import { Education } from './sections/educations';
-// import { Activity } from './sections/social_activities';
+import { Activity } from './sections/social_activities';
 import { Skill } from './sections/skills';
 import { Certificate } from './sections/certificates';
 import { Experience } from './sections/experiences';
 import { Login } from "components/modals";
 // utils
-import { icons } from 'utils/icons';
+import CvTemplateService from 'services/cv-template';
+// import { icons } from 'utils/icons';
 import { create_cv } from "slices/cv";
 import styles from './style.module.css';
 
-export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, cv_design, cv_career }) => {
+export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, CvTemplate }) => {
+  const [ cv_career, setCv_career ] = useState([]);
+  const [ cv_design, setCv_design ] = useState([]);
+  const cv_template_id = CvTemplate.id;
   const user = JSON.parse(localStorage.getItem('user'));
   const { message, isError, isSuccess, isLoading, cv } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(showModal) {
+      CvTemplateService.setViewCvTemplate(cv_template_id).then(data => {console.log(data);});
+    }
+    setCvCareer();
+    setCvDesign();
+  }, [showModal]);
+
+  const setCvCareer = () => {
+    let resArr = [...CvTemplate.cv_career];
+    resArr = resArr.map(e => {
+      return {
+        id: e.id ? e.id : 0,
+      };
+    });
+    setCv_career(resArr);
+  };
+  const setCvDesign = () => {
+    let resArr = [...CvTemplate.cv_design];
+    resArr = resArr.map(e => {
+      return {
+        id: e.id ? e.id : 0,
+      };
+    });
+    setCv_design(resArr);
+  };
 
   const initialValues = {
     title: "",
@@ -32,7 +64,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
         degree_name: "",
         major: "",
         university_name: "",
-        gpa: "",
+        gpa: null,
         starting_date: "",
         completion_date: ""
       }
@@ -67,19 +99,10 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
     cv_cv_certificates: [
       {
         name: "",
-        year: ""
+        year: null
       }
     ]
   };
-
-  // const [ title, setTitle ] = useState(initialValues.title);
-  // const [ target_major, setTarget_major ] = useState(initialValues.target_major);
-  // const [ cv_cv_educations, setCv_cv_educations ] = useState([]);
-  // const [ cv_cv_experiences, setCv_cv_experiences ] = useState([]);
-  // const [ cv_cv_skills, setCv_cv_skills ] = useState([]);
-  // const [ cv_cv_social_activities, setCv_cv_social_activities ] = useState([]);
-  // const [ cv_cv_certificates, setCv_cv_certificates ] = useState([]);
-  // const [ isPostForm, setIsPostForm ] = useState(false);
   const [isShowLoginModel, setIsShowLoginModel] = useState(false);
 
   useEffect(() => {
@@ -97,108 +120,145 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
       navigate('/');
     }
 
-    // if (cv_cv_educations.length &&  cv_cv_skills.length && cv_cv_social_activities.length) {
-    //     dispatch(create_cv({ cv_career, cv_design, title, target_major, cv_cv_educations, cv_cv_experiences,
-    //         cv_cv_skills, cv_cv_social_activities, cv_cv_certificates }))
-    //         .unwrap()
-    //         .then(() => {
-    //     })
-    //     .catch(() => {
-    //         console.log(isError)
-    //     });
-    // } 
   }, [cv, isError, isSuccess, message, navigate, dispatch, isShowLoginModel])
 
   const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Vui lòng không để trống!"),
+    target_major: Yup.string().required("Vui lòng không để trống!"),
     cv_cv_skills: Yup.array()
       .of(Yup.object().shape({
-        name: Yup.string().required("This field is required!")
-        .min(2, 'Name needs to be at least 3 characters')
-        .max(255, 'Name needs to be at most 255 characters'),
-        description: Yup.string().max(10000, 'Description needs to be at most 10000 characters'),
+        name: Yup.string().required("Vui lòng không để trống!")
+        .min(2, 'Tên chứa ít nhất 3 ký tự')
+        .max(255, 'Tên chỉ chứa tối đa 255 ký tự'),
+        description: Yup.string().max(10000, 'Mô tả chỉ chứa tối đa 10000 ký tự'),
         // Rest of your amenities object properties
         })
       )
-      .min(1, "Need at least a skill").max(5, 'You can only provide 5 skill'),
+      .min(1, "Cần ít nhất một kỹ năng").max(5, 'Bạn chỉ có thể cung cấp 5 kỹ năng'),
     cv_cv_certificates: Yup.array()
       .of(Yup.object().shape({
-        year: Yup.number().required("This field is required!").min(0).max(9999),
-        name: Yup.string().max(255, 'Year needs to be at most 255 characters'),
+        year: Yup.number().min(0).max(9999),
+        name: Yup.string().max(255, 'Tên chỉ chứa tối đa 255 ký tự'),
         })
       )
-      .min(1, "Need at least a certificate")
-      .max(5, 'You can only provide 5 certificates'),
+      .max(5, 'Bạn chỉ có thể tạo tối đa 5 mục kỹ năng'),
     cv_cv_educations: Yup.array()
         .of(Yup.object().shape({
           degree_name: Yup.string()
-          .required("Degree name field is required!"),
+          .required("Tên bằng cấp không để trống!"),
           major: Yup.string()
-          .required("Major field is required!"),
+          .required("Chuyên ngành không để trống!"),
           university_name: Yup.string()
-          .required("This field is required!"),
+          .required("Vui lòng không để trống!"),
           gpa: Yup.number()
-          .required("GPA field is required!")
+          .required("GPA không để trống!")
           .min(0.0).max(4.0)
           .test(
             'is-decimal',
-            'invalid decimal, contains only 1 decimal',
+            'Thập phân không hợ lệ, chỉ chứa 1 số thập phân',
             value => (value + "").match(/^[1-9]\d?(?:\.\d{0,1})?$/),
           ),
           starting_date: Yup.date().default(() => {
             return new Date();
           })
-          .required("This field is required!"),
+          .required("Vui lòng không để trống!"),
           completion_date: Yup.date().default(() => {
             return new Date();
           })
           .min(
             Yup.ref('starting_date'),
-            "Completion date can't be before starting date"
-          ).required("This field is required!"), 
+            "Ngày hoàn thành không được trước ngày bắt đầu"
+          ).required("Vui lòng không để trống!"), 
         }))
-        .min(1, "Need at least a education")
-        .max(5, 'You can only provide 5 educations'),
+        .min(1, "Cần ít nhất một mục giáo dục")
+        .max(5, 'Bạn chỉ có thể tạo tối đa 5 mục giáo dục'),
     cv_cv_experiences: Yup.array()
       .of(Yup.object().shape({
         job_title: Yup.string()
-        .required("This field is required!"),
+        .required("Vui lòng không để trống!"),
         company_name: Yup.string()
-        .required("This field is required!"),
+        .required("Vui lòng không để trống!"),
         job_location: Yup.string()
-        .required("This field is required!"),
-        // job_country: Yup.string()
-        // .required("This field is required!"),
+        .required("Vui lòng không để trống!"),
+        job_country: Yup.string()
+        .required("Vui lòng không để trống!"),
         description: Yup.string()
-        .required("This field is required!"),
+        .required("Vui lòng không để trống!"),
         start_date: Yup.date().default(() => {
           return new Date();
         })
-        .required("This field is required!"),
-        end_date: Yup.string().required("This field is required!"),
+        .required("Vui lòng không để trống!"),
+        end_date: Yup.string()
+        .required("Vui lòng không để trống!"), 
       }))
-      .min(1, "Need at least a education")
-      .max(5, 'You can only provide 5 educations'),
+      .min(1, "Cần ít nhất một mục kinh nghiệm")
+      .max(5, 'Bạn chỉ có thể tạo tối đa 5 mục kinh nghiệm'),
+    cv_cv_social_activities: Yup.array()
+      .of(Yup.object().shape({
+        title: Yup.string()
+            .required("Vui lòng không để trống!"),
+        unit_name: Yup.string()
+        .required("Vui lòng không để trống!"),
+        description: Yup.string().max(10000, 'Mô tả chỉ chứa tối đa 10000 ký tự'),
+        starting_date: Yup.date().default(() => {
+            return new Date();
+        })
+        .required("Vui lòng không để trống!"),
+        completion_date: Yup.date().default(() => {
+            return new Date();
+        })
+        .min(
+            Yup.ref('starting_date'),
+            "Ngày hoàn thành không được trước ngày bắt đầu"
+        )
+        .required("Vui lòng không để trống!")        
+      }))
+      .max(5, 'Bạn chỉ có thể tạo tối đa 5 mục hoạt động'),
   });
 
   const handleDuplicateCVTemplate = (formValue) => {
-    console.log(formValue);
     const { title, target_major, cv_cv_educations, cv_cv_experiences,
       cv_cv_skills, cv_cv_social_activities, cv_cv_certificates } = formValue;
     dispatch(create_cv({
-      cv_career, cv_design, title, target_major, cv_cv_educations, cv_cv_experiences,
-      cv_cv_skills, cv_cv_social_activities, cv_cv_certificates
+      title, target_major, cv_cv_educations, cv_cv_experiences,
+      cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design
     }))
       .unwrap()
-      .then(() => {
-        console.log('submited duplicated file')
+      .then((data) => {
+        console.log('submited duplicated file', data)
+        toggleShow();
+        toast.success("Chúc mừng bạn đã tạo thành công CV Mẫu!", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e)
         console.log(isError)
+        if (e.code === 'token_not_valid') {
+          toast.error('Phiên đăng nhập đã hết hạn hoặc không thanh công!', {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+        } else {
+          if (isError) {
+            if (message) {
+              toast.error(message, {
+                position: toast.POSITION.BOTTOM_RIGHT
+              })
+            }
+          } else {
+            toast.error('Tạo CV không thành công!', {
+              position: toast.POSITION.BOTTOM_RIGHT
+            })
+          }
+        }
       });
   };
 
   return (
     <>
+      <div>
+        <ToastContainer draggablePercent={60} limit={5} />
+      </div>
       {!isLoggedIn ? (
         <Login showModal={showModal} toggleShow={toggleShow} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
           setIsShowLoginModel={setIsShowLoginModel} />
@@ -207,16 +267,16 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            // onSubmit={handleDuplicateCVTemplate}
-            onSubmit={async (values) => {
-              await new Promise((r) => setTimeout(r, 500));
-              alert(JSON.stringify(values, null, 2));
-            }}
+            onSubmit={handleDuplicateCVTemplate}
+            // onSubmit={async (values) => {
+            //   await new Promise((r) => setTimeout(r, 500));
+            //   alert(JSON.stringify(values, null, 2));
+            // }}
           >
             {({ values, errors, isSubmitting, setFieldValue }) => (
               <Form className={styles["form"]} id="duplicateForm">
                 <Modal.Header closeButton>
-                  <Modal.Title>CV Template Basic 1</Modal.Title>
+                  <Modal.Title>CV Template {CvTemplate.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <section className={`${styles.iframe} ${styles["cv-viewer"]}`}>
@@ -292,17 +352,18 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
                                             ))}</span>
                                           </div>
                                           <div className={`${styles["cvo-profile-title-wraper"]}`}>
-                                            {/* <Field
+                                            <Field
                                               name="title"
                                               type="text"
                                               className={`${styles["text-primary"]} ${styles["cvo-profile-title"]}`}
+                                              placeholder="Tên chức vụ"
                                             />
                                             <ErrorMessage
                                               name="title"
                                               component="div"
                                               className="alert alert-danger"
-                                            /> */}
-                                            <span className={`${styles["text-primary"]} ${styles["cvo-profile-title"]}`}>Nhân viên kinh doanh</span>
+                                            />
+                                            {/* <span className={`${styles["text-primary"]} ${styles["cvo-profile-title"]}`}>Nhân viên kinh doanh</span> */}
                                           </div>
                                           <div className={`${styles.information}`}>
                                             <div className={`${styles["cvo-profile-info-row"]} ${styles["cvo-profile-dob-wraper"]}`} >
@@ -363,20 +424,21 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
                                       <div className={`${styles["h-description"]}`}>
                                         <div className={`${styles["cvo-block"]} ${styles["cvo-objective"]}`}>
                                           <div className={`${styles["cvo-block-body"]}`}>
-                                            {/* <Field
+                                            <Field
                                               component="textarea"
                                               rows={6}
                                               cols={67}
                                               name="target_major"
                                               type="text"
                                               className={`${styles["cvo-objective-objective"]}`}
+                                              placeholder="Mô tả công việc"
                                             />
                                             <ErrorMessage
                                               name="target_major"
                                               component="div"
                                               className="alert alert-danger"
-                                            /> */}
-                                            <div className={`${styles["cvo-objective-objective"]}`}>Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</div>
+                                            />
+                                            {/* <div className={`${styles["cvo-objective-objective"]}`}>Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</div> */}
                                           </div>
                                         </div>
                                       </div>
@@ -397,12 +459,11 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, c
                                         errors={errors}
                                         isSubmitting={isSubmitting}
                                       />
-                                      {/* Activity */}
-                                      {/* <Activity
-                                        onHandleActivity={onHandleActivity}
-                                        isPostForm={isPostForm}
-                                        setIsPostForm={setIsPostForm}
-                                      /> */}
+                                       <Activity
+                                        values={values}
+                                        errors={errors}
+                                        isSubmitting={isSubmitting}
+                                      />
                                     </div>
                                     {/* cvo block right */}
                                   </div>

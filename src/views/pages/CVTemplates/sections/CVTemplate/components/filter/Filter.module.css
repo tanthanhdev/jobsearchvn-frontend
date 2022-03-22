@@ -10,6 +10,7 @@
 .filter__heading {
     font-size: 20px;
     font-weight: 700;
+    margin-bottom: 16px;
 }
 .filter__list {
     line-height: 20px;
@@ -64,4 +65,15 @@
     height: 12px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 2px;
+}
+
+.field-checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.field-checkbox label {
+    margin: 0 0 0 8px;
 }

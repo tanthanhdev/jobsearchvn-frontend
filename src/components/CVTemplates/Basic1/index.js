@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Duplicated } from "./components/duplicated/Duplicated";
 import { CVView } from "./components/CVView";
 
+import authService from "services/auth.service";
+
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
-const Basic1 = () => {
-    const localUser = localStorage.getItem('user');
-    const [isLoggedIn, setIsLoggedIn] = useState(localUser ? true : false);
+const Basic1 = (CvTemplate) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(authService.isLoggedIn());
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const toggleShow = () => setShowModal(p => !p);
@@ -34,15 +35,19 @@ const Basic1 = () => {
                 <span className={`${styles["list__status-lable"]}`} >Mới</span>
             </div>
             <div className={`${styles.list__style}`}>
-                <div className={`${styles["list__style-item"]}`} >
-                    Chuyên nghiệp
-                </div>
-                <div className={`${styles["list__style-item"]}`} >
-                    Sáng tạo
-                </div>
+                {CvTemplate && CvTemplate.CvTemplate.cv_design.map((item, index) => {
+                    return (
+                    <div className={`${styles["list__style-item"]}`} key={index}>
+                        {item.name}
+                    </div>
+                    )
+                })}
             </div>
             <h3 className={`${styles["list-name"]}`} >
-                Mẫu CV 1
+                Mẫu CV {CvTemplate.CvTemplate.title_template}
+            </h3>
+            <h3 className={`${styles["list-name"]}`} >
+                Lượt xem: {CvTemplate.CvTemplate.view}
             </h3>
             <div className={`${styles.pagination}`}>
                 <div className={`${styles["pagination-item pagination-item-selected"]}`} ></div>
@@ -57,18 +62,12 @@ const Basic1 = () => {
                     toggleShow={toggleShow}
                     isLoggedIn = {isLoggedIn}
                     setIsLoggedIn = {setIsLoggedIn}
-                    cv_design = {[
-                        {"id": 1},
-                        {"id": 2}
-                    ]}
-                    cv_career = {[
-                        {"id": 1},
-                        {"id": 2}
-                    ]}
+                    CvTemplate = {CvTemplate.CvTemplate}
                 />
                 <CVView 
                     showModal={showModal2}
                     toggleShow={toggleShow2}
+                    CvTemplate = {CvTemplate.CvTemplate}
                 />
             </>
         </>
