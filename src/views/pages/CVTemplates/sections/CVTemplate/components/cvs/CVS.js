@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import styles from './CVS.module.css';
 import { Basic1, Basic2, Basic3 } from 'components/CVTemplates';
+import { icons } from 'utils/icons';
 
 // interface IJobCards {
 //   logo: string;
@@ -20,9 +21,16 @@ export const CVS = (CvTemplates) => {
     {title: 'Basic 2', template: Basic2},
     {title: 'Basic 3', template: Basic3},
   ];
+  const [ isRecordExists, setIsRecordExists] = useState(false);
+
   useEffect(() => {
     setList(myComponents);
-  }, []);
+    if (CvTemplates.CvTemplates.length > 0) {
+      setIsRecordExists(true);
+    } else {
+      setIsRecordExists(false);
+    }
+  }, [CvTemplates]);
 
   return (
     <div className={`${styles.container__list}`}>
@@ -46,6 +54,9 @@ export const CVS = (CvTemplates) => {
           )
         }
       })}
+      {!isRecordExists && (
+        <img src={icons.no_record} alt="no-records-found" className={styles.no_record} />
+      )}
       {/* <footer className={`${styles.container__footer}`}>
           <button className={`${styles["see-more"]}`}>Xem Thêm</button>
       </footer> */}
