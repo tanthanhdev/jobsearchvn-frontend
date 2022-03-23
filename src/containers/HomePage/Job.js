@@ -23,9 +23,9 @@ function Job(props) {
         <h2>Việc Làm Hấp Dẫn</h2>
       </header>
       <div className="nav_sub-content roww nav_sub-primary">
-        {jobs.map(companys =>(
+        {jobs && jobs.map(companys =>(
           <>
-            {companys.tag.map((job,index) =>(
+            {companys && companys.tag.map((job,index) =>(
               <a key={index} className="nav_sub-content-link coll l-4 m-6 c-12">
           <img src={companys.employer.logo} alt={companys.employer.company_name} className="nav_sub-content-logo" />
           <div className="nav_sub-content-description">
