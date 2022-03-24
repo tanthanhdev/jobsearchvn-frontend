@@ -7,9 +7,13 @@ const getPublicContent = () => {
   return axios.get(API_URL + "/");
 };
 
-const getUserBoard = () => {
-  return axios.get(API_URL + "/profile-member", { headers: authHeader() });
+const getMemberBoard = (id) => {
+  return axios.get(API_URL + "/members/" + id, { headers: authHeader() });
 };
+const getEmployerBoard = (id) => {
+  return axios.get(API_URL + "/employers" + id, { headers: authHeader() });
+};
+
 
 // Public employer
 const getPublicEmployer = () => {
@@ -24,7 +28,8 @@ const getPublicJob = () => {
 
 const userService = {
   getPublicContent,
-  getUserBoard,
+  getMemberBoard,
+  getEmployerBoard,
   getPublicEmployer,
   getPublicJob,
 };

@@ -628,3 +628,8 @@ label {
     margin-left: 91.66667%;
   }
 }
+
+/* Css margin/padding */
+.ml-8 {
+  margin-left: 8px;
+}

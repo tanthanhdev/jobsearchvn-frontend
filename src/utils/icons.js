@@ -9,7 +9,10 @@ import search_solid from 'assets/images/icons/search-solid.svg';
 import map_marker_alt_solid from 'assets/images/icons/map-marker-alt-solid.svg';
 import envelope_solid from 'assets/images/icons/envelope-solid.svg';
 import key_solid from 'assets/images/icons/key-solid.svg';
-
+import angle_down_solid from 'assets/images/icons/angle-down-solid.svg';
+import circle_solid from 'assets/images/icons/circle-solid.svg';
+// images
+import no_record from 'assets/images/notifications/no-records.png';
 
 // home
 
@@ -22,6 +25,9 @@ export const icons = {
   search_solid,
   map_marker_alt_solid,
   envelope_solid,
-  key_solid
+  key_solid,
+  angle_down_solid,
+  circle_solid,
+  no_record,
 };
   
