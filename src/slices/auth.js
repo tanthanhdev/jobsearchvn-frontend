@@ -27,7 +27,7 @@ export const registerEmployer = createAsyncThunk(
     try {
       const response = await authService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
       if (response.status === 200 || response.status === 201) {
-        thunkAPI.dispatch(setMessage(response.data.message));
+        thunkAPI.dispatch(setMessage("Cảm ơn bạn đã đăng ký nhà tuyển dụng. Vui lòng chờ hệ thống xác thực tối đa 24 giờ!"));
         return response.data;
       }
     } catch (error) {
