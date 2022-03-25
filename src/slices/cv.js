@@ -7,12 +7,15 @@ const cv = JSON.parse(localStorage.getItem("cv"));
 
 export const create_cv = createAsyncThunk(
   "cvs/",
-  async ({ cv_career, cv_design, title, target_major, cv_cv_educations, cv_cv_experiences,
-    cv_cv_skills, cv_cv_social_activities, cv_cv_certificates }, thunkAPI) => {
+  async ({ title, target_major, cv_cv_educations, cv_cv_experiences,
+    cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design }, thunkAPI) => {
+      console.log(title, target_major, cv_cv_educations, cv_cv_experiences,
+        cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design);
     try {
-      const response = await CvService.create_cv(cv_career, cv_design, title, target_major, cv_cv_educations, cv_cv_experiences,
-        cv_cv_skills, cv_cv_social_activities, cv_cv_certificates);
+      const response = await CvService.create_cv(title, target_major, cv_cv_educations, cv_cv_experiences,
+        cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design);
       if (response.status === 200 || response.status === 201) {
+        console.log(response.status)
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
       }
@@ -54,6 +57,7 @@ const CvTemplateSlice = createSlice({
       state.cv = action.payload.cv;
       state.isLoading = false
       state.isSuccess = true
+      state.isError = false
     },
     [create_cv.rejected]: (state, action) => {
       state.cv = null;

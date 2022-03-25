@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
-import AuthService from "services/auth.service";
+import authService from "services/auth.service";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -9,7 +9,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ first_name, last_name, email, password, company_name, address, status }, thunkAPI) => {
     try {
-      const response = await AuthService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
+      const response = await authService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
@@ -25,7 +25,7 @@ export const registerEmployer = createAsyncThunk(
   "auth/sign-up/employer/",
   async ({ first_name, last_name, email, phone_number, password, company_name, company_location, status }, thunkAPI) => {
     try {
-      const response = await AuthService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
+      const response = await authService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
@@ -41,7 +41,7 @@ export const login = createAsyncThunk(
   "auth/login/",
   async ({ email, password }, thunkAPI) => {
     try {
-      const data = await AuthService.login(email, password);
+      const data = await authService.login(email, password);
       return { user: data };
     } catch (error) {
       const message = error.response.data;
@@ -54,7 +54,7 @@ export const forgotPass = createAsyncThunk(
   "auth/forgot-password/",
   async ({ email }, thunkAPI) => {
     try {
-      const data = await AuthService.forgotPass(email);
+      const data = await authService.forgotPass(email);
       return data.data;
     } catch (error) {
       const message = error.response.data;
@@ -67,7 +67,7 @@ export const resetPass = createAsyncThunk(
   "auth/reset-password/",
   async ({ password, confirm_password, access_token }, thunkAPI) => {
     try {
-      const data = await AuthService.resetPass({ password, confirm_password, access_token });
+      const data = await authService.resetPass({ password, confirm_password, access_token });
       return data.data
     } catch (error) {
       const message = error.response.data;
@@ -80,7 +80,7 @@ export const activeAccount = createAsyncThunk(
   "auth/active-account/",
   async ({ access_token }, thunkAPI) => {
     try {
-      const data = await AuthService.activeAccount({ access_token });
+      const data = await authService.activeAccount({ access_token });
       return data.data
     } catch (error) {
       const message = error.response.data;
@@ -93,7 +93,7 @@ export const accountVerified = createAsyncThunk(
   "auth/active-account/",
   async ({ access_token }, thunkAPI) => {
     try {
-      const data = await AuthService.resetPass({ access_token });
+      const data = await authService.resetPass({ access_token });
       return data.data
     } catch (error) {
       const message = error.response.data;
@@ -103,12 +103,12 @@ export const accountVerified = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-  await AuthService.logout();
+  await authService.logout();
 });
 
 const initialState = {
   user: user ? user : null,
-  isLoggedIn: user ? true : false,
+  isLoggedIn: authService.isLoggedIn(),
   isError: false,
   isSuccess: false,
   isLoading: false,

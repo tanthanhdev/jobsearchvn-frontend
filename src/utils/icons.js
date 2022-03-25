@@ -11,7 +11,8 @@ import envelope_solid from 'assets/images/icons/envelope-solid.svg';
 import key_solid from 'assets/images/icons/key-solid.svg';
 import angle_down_solid from 'assets/images/icons/angle-down-solid.svg';
 import circle_solid from 'assets/images/icons/circle-solid.svg';
-
+// images
+import no_record from 'assets/images/notifications/no-records.png';
 
 // home
 
@@ -27,5 +28,6 @@ export const icons = {
   key_solid,
   angle_down_solid,
   circle_solid,
+  no_record,
 };
   

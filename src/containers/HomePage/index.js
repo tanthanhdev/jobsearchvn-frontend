@@ -1,8 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'; ???
 import './homePage.css'
 import Banner from './Banner';
-import TopJobs from './TopJobs';
+import TopCompanies from './TopCompanies';
 import Job from './Job';
 import Blog from './Blog';
 import { Wrap } from 'components/wrap/Wrap';
@@ -10,7 +10,7 @@ HomePage.propTypes = {
   
 };
 
-function HomePage(props) {
+function HomePage() {
   return (
     <div id="main">
       <Wrap>
@@ -19,7 +19,7 @@ function HomePage(props) {
       <Banner></Banner>
       <main className="grid main" style={{paddingTop: "48px"}}>
         {/* Top jobs */}
-        <TopJobs></TopJobs>
+        <TopCompanies></TopCompanies>
         <Job></Job>
         <Blog></Blog>
       </main>

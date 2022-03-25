@@ -39,20 +39,20 @@ const RegisterEmployer = () => {
     first_name: Yup.string()
       .test(
         "len",
-        "The First name must be between 3 and 20 characters.",
+        "The First name must be between 1 and 20 characters.",
         (val) =>
           val &&
-          val.toString().length >= 3 &&
+          val.toString().length >= 1 &&
           val.toString().length <= 20
       )
       .required("This field is required!"),
     last_name: Yup.string()
     .test(
       "len",
-      "The Last name must be between 3 and 20 characters.",
+      "The Last name must be between 1 and 20 characters.",
       (val) =>
         val &&
-        val.toString().length >= 3 &&
+        val.toString().length >= 1 &&
         val.toString().length <= 20
     )
     .required("This field is required!"),
@@ -84,20 +84,20 @@ const RegisterEmployer = () => {
      company_name: Yup.string()
       .test(
         "len",
-        "The First name must be between 3 and 20 characters.",
+        "The First name must be between 1 and 20 characters.",
         (val) =>
           val &&
-          val.toString().length >= 3 &&
+          val.toString().length >= 1 &&
           val.toString().length <= 50
       )
       .required("This field is required!"),
       company_location: Yup.string()
       .test(
         "len",
-        "The First name must be between 3 and 20 characters.",
+        "The First name must be between 1 and 20 characters.",
         (val) =>
           val &&
-          val.toString().length >= 3 &&
+          val.toString().length >= 1 &&
           val.toString().length <= 50
       )
       .required("This field is required!"),

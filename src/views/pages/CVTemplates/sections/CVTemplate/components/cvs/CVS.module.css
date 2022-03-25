@@ -26,3 +26,8 @@
     background-color: var(--primary-color);
     cursor: pointer;
 }
+
+.no_record {
+    border-radius: 4px;
+    opacity: 75%;
+}
