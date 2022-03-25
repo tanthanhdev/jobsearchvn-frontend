@@ -51,7 +51,7 @@ const Login = ({showModal, toggleShow, isLoggedIn, setIsLoggedIn, setIsShowLogin
                 setIsLoggedIn(true);
                 setIsShowLoginModel(true);
             } else {
-                navigate('/');
+                // navigate('/');
                 window.location.reload();
             }
             setIsLoading(false);

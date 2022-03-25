@@ -1,0 +1,1 @@
+export {CompHeader} from './CompHeader';

@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 120px;
+    background-color: #E5E5E5;
+}
+.content {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+}
