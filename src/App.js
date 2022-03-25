@@ -11,10 +11,11 @@ import "./App.css";
 // component pages
 import Login from "views/pages/auth/login/Login";
 import Register from "views/pages/auth/member/signup";
-import ForgotPassword from "views/pages/auth/member/forgot-password/"
-import ResetPassword from "views/pages/auth/member/forgot-password/reset-password"
+import ForgotPassword from "views/pages/auth/member/forgot-password/";
+import ResetPassword from "views/pages/auth/member/forgot-password/reset-password";
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
-import ActiveAccount from "views/pages/auth/member/signup/active-account"
+import ActiveAccount from "views/pages/auth/member/signup/active-account";
+import CompanyReviews from 'views/pages/companyReviews';
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:access_token" element={<ResetPassword />} />
         <Route path="/active-account/:access_token" element={<ActiveAccount />} />
+        <Route path="/companies/:slug" element={<CompanyReviews />} />
         <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login />} />)
         <Route path="/cv-template" element={(!isLoggedIn)
           ? <CVTemplate />

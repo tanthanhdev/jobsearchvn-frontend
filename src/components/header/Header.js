@@ -94,7 +94,7 @@ export const Header = () => {
             </li>
             <li className={`${styles.header__left__item} ${styles["header-post-job"]}`}>
               <a href="/" onClick={logOut} className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}>
-                LogOut
+                Đăng xuất
               </a>
             </li>
           </>
