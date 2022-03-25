@@ -3,7 +3,7 @@
     display: flex;
     background-color: white;
     border-radius: 8px;
-    padding: 8px;
+    padding: 16px;
     -moz-box-shadow: 0px 0px 8px #000000;
     -webkit-box-shadow: 0px 0px 8px #c5c5c5;
     box-shadow: 0px 0px 8px #939393;
@@ -11,7 +11,7 @@
 .header-left {
     width: 200px;
     height: 150px;
-    border: 1px solid;
+    border: 1px solid lightgray;
 }
 .company-logo {
     width: 100%;
@@ -28,10 +28,10 @@
 }
 .header-center__name {
     display: grid;
+    color: #353535;
 }
 .company-name,
-.company-address,
-.company-specialization {
+.company-address {
     margin-bottom: 25px;
 }
 
@@ -46,16 +46,16 @@
 
 .header-right {
     height: 100px;
-    margin-top: 40px;
 }
 .btn {
     width: 143px;
     font-weight: 550;
-    margin-top: 10px;
-    height: 28px;
+    margin-top: 16px;
+    height: 40px;
     border: 1px solid #999;
     border-radius: 6px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #353535;
     cursor: pointer;
 }
 .btn-selected {

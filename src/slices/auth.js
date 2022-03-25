@@ -6,7 +6,7 @@ import authService from "services/auth.service";
 const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "auth/sign-up/member",
   async ({ first_name, last_name, email, password }, thunkAPI) => {
     try {
       const response = await authService.register(first_name, last_name, email, password);
@@ -151,6 +151,21 @@ const authSlice = createSlice({
       state.isSuccess = false
       state.message = action.payload
     },
+    [registerEmployer.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [registerEmployer.fulfilled]: (state, action) => {
+      state.isLoggedIn = false;
+      state.isLoading = false
+      state.isSuccess = true
+    },
+    [registerEmployer.rejected]: (state, action) => {
+      state.isLoggedIn = false;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
     [login.pending]: (state, action) => {
       state.isLoading = true
     },
@@ -183,7 +198,5 @@ export const selectIsLoggedIn = state => state.auth.isLoggedIn;
 export const selectIsLogging = state => state.auth.logging;
 
 // Reducer
-// const authReducer = authSlice.reducer;
-// export default authReducer;
-const { reducer } = authSlice;
-export default reducer;
+const authReducer = authSlice.reducer;
+export default authReducer;

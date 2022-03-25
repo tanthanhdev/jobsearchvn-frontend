@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import { Wrap } from 'components/wrap/Wrap';
+// components
 import { CompHeader } from './sections/CompHeader';
-// import { Jobs } from './sections/Jobs';
-// import { Blogs } from './sections/Blogs';
+import { LeftSection } from './sections/LeftSection';
+// services
 import authService from "services/auth.service";
 import { get_public_employer_detail } from "slices/company-reviews"
+// utils
 import styles from './styles.module.css';
 
 export const CompanyReviews = () => {
@@ -45,8 +47,8 @@ export const CompanyReviews = () => {
         <div className={styles.container}>
           <div className={styles.content}>
             <CompHeader company={company} />
-            {/* <leftSection /> */}
-            {/* <rightSection /> */}
+            <LeftSection company={company} />
+            {/* <RightSection /> */}
           </div>
         </div>
       )}
