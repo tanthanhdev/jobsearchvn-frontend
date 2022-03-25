@@ -7,9 +7,9 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ first_name, last_name, email, password, company_name, address, status }, thunkAPI) => {
+  async ({ first_name, last_name, email, password }, thunkAPI) => {
     try {
-      const response = await authService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
+      const response = await authService.register(first_name, last_name, email, password);
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;

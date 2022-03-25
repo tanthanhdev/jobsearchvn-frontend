@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 import { register } from "slices/auth";
+import { clearMessage, setMessage } from "slices/message";
 
 const Register = () => {
   const { message, isError, isSuccess, isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { message: mess } = useSelector((state) => state.message);
   const navigate = useNavigate()
+  
 
   const initialValues = {
     first_name: "",
@@ -24,10 +27,10 @@ const Register = () => {
     //   toast.error(message)
     // }
 
-    if (isSuccess || user) {
-      // dispatch(authActions.reset())
-      navigate('/');
-    }
+    // if (isSuccess || user) {
+    //   // dispatch(authActions.reset())
+    //   navigate('/');
+    // }
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const validationSchema = Yup.object().shape({
@@ -70,10 +73,11 @@ const Register = () => {
 
   const handleRegister = (formValue) => {
     const { first_name, last_name, email, password } = formValue;
-    
+    console.log({ first_name, last_name, email, password });
     dispatch(register({ first_name, last_name, email, password }))
       .unwrap()
-      .then(() => {
+      .then((res) => {
+        dispatch(setMessage(res.message))
       })
       .catch(() => {
         console.log(isError)
@@ -258,6 +262,18 @@ const Register = () => {
                 </div>
                 </div>
             ))}
+            {
+                mess && (
+                <div className="form-group">
+                <div
+                    className="alert alert-success"
+                    role="alert"
+                >
+                    {mess}
+                </div>
+                </div>
+                )
+            }
         </div>
     </div> 
   );
