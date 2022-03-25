@@ -23,9 +23,9 @@ export const register = createAsyncThunk(
 
 export const registerEmployer = createAsyncThunk(
   "auth/sign-up/employer/",
-  async ({ first_name, last_name, email, password }, thunkAPI) => {
+  async ({ first_name, last_name, email, phone_number, password, company_name, company_location, status }, thunkAPI) => {
     try {
-      const response = await AuthService.register(first_name, last_name, email, password);
+      const response = await AuthService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;

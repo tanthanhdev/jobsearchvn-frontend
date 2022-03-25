@@ -56,6 +56,16 @@ const RegisterEmployer = () => {
         val.toString().length <= 20
     )
     .required("This field is required!"),
+    phone_number: Yup.string()
+    .test(
+      "len",
+      "The Phone number must be between 3 and 20 characters.",
+      (val) =>
+        val &&
+        val.toString().length >= 3 &&
+        val.toString().length <= 20
+    )
+    .required("This field is required!"),
     email: Yup.string()
       .email("This is not a valid email.")
       .required("This field is required!"),
@@ -81,7 +91,7 @@ const RegisterEmployer = () => {
           val.toString().length <= 50
       )
       .required("This field is required!"),
-      address: Yup.string()
+      company_location: Yup.string()
       .test(
         "len",
         "The First name must be between 3 and 20 characters.",
@@ -102,9 +112,9 @@ const RegisterEmployer = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { first_name, last_name, email, password, company_name, address, status } = formValue;
+    const { first_name, last_name, email, password, company_name, company_location, phone_number, status } = formValue;
     // console.log({ first_name, last_name, email, password, company_name, address, status });
-    dispatch(registerEmployer({ first_name, last_name, email, password, company_name, address, status }))
+    dispatch(registerEmployer({ first_name, last_name, email, password, company_name, phone_number, company_location, status }))
       .unwrap()
       .then((res) => {
         dispatch(setMessage(res.message))
@@ -194,15 +204,23 @@ const RegisterEmployer = () => {
                                           placeholder="Nhập email"
                                       />
                                   </div>
+                                  <div className={`${styles["container__center-input"]} flex-dec-column`}>
+                                      <Field
+                                          name="phone_number"
+                                          type="text"
+                                          className={styles["container__center-input--email"]}
+                                          placeholder="Nhập phone number"
+                                      />
+                                  </div>
                                   <ErrorMessage
-                                      name="email"
+                                      name="phone_number"
                                       component="div"
                                       className="alert alert-danger"
                                   />
-                                  {isError && message.email &&(
+                                  {isError && message.phone_number &&(
                                       <div className="form-group">
                                       <div className="alert alert-danger" role="alert">
-                                          {message.email ? message.email : ""}
+                                          {message.phone_number ? message.phone_number : ""}
                                       </div>
                                       </div>
                                   )}
@@ -297,21 +315,21 @@ const RegisterEmployer = () => {
                                           <img className={`${styles["container__center-icon--email"]}`} src={icons.map_marker_alt_solid} alt="icon" />
                                       </span>
                                       <Field
-                                          name="address"
+                                          name="company_location"
                                           type="text"
                                           className={styles["container__center-input--email"]}
                                           placeholder="Địa chỉ"
                                       />
                                   </div>
                                   <ErrorMessage
-                                      name="address"
+                                      name="company_location"
                                       component="div"
                                       className="alert alert-danger"
                                   />
-                                  {isError && message.address &&(
+                                  {isError && message.company_location &&(
                                       <div className="form-group">
                                       <div className="alert alert-danger" role="alert">
-                                          {message.address ? message.address : ""}
+                                          {message.company_location ? message.company_location : ""}
                                       </div>
                                       </div>
                                   )}
