@@ -75,9 +75,10 @@ const Register = () => {
     const { first_name, last_name, email, password } = formValue;
     console.log({ first_name, last_name, email, password });
     dispatch(register({ first_name, last_name, email, password }))
-      .unwrap()
+    //   .unwrap()
       .then((res) => {
-        dispatch(setMessage(res.message))
+        console.log(111, res);
+        dispatch(setMessage(res.payload.message))
       })
       .catch(() => {
         console.log(isError)
@@ -227,6 +228,18 @@ const Register = () => {
                                     value="member"
                                     className="hide"
                                 />
+                                {
+                                    mess && (
+                                    <div className="form-group">
+                                    <div
+                                        className="alert alert-success"
+                                        role="alert"
+                                    >
+                                        {mess}
+                                    </div>
+                                    </div>
+                                    )
+                                }
                             </div>
                             <div className={styles["container__footer"]}>
                                 <button type="submit" className={`${styles["container__footer-login"]}`} disabled={isLoading}>
@@ -262,18 +275,6 @@ const Register = () => {
                 </div>
                 </div>
             ))}
-            {
-                mess && (
-                <div className="form-group">
-                <div
-                    className="alert alert-success"
-                    role="alert"
-                >
-                    {mess}
-                </div>
-                </div>
-                )
-            }
         </div>
     </div> 
   );
