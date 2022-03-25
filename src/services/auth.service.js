@@ -29,15 +29,9 @@ const register = (firstname, lastname, email, password) => {
   });;
 };
 
-const registerEmployer = (first_name, last_name, email, password, company_name, address, status) => {
+const registerEmployer = (first_name, last_name, email, phone_number, password, company_name, company_location, status) => {
   return axios.post(API_URL + "/auth/sign-up/employer/", {
-    first_name,
-    last_name,
-    email,
-    password,
-    company_name,
-    address, 
-    status,
+    first_name, last_name, email, phone_number, password, company_name, company_location, status,
     group: "employer"
   }).then((response) => {
     return response
