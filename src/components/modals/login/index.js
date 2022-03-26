@@ -140,7 +140,7 @@ const Login = ({showModal, toggleShow, isLoggedIn, setIsLoggedIn, setIsShowLogin
                                 </div>
                             </div>
                             </div>
-                        {isError && message && (
+                        {isError && message && typeof(message) === "string" && (
                             <div className="form-group">
                             <div
                                 className={isLoggedIn ? "alert alert-success" : "alert alert-danger"}

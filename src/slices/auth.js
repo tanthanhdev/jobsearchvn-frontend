@@ -16,7 +16,8 @@ export const register = createAsyncThunk(
       }
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message)
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -32,7 +33,8 @@ export const registerEmployer = createAsyncThunk(
       }
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message)
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -45,7 +47,8 @@ export const login = createAsyncThunk(
       return { user: data };
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -58,7 +61,8 @@ export const forgotPass = createAsyncThunk(
       return data.data;
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -71,7 +75,8 @@ export const resetPass = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -84,7 +89,8 @@ export const activeAccount = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -97,7 +103,8 @@ export const accountVerified = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );

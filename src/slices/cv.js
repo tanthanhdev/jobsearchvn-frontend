@@ -21,7 +21,8 @@ export const create_cv = createAsyncThunk(
       }
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message)
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
     }
   }
 );

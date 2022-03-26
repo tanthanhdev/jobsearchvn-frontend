@@ -17,10 +17,10 @@ const isLoggedIn = () => {
   return false;
 }
 
-const register = (firstname, lastname, email, password) => {
+const register = (first_name, last_name, email, password) => {
   return axios.post(API_URL + "/auth/sign-up/", {
-    first_name: firstname,
-    last_name: lastname,
+    first_name,
+    last_name,
     email,
     password,
     group: "member"

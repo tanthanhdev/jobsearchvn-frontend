@@ -9,11 +9,11 @@ import { register } from "slices/auth";
 import { clearMessage, setMessage } from "slices/message";
 
 const Register = () => {
-    const { isError, isSuccess, isLoading, user } = useSelector((state) => state.auth);
+    const { isError, isSuccess, isLoading } = useSelector((state) => state.auth);
     const { message } = useSelector((state) => state.message);
     const dispatch = useDispatch();
     //   const { message: mess } = useSelector((state) => state.message);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
 
     const initialValues = {
@@ -86,7 +86,10 @@ const Register = () => {
                 // dispatch(setMessage(res.payload.message))
             })
             .catch(() => {
-                console.log(isError)
+                if (message) {
+                    console.log(message);
+                }
+                console.log('iserror: ' + isError)
             });
     };
 
@@ -232,7 +235,7 @@ const Register = () => {
                                         value="member"
                                         className="hide"
                                     />
-                                    {message && (
+                                    {message && typeof(message) === "string" && (
                                         <div className="form-group">
                                             <div
                                                 className={isSuccess ? "alert alert-success" : "alert alert-danger"}

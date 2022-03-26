@@ -9,7 +9,7 @@ import { registerEmployer } from "slices/auth";
 import { clearMessage, setMessage } from "slices/message";
 
 const RegisterEmployer = () => {
-    const { isError, isSuccess, isLoading, user } = useSelector((state) => state.auth);
+    const { isError, isSuccess, isLoading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { message } = useSelector((state) => state.message);
     // const navigate = useNavigate()
@@ -207,6 +207,18 @@ const RegisterEmployer = () => {
                                                 className={styles["container__center-input--email"]}
                                                 placeholder="Nhập email"
                                             />
+                                            <ErrorMessage
+                                                name="email"
+                                                component="div"
+                                                className="alert alert-danger"
+                                            />
+                                            {isError && message.email && (
+                                                <div className="form-group">
+                                                    <div className="alert alert-danger" role="alert">
+                                                        {message.email ? message.email : ""}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className={`${styles["container__center-input"]} flex-dec-column`}>
                                             <Field
@@ -345,7 +357,7 @@ const RegisterEmployer = () => {
                                         />
                                     </div>
                                 </div>
-                                {(message && (
+                                {(message && typeof (message) === "string" && (
                                     <div className="form-group">
                                         <div
                                             className={isSuccess ? "alert alert-success" : "alert alert-danger"}
