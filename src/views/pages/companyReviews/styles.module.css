@@ -10,3 +10,8 @@
     max-width: 1024px;
     margin: 0 auto;
 }
+
+.sub_content {
+    display: flex;
+    justify-content: space-between;
+}

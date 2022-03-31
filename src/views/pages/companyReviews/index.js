@@ -5,6 +5,7 @@ import { Wrap } from 'components/wrap/Wrap';
 // components
 import { CompHeader } from './sections/CompHeader';
 import { LeftSection } from './sections/LeftSection';
+import { RightSection } from './sections/RightSection';
 // services
 import authService from "services/auth.service";
 import { get_public_employer_detail } from "slices/company-reviews"
@@ -13,8 +14,8 @@ import styles from './styles.module.css';
 
 export const CompanyReviews = () => {
   const isLoggedIn = authService.isLoggedIn()
-  // const { message: mess } = useSelector((state) => state.message);
-  const [ isError, setIsError ] = useState(false);
+  const { isError, isSuccess, isLoading } = useSelector((state) => state.company_review);
+  const { message } = useSelector((state) => state.message);
   const [ company, setCompany ] = useState('');
   const dispatch = useDispatch();
   const params = useParams();
@@ -27,11 +28,9 @@ export const CompanyReviews = () => {
       .then((res) => {
         console.log(res);
         setCompany(res);
-        setIsError(false);
       })
       .catch(() => {
         console.log('employer not found or error')
-        setIsError(true);
         console.log(isError)
         // return (
         //   <h1 style={{ textAlign: 'center', textDecoration: 'underline' }}>
@@ -47,8 +46,10 @@ export const CompanyReviews = () => {
         <div className={styles.container}>
           <div className={styles.content}>
             <CompHeader company={company} />
-            <LeftSection company={company} />
-            {/* <RightSection /> */}
+            <div className={styles.sub_content}>
+              <LeftSection company={company} />
+              <RightSection company={company} />
+            </div>
           </div>
         </div>
       )}

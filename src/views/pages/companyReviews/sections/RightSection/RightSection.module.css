@@ -1,57 +1,38 @@
 /* content-compnay detail */
-.content__left {
-    width: 100%;
-    max-width: 600px;
-    margin: 24px 0;
+.content__right {
+    display: flex;
+    flex-direction: column;
+    max-width: 330px;
+    margin-left: 20px;
+    margin-top: 24px;
+    height: 100%;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 0px 2px #c3c3c3;
 }
 .form {
     display: flex;
     border-bottom: 1px solid #333;
 }
 .page {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: rgba(107, 107, 107, 1);
     border: 1px solid;
     padding: 10px;
     border-bottom: none;
-    cursor: pointer;
 }
 .page-selected {
     border-left: 1px solid var(--primary-color);
     border-right: 1px solid var(--primary-color);
     border-top: 4px solid var(--primary-color);
     background: rgba(220, 220, 220, 1);
-    cursor: pointer;
-}
-.company-name,
-.company-address,
-.company-specialization {
-    margin-bottom: 25px;
-}
-
-.company-specialization__left,
-.company-specialization__center {
-    margin-right: 100px;
-}
-
-.work-schedule__left {
-    margin-right: 76px;
-}
-
-.header-right {
-    height: 100px;
-    margin-top: 40px;
 }
 .btn {
-    width: 143px;
     font-weight: 550;
-    margin-top: 10px;
-    height: 28px;
     border: 1px solid #999;
     border-radius: 6px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgb(0 0 0 / 25%);
 }
 .btn-selected {
     background-color: var(--primary-color);
@@ -60,23 +41,20 @@
 
 .content__heading {
     font-size: 14px;
-    padding: 8px;
-    font-weight: bold;
+    padding: 10px 0;
 }
 .job__item {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 2px;
-    margin: 8px;
-    padding: 8px 0;
+    margin: 10px 0;
 }
 .job {
     display: flex;
     margin: 10px;
 }
 .job__info {
-    width: 100%;
-    max-width: 400px;
-    font-size: 14px;
+    width: 400px;
+    font-size: 12px;
     display: grid;
     align-items: center;
 }
@@ -85,7 +63,7 @@
     height: 90px;
 }
 .job-requirements {
-    font-size: 14px;
+    font-size: 12px;
 }
 .job-requirements__language {
     border: 1px solid #999;
@@ -94,7 +72,7 @@
     margin-right: 6px;
 }
 .place-time {
-    font-size: 10px;
+    font-size: 12px;
 }
 .time {
     margin-top: 56px;
@@ -118,7 +96,7 @@
     font-size: 14px;
 }
 .my-skill__item {
-    font-size: 14px;
+    font-size: 12px;
     margin-right: 10px;
     border: 1px solid #999;
     padding: 1px;
@@ -126,7 +104,6 @@
 }
 .branch {
     display: flex;
-    justify-content: space-between;
 
 }
 .question__heading,
@@ -138,7 +115,7 @@
     margin: 8px 0;
 }
 .number {
-    font-size: 14px;
+    font-size: 12px;
     padding: 4px;
     border-radius: 50%;
     margin: 4px;
@@ -147,7 +124,7 @@
 }
 .question__item-name,
 .brach__item-name {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
 }
 .brach__item {
@@ -161,6 +138,14 @@
     height: 290px;
     border: 1px solid #666;
 }
+.evaluate,
+.container-right {
+    padding: 10px 8px;
+}
+.evaluate__heading {
+    font-size: 18px;
+    margin: 15px 0 10px 0;
+}
 .rating {
     font-size: 20px;
     display: flex;
@@ -173,28 +158,38 @@
 }
 .rating__point {
     margin: 2px 0 0 8px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
+}
+.evaluation-criteria {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    padding-bottom: 10px;
+}
+.evaluate__heading-supplement {
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding-top: 10px;
 }
 .rating-2 {
     display: flex;
     margin: 8px 0;
-    font-size: 14px;
+    font-size: 12px;
     align-items: center;
 }
 .rating__point-2 {
     margin: 2px 0 0 8px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
 }
 .evaluate__content {
-    font-size: 14px;
+    font-size: 12px;
 }
 .evaluate-view {
-    padding: 0 20px;
-    margin: 10px 100px 30px;
+    padding: 8px 28px;
     background-color: var(--primary-color);
     color: var(--white-color);
+    text-align: center;
+    margin: 12px auto;
 }
 
 
@@ -216,18 +211,4 @@
 .job__info-r {
     width: 100%;
     margin-left: 10px;
-}
-
-/* other */
-.list-job {
-    background-color: white;
-    box-shadow: 0px 0px 2px #c3c3c3;
-    border-radius: 4px;
-}
-
-.company-info {
-    background-color: white;
-    box-shadow: 0px 0px 2px #c3c3c3;
-    padding: 12px;
-    border-radius: 4px;
 }
