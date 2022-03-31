@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { AutoComplete } from "primereact/autocomplete";
 import CityService from "services/city.service";
 import PropTypes from "prop-types";
-import countriess from "api/countriesApi";
+import { useDispatch } from "react-redux";
+import { setSearchNormalSlice } from "./searchNormalSlice";
+import { setSearchLocationSlice } from "./searchLocationSlice";
+import { useNavigate } from "react-router-dom";
 
 function Banner(props) {
   const [cities, setCities] = useState([]);
   const [filteredCities, setFilteredCities] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
-
+  const [inputSearchNormal, setInputSearchNormal] = useState("");
+  const [inputSearchLocation, setInputSearchLocation] = useState("");
   useEffect(() => {
     CityService.getCities().then((data) => setCities(data));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -30,6 +34,19 @@ function Banner(props) {
     }, 250);
   };
 
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const handleChangeInputSearchNormal = (e) => {
+    setInputSearchNormal(e.target.value);
+  };
+  const onSubmitValueInput = () => {
+    const actionNormalSlice = setSearchNormalSlice(inputSearchNormal);
+    dispatch(actionNormalSlice);
+    const actionLocationlSlice = setSearchLocationSlice(inputSearchLocation);
+    dispatch(actionLocationlSlice);
+    navigate("/search");
+  };
+
   return (
     <div
       className="slider"
@@ -43,7 +60,7 @@ function Banner(props) {
           <div className="search__input-text">
             <i className="nav-search__icon fas fa-search"></i>
             <input
-              // onChange={onChange}
+              onChange={handleChangeInputSearchNormal}
               className="input__search"
               type="text"
               placeholder="Tìm kiếm việc làm, kỹ năng, tên công ty"
@@ -56,7 +73,10 @@ function Banner(props) {
               suggestions={filteredCities}
               completeMethod={searchCity}
               field="name"
-              onChange={(e) => setSelectedCity(e.value)}
+              onChange={(e) => {
+                setSelectedCity(e.value);
+                setInputSearchLocation(e.target.value);
+              }}
               placeholder="Thành phố"
             />
             {/* <select id="location" className="search__select-location">
@@ -72,7 +92,7 @@ function Banner(props) {
                         </select> */}
           </div>
           <div className="search__button">
-            <button>Tìm kiếm</button>
+            <button onClick={onSubmitValueInput}>Tìm kiếm</button>
           </div>
         </div>
       </div>

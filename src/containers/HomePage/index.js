@@ -7,6 +7,7 @@ import TopCompanies from "./TopCompanies";
 import Job from "./Job";
 import Blog from "./Blog";
 import { Wrap } from "components/wrap/Wrap";
+import { Header } from "components/header/Header";
 HomePage.propTypes = {};
 
 function HomePage(props) {
@@ -20,7 +21,7 @@ function HomePage(props) {
   return (
     <div id="main">
       <Wrap>
-        {/* Header */}
+        {/* <Header></Header> */}
         {/* banner */}
 
         <Banner onChange={handleChangeInputSearch}></Banner>
