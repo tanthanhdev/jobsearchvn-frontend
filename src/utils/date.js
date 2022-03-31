@@ -1,5 +1,4 @@
 var timeSince = date => {
-
     var seconds = Math.floor((new Date() - date) / 1000);
   
     var interval = seconds / 31536000;
@@ -27,7 +26,7 @@ var timeSince = date => {
 }
 
 var formatDate = dateString => {
-    return new Date(dateString).getTime() / 1000
+    return new Date(dateString);
 }
 
 const dateUtils = {

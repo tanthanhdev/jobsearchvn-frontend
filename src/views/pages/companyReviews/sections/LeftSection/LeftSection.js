@@ -39,8 +39,8 @@ export const LeftSection = (company) => {
                     </span>
                   </div>
                   <div className={styles["place-time"]}>
-                    <div className={styles["place"]}>{item.city.name ? item.city.name : ''}</div>
-                    <div className={styles["time"]}>{dateUtils.timeSince(new Date(Date.now()-dateUtils.formatDate(item.created_at)))}</div>
+                    <div className={styles["place"]}>{item.country.name ? item.country.name : ''}</div>
+                    <div className={styles["time"]}>{dateUtils.timeSince(dateUtils.formatDate(item.created_at))}</div>
                   </div>
               </div>
             </div>
