@@ -6,23 +6,7 @@ import authService from "services/auth.service";
 const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
-  "auth/register",
-  async ({ first_name, last_name, email, password, company_name, address, status }, thunkAPI) => {
-    try {
-      const response = await authService.registerEmployer(first_name, last_name, email, password, company_name, address, status);
-      if (response.status === 200 || response.status === 201) {
-        thunkAPI.dispatch(setMessage(response.data.message));
-        return response.data;
-      }
-    } catch (error) {
-      const message = error.response.data;
-      return thunkAPI.rejectWithValue(message)
-    }
-  }
-);
-
-export const registerEmployer = createAsyncThunk(
-  "auth/sign-up/employer/",
+  "auth/sign-up/member",
   async ({ first_name, last_name, email, password }, thunkAPI) => {
     try {
       const response = await authService.register(first_name, last_name, email, password);
@@ -32,7 +16,25 @@ export const registerEmployer = createAsyncThunk(
       }
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message)
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const registerEmployer = createAsyncThunk(
+  "auth/sign-up/employer/",
+  async ({ first_name, last_name, email, phone_number, password, company_name, company_location, status }, thunkAPI) => {
+    try {
+      const response = await authService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage("Cảm ơn bạn đã đăng ký nhà tuyển dụng. Vui lòng chờ hệ thống xác thực tối đa 24 giờ!"));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -45,7 +47,8 @@ export const login = createAsyncThunk(
       return { user: data };
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -58,7 +61,8 @@ export const forgotPass = createAsyncThunk(
       return data.data;
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -71,7 +75,8 @@ export const resetPass = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -84,7 +89,8 @@ export const activeAccount = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -97,7 +103,8 @@ export const accountVerified = createAsyncThunk(
       return data.data
     } catch (error) {
       const message = error.response.data;
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();;
     }
   }
 );
@@ -145,6 +152,21 @@ const authSlice = createSlice({
       state.isSuccess = true
     },
     [register.rejected]: (state, action) => {
+      state.isLoggedIn = false;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [registerEmployer.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [registerEmployer.fulfilled]: (state, action) => {
+      state.isLoggedIn = false;
+      state.isLoading = false
+      state.isSuccess = true
+    },
+    [registerEmployer.rejected]: (state, action) => {
       state.isLoggedIn = false;
       state.isLoading = false
       state.isError = true

@@ -93,13 +93,13 @@ const ForgotPassword = (props) => {
                 </div>
               </div>
             </div>
-          {isError && message && (
+          {isError && message && typeof(message) === "string" && (
             <div className="form-group">
               <div
                 className={isLoggedIn ? "alert alert-success" : "alert alert-danger"}
                 role="alert"
               >
-                {message.message}
+                {message}
               </div>
             </div>
           )}

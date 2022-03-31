@@ -158,7 +158,7 @@ export const Header = () => {
                   onClick={logOut}
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >
-                  LogOut
+                  Đăng xuất
                 </a>
               </li>
             </>

@@ -115,10 +115,10 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
     //   toast.error(message)
     // }
 
-    if (isSuccess || cv) {
-      // dispatch(authActions.reset())
-      navigate('/');
-    }
+    // if (isSuccess || cv) {
+    //   // dispatch(authActions.reset())
+    //   navigate('/');
+    // }
 
   }, [cv, isError, isSuccess, message, navigate, dispatch, isShowLoginModel])
 
@@ -230,6 +230,9 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
         toast.success("Chúc mừng bạn đã tạo thành công CV Mẫu!", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 250);
       })
       .catch((e) => {
         console.log(e)
