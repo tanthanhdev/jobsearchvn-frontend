@@ -232,7 +232,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
         });
         setTimeout(() => {
           window.location.reload();
-        }, 250);
+        }, 1000);
       })
       .catch((e) => {
         console.log(e)
