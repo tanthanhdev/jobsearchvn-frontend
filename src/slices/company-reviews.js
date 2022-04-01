@@ -22,23 +22,35 @@ export const get_public_employer_detail = createAsyncThunk(
   }
 );
 
-// const initialState = {
-// //   cv: cv ? cv : null,
-//   isError: false,
-//   isSuccess: false,
-//   isLoading: false,
-//   message: '',
-// }
+export const create_review = createAsyncThunk(
+  "cvs/",
+  async ({ employer_id, title, content, point }, thunkAPI) => {
+    try {
+      const response = await userService.create_review(employer_id, title, content, point);
+      if (response.status === 200 || response.status === 201) {
+        console.log(response.status)
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+const initialState = {
+//   cv: cv ? cv : null,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: '',
+}
 
 const CompanyReviewsSlice = createSlice({
   name: "CompanyReviews",
-  initialState: {
-    //   cv: cv ? cv : null,
-      isError: false,
-      isSuccess: false,
-      isLoading: false,
-      message: '',
-    },
+  initialState,
   // reducers: {
   //   get_public_employer_detail: (state, action) => {
   //   //   state.cv = action.payload
@@ -64,6 +76,22 @@ const CompanyReviewsSlice = createSlice({
     },
     [get_public_employer_detail.rejected]: (state, action) => {
     //   state.cv = null;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [create_review.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [create_review.fulfilled]: (state, action) => {
+      state.review = action.payload;
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [create_review.rejected]: (state, action) => {
+      state.review = null;
       state.isLoading = false
       state.isError = true
       state.isSuccess = false

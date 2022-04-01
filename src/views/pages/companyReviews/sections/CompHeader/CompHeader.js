@@ -55,7 +55,7 @@ export const CompHeader = (company) => {
         toggleShow={toggleShow}
         isLoggedIn = {isLoggedIn}
         setIsLoggedIn = {setIsLoggedIn}
-        slug = {company.company.slug}
+        pk = {company.company.pk}
       />
     </div>
   )

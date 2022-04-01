@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 var timeSince = date => {
     var seconds = Math.floor((new Date() - date) / 1000);
   
@@ -25,8 +27,8 @@ var timeSince = date => {
     return Math.floor(seconds) + " giây trước";
 }
 
-var formatDate = dateString => {
-    return new Date(dateString);
+var formatDate = (dateString, type) => {
+  return moment(dateString).format(type);
 }
 
 const dateUtils = {

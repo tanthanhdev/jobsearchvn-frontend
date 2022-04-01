@@ -114,7 +114,9 @@ const Register = () => {
                         <div>
                             <div className={styles["form-container"]}>
                                 <div className={styles["container__header"]}>
-                                    <img className={styles["container__header-logo"]} src={icons.logo} alt="logo" />
+                                    <a href="/" >
+                                        <img className={styles["container__header-logo"]} src={icons.logo} alt="logo" />
+                                    </a>
                                     <h1 className={styles["container__header-name"]}>Đăng Ký Thành Viên</h1>
                                 </div>
                                 <div className={styles["container__center"]}>

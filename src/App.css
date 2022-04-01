@@ -4,6 +4,18 @@ label {
   margin-top: 10px;
 }
 
+input {
+  border: 1px solid #adadad;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
+textarea {
+  border: 1px solid #adadad;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
 .login-form,
 .signup-form {
   max-width: 350px;

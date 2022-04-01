@@ -15,7 +15,7 @@ const getEmployerBoard = (id) => {
 };
 
 
-// Public employer
+// Employer
 const getPublicEmployer = () => {
   return axios.get(API_URL + "/public/employers/");
 };
@@ -29,6 +29,19 @@ const getPublicJob = () => {
 };
 
 // Member
+const create_review = (employer_id, title, content, point) => {
+  return axios
+    .post(API_URL + "/reviews/", {
+      employer_id, title, content, point
+    }, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        localStorage.setItem("review", JSON.stringify(response.data));
+        return response;
+      }
+      return null
+    });
+};
 
 const userService = {
   getPublicContent,
@@ -37,6 +50,7 @@ const userService = {
   getPublicEmployer,
   getPublicJob,
   getPublicEmployerDetail,
+  create_review,
 };
 
 export default userService

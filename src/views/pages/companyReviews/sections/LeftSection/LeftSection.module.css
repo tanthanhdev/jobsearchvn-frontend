@@ -3,6 +3,14 @@
     width: 100%;
     max-width: 600px;
     margin: 24px 0;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+@media (min-width: 768px) {
+    .content__left {
+        flex: 0 0 55%;
+        max-width: 55%;
+    }
 }
 .form {
     display: flex;
@@ -16,6 +24,9 @@
     padding: 10px;
     border-bottom: none;
     cursor: pointer;
+}
+.page:hover {
+    color: var(--primary-color);
 }
 .page-selected {
     border-left: 1px solid var(--primary-color);
@@ -221,13 +232,13 @@
 /* other */
 .list-job {
     background-color: white;
-    box-shadow: 0px 0px 2px #c3c3c3;
+    box-shadow: -1px 1px 6px rgb(0 0 0 / 5%);
     border-radius: 4px;
 }
 
 .company-info {
     background-color: white;
-    box-shadow: 0px 0px 2px #c3c3c3;
+    box-shadow: -1px 1px 6px rgb(0 0 0 / 5%);
     padding: 12px;
     border-radius: 4px;
 }
