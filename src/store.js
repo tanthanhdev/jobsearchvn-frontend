@@ -12,6 +12,7 @@ const reducer = {
   company_review: CompanyReviewsReducer,
   cv_template: CvTemplateReducer,
   message: messageReducer,
+  // profileEmployer: CompanyProfileReducer,
   searchNormalSlice: searchNormalSlice,
   searchLocationSlice: searchLocationSlice,
   viewDetailPageSlice: viewDetailPageSlice,

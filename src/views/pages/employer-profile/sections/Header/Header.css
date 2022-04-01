@@ -1,0 +1,81 @@
+/* Profile of employer */
+.container {
+    background-color: var(--white-color);
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.wrapper__employ {
+    background-color: #E5E5E5;
+}
+
+/* Header */
+.header_employ {
+    position: relative;
+    background-color: var(--white-color);
+    padding-left: 190px;
+    /* margin-top: 50px; */
+}
+.header__item {
+    width: 500px;
+    margin-top: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+}
+.item__top
+ {
+    display: flex;
+    margin: 15px 15px 15px 42px;
+    justify-content: space-between;
+    font-size: 1.6rem;
+}
+.item__top-icon {
+    color: var(--primary-color);
+}
+.item__bottom {
+    display: flex;
+    margin: 15px 15px 15px 42px;
+    font-size: 1.4rem;
+}
+.item__bottom-icon {
+    color: rgba(151, 151, 151, 1);
+    margin-right: 10px;
+}
+.item__bottom--title {
+    margin: 0 0px 0 308px;
+}
+.item__avatar {
+    position: absolute;
+    top: 12px;
+    left: 155px;
+    width: 70px;
+    border-radius: 50%;
+}
+/* Navbar */
+.header__navbar {
+    margin-left: -40px;
+    font-size: 1.3rem;
+}
+.header__navbar-item {
+    color: rgba(118, 118, 118, 1);
+    margin-right: 30px;
+    cursor: pointer;
+}
+.active {
+    line-height: 38px;
+    color: var(--text-color);
+}
+.header__navbar-icon {
+    margin-left: -24px;
+}
+.line {
+    position: absolute;
+    left: -40px;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    transition: all 0.2s ease;
+}

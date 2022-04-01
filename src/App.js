@@ -29,6 +29,7 @@ import HomePage from "containers/HomePage";
 import ProfileMember from "containers/ProfileMember";
 import SearchPage from "containers/SearchPage";
 import ViewDetailPage from "containers/ViewDetailPage";
+import EmployerProfile from "views/pages/employer-profile";
 
 const App = () => {
   const isLoggedIn = authService.isLoggedIn(); //dont remove
@@ -74,6 +75,10 @@ const App = () => {
         <Route
           path="/login"
           element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/employer/profile"
+          element={<EmployerProfile />}
         />
         )
         <Route
