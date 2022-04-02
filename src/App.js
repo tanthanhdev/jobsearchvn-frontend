@@ -15,7 +15,8 @@ import ForgotPassword from "views/pages/auth/member/forgot-password/";
 import ResetPassword from "views/pages/auth/member/forgot-password/reset-password";
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
 import ActiveAccount from "views/pages/auth/member/signup/active-account";
-import CompanyReviews from "views/pages/companyReviews";
+import CompanyReviews from "views/pages/companyReviews/company-detail";
+import SearchCompanyReviews from "views/pages/companyReviews/companies";
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
@@ -71,6 +72,7 @@ const App = () => {
           path="/active-account/:access_token"
           element={<ActiveAccount />}
         />
+        <Route path="/companies" element={<SearchCompanyReviews />} />
         <Route path="/companies/:slug" element={<CompanyReviews />} />
         <Route
           path="/login"

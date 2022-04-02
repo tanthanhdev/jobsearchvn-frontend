@@ -17,19 +17,21 @@ export const CompanyReviews = () => {
   const { isError } = useSelector((state) => state.company_review);
   // const { message } = useSelector((state) => state.message);
   const [company, setCompany] = useState('');
+  const [isReloadReview, setIsReloadReview] = useState(false);
   const dispatch = useDispatch();
   const params = useParams();
   const [showJobs, setShowJobs] = useState(false);
   const [showReviews, setShowReviews] = useState(true);
 
   useEffect(() => {
-
+    console.log('isReloadReview: ', isReloadReview);
     let slug = params.slug
     dispatch(get_public_employer_detail({ slug }))
       .unwrap()
       .then((res) => {
         console.log(res);
         setCompany(res);
+        setIsReloadReview(false);
       })
       .catch(() => {
         console.log('employer not found or error')
@@ -40,35 +42,27 @@ export const CompanyReviews = () => {
         //   </h1>
         // )
       });
-  }, [dispatch]);
+  }, [dispatch, isReloadReview===true]);
 
   return (
     <Wrap>
-      {!isError && company.status && (
+      {company && company.status && (
         <div className={styles.container}>
           <div className={styles.content}>
-            <CompHeader company={company} />
+            <CompHeader company={company} setIsReloadReview={setIsReloadReview} isReloadReview={isReloadReview} />
             <div className={styles.sub_content}>
               <LeftSection
                 company={company}
                 showJobs={showJobs}
                 setShowJobs={setShowJobs}
                 showReviews={showReviews}
-                setShowReviews={setShowReviews} />
+                setShowReviews={setShowReviews}
+                isReloadReview={isReloadReview} />
               <RightSection
                 company={company}
                 setShowJobs={setShowJobs}
-                setShowReviews={setShowReviews} />
+                isReloadReview={isReloadReview} />
             </div>
-          </div>
-        </div>
-      )}
-      {isError && (
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <h1 style={{ textAlign: 'center', textDecoration: 'underline' }}>
-              PAGE NOT FOUND <i style={{ color: 'red' }}>404</i>
-            </h1>
           </div>
         </div>
       )}

@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from "yup";
 import StarRatings from 'react-star-ratings';
 // components
-import { Login } from "components/modals";
 // services
 // import authService from "services/auth.service";
 // slices
@@ -17,11 +16,10 @@ import { create_review } from "slices/company-reviews";
 // import { icons } from 'utils/icons';
 import styles from './style.module.css';
 
-const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsLoggedIn }) => {
+const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsReloadReview }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const { isError, isSuccess, isLoading } = useSelector((state) => state.auth);
+  const { isError, isLoading } = useSelector((state) => state.company_review);
   const { message } = useSelector((state) => state.message);
-  const [isShowLoginModel, setIsShowLoginModel] = useState(false);
   const [rating, setRating] = useState(0);
 
   const dispatch = useDispatch();
@@ -36,13 +34,10 @@ const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsLoggedIn }) 
 
   useEffect(() => {
     console.log('isloggedin at duplicated: ', isLoggedIn);
-    if (isShowLoginModel) {
-      toggleShow();
-    }
 
-    if (isError) {
-      toast.error(message)
-    }
+    // if (isError) {
+    //   toast.error(message)
+    // }
 
     if (showModal && isLoggedIn && user && user.is_active && user.staff) {
       toast.error('Tài khoản công ty không thể tạo đánh giá', {
@@ -50,7 +45,7 @@ const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsLoggedIn }) 
       })
     }
 
-  }, [dispatch, isShowLoginModel]);
+  }, [dispatch]);
 
   var changeRating = (value) => {
     setRating(value);
@@ -73,13 +68,12 @@ const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsLoggedIn }) 
     }))
       .unwrap()
       .then((data) => {
+        setIsReloadReview(true);
+        setRating(0);
         toggleShow();
         toast.success("Tạo bài đánh giá công ty thành công!", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
       })
       .catch((e) => {
         if (e.code === 'token_not_valid') {
@@ -107,10 +101,6 @@ const CreateReview = ({ pk, showModal, toggleShow, isLoggedIn, setIsLoggedIn }) 
       <div>
         <ToastContainer draggablePercent={60} limit={5} />
       </div>
-      {!isLoggedIn && (
-        <Login showModal={showModal} toggleShow={toggleShow} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
-          setIsShowLoginModel={setIsShowLoginModel} />
-      )}
       {isLoggedIn && user && user.is_active && !user.staff && (
         <Modal show={showModal} onHide={toggleShow} dialogClassName={`${styles["custom-modal"]}`}>
           <Formik

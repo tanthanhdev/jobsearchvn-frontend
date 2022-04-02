@@ -9,7 +9,7 @@ import StarRatings from 'react-star-ratings';
 import dateUtils from "utils/date"
 import styles from './reviews.module.css';
 
-export const Reviews = (company) => {
+export const Reviews = ({company, isReloadReview}) => {
     // const user = JSON.parse(localStorage.getItem('user'));
     // const [isLoggedIn, setIsLoggedIn] = useState(authService.isLoggedIn());
     // const [showModal, setShowModal] = useState(false);
@@ -17,16 +17,16 @@ export const Reviews = (company) => {
     const [rating, setRating] = useState(0);
 
     useEffect(() => {
-        if (company.company.employer_reviews.length > 0) {
+        if (company.employer_reviews.length > 0) {
             let ratingFinal = 0;
-            company.company.employer_reviews.map(review => {
+            company.employer_reviews.map(review => {
                 if (review.point && review.status) {
                     ratingFinal += review.point;
                 }
             });
-            setRating(ratingFinal / company.company.employer_reviews.length)
+            setRating(ratingFinal / company.employer_reviews.length)
         }
-    }, []);
+    }, [isReloadReview===true]);
 
     return (
         <>
@@ -39,8 +39,8 @@ export const Reviews = (company) => {
                     starRatedColor="yellow"
                 />
             </div>
-            <div className={styles["total-rating"]}>{company.company.employer_reviews.length} Đánh giá</div>
-            {company.company.employer_reviews && company.company.employer_reviews.map((review, index) => {
+            <div className={styles["total-rating"]}>{company.employer_reviews.length} Đánh giá</div>
+            {company.employer_reviews && company.employer_reviews.map((review, index) => {
                 return (
                     <div className={styles["evaluation-criteria"]} key={index}>
                         <h3 className={styles["evaluate__heading-supplement"]}>{review.title}</h3>

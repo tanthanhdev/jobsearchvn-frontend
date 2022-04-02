@@ -8,7 +8,7 @@ import StarRatings from 'react-star-ratings';
 // import dateUtils from "utils/date"
 import styles from './RightSection.module.css';
 
-export const RightSection = ({ company, setShowJobs, setShowReviews }) => {
+export const RightSection = ({ company, setShowJobs, setShowReviews, isReloadReview }) => {
     // const user = JSON.parse(localStorage.getItem('user'));
     // const [isLoggedIn, setIsLoggedIn] = useState(authService.isLoggedIn());
     const [rating, setRating] = useState(0);
@@ -23,7 +23,7 @@ export const RightSection = ({ company, setShowJobs, setShowReviews }) => {
             });
             setRating(ratingFinal / company.employer_reviews.length)
         }
-    }, []);
+    }, [isReloadReview===true]);
 
     return (
         <div className={styles["content__right"]}>

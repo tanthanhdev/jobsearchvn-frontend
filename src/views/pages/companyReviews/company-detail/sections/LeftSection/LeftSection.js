@@ -10,12 +10,11 @@ import { Reviews } from "./components/reviews";
 // import dateUtils from "utils/date"
 import styles from './LeftSection.module.css';
 
-export const LeftSection = ({company, showJobs, setShowJobs, showReviews, setShowReviews}) => {
+export const LeftSection = ({company, showJobs, setShowJobs, showReviews, setShowReviews, isReloadReview}) => {
   // const user = JSON.parse(localStorage.getItem('user'));
   // const [isLoggedIn, setIsLoggedIn] = useState(authService.isLoggedIn());
   // const [showModal, setShowModal] = useState(false);
   // const toggleShow = () => setShowModal(p => !p);
-console.log(company)
   var toggleShowJob = () => {
     setShowReviews(false);
     setShowJobs(true);
@@ -43,7 +42,7 @@ console.log(company)
       ) : null
       }
       {showReviews ? (
-        <Reviews company={company} />
+        <Reviews company={company} isReloadReview={isReloadReview} />
       ) : null
       }
     </div>

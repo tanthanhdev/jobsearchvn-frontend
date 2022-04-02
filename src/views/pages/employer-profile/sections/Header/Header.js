@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { get_employer_detail } from "slices/company-profile";
 
 export const Header = ({activeIndex, changeTab}) => {
-    const { isError, isSuccess, isLoading } = useSelector((state) => state.profileEmployer);
+    const { isSuccess } = useSelector((state) => state.profileEmployer);
     const dispatch = useDispatch();
 
     const [company, setCompany] = useState(null)
@@ -48,11 +48,11 @@ export const Header = ({activeIndex, changeTab}) => {
                         <img class="item__avatar" src={company.logo ? company.logo : avaCompany} alt="avatar company"/>
                     </div>
                     <div class="header__navbar">
-                        <span class={`header__navbar-item ${activeIndex == 0 ? 'active' : ''}`} onClick={() => handleChangeTab(0)}>Hồ sơ công ty</span>
-                        <span class={`header__navbar-item ${activeIndex == 1 ? 'active' : ''}`} onClick={() =>  handleChangeTab(1)}>Quản lý tuyển dụng</span>
-                        <span class={`header__navbar-item ${activeIndex == 2 ? 'active' : ''}`} onClick={ () => handleChangeTab(2)}>Thông báo ứng tuyển</span>
-                        <span class={`header__navbar-item ${activeIndex == 3 ? 'active' : ''}`} onClick={() => handleChangeTab(3)}>Hồ sơ đã lưu</span>
-                        <span class={`header__navbar-item ${activeIndex == 4 ? 'active' : ''}`} onClick={ () => handleChangeTab(4)}>Đăng tuyển công việc</span>
+                        <span class={`header__navbar-item ${activeIndex === 0 ? 'active' : ''}`} onClick={() => handleChangeTab(0)}>Hồ sơ công ty</span>
+                        <span class={`header__navbar-item ${activeIndex === 1 ? 'active' : ''}`} onClick={() =>  handleChangeTab(1)}>Quản lý tuyển dụng</span>
+                        <span class={`header__navbar-item ${activeIndex === 2 ? 'active' : ''}`} onClick={ () => handleChangeTab(2)}>Thông báo ứng tuyển</span>
+                        <span class={`header__navbar-item ${activeIndex === 3 ? 'active' : ''}`} onClick={() => handleChangeTab(3)}>Hồ sơ đã lưu</span>
+                        <span class={`header__navbar-item ${activeIndex === 4 ? 'active' : ''}`} onClick={ () => handleChangeTab(4)}>Đăng tuyển công việc</span>
                         <i class="header__navbar-icon far fa-plus-square"></i>
                         <div class="line"></div>
                     </div>
