@@ -32,7 +32,7 @@ const SearchPage = () => {
   return (
     <>
       <Header />
-      <div className="pt-[100px] grid" style={{height: "58vh"}}>
+      <div className="pt-[100px] grid" style={{maxHeight: "58vh"}}>
         <div className="grid wide">
           <h2 className="font-bold">{jobs["results"] ? jobs["results"].length : 0} Kết quả được tìm thấy</h2>
           <div className="roww">
