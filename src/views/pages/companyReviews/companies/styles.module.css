@@ -374,7 +374,7 @@ img, svg {
     margin-left: auto;
     margin-top: 10px;
     flex: 0 0 55px;
-    align-items: start;
+    /* align-items: start; */
     display: inline-flex;
     justify-content: space-around;
 }

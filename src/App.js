@@ -63,7 +63,8 @@ const App = () => {
         <Route path="/view-detail" element={<ViewDetailPage />}>
           <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
         </Route>
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:q" element={<SearchPage />} />
+        <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
           path="/reset-password/:access_token"
           element={<ResetPassword />}
