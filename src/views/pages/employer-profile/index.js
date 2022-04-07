@@ -12,9 +12,26 @@ import { useState } from 'react';
 
 export const EmployerProfile = () => {
   const [activeIndex, setActiveIndex] = useState(0)
-
+  const [isEdit, setIsEdit] = useState(false)
   const changeTab = (index) => {
     setActiveIndex(index)
+  }
+
+  const handleEditInfo = () => {
+    setIsEdit(true)
+  }
+
+  const contentRedering = () => {
+    if(activeIndex === 0) {
+      return <InfoCompany isActive={activeIndex === 0} isEdit={isEdit}/>
+    } else if (activeIndex === 1) {
+      return <ManagerCompany  isActive={activeIndex === 1}/>
+    }else if (activeIndex === 2) {
+      return<InformCompany  isActive={activeIndex === 2}/>
+    }else if (activeIndex === 3) {
+      return <SaveProfileCompany  isActive={activeIndex === 3}/>
+    }
+
   }
 
   return (
@@ -22,16 +39,9 @@ export const EmployerProfile = () => {
       <div className='wrapper__employ' style={{ minHeight: '500px' }}>
         <div style={{ paddingTop: '50px' }}></div>
         <div class="container">
-          <Header activeIndex={activeIndex} changeTab={changeTab}/>
+          <Header activeIndex={activeIndex} changeTab={changeTab} handleEdit={handleEditInfo}/>
           <div class="container__content">
-              {/* <!-- Hồ sơ công ty --> */}
-              <InfoCompany isActive={activeIndex === 0}/>
-              {/* <!-- Quản lý tuyển dụng --> */}
-              <ManagerCompany  isActive={activeIndex === 1}/>
-              {/* <!-- Thông báo ứng tuyển --> */}
-              <InformCompany  isActive={activeIndex === 2}/>
-              {/* <!-- Hồ sơ đã lưu --> */}
-              <SaveProfileCompany  isActive={activeIndex === 3}/>
+              {contentRedering()}
           </div>
       </div>
       </div>

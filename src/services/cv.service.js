@@ -42,10 +42,34 @@ const getDesigns = () => {
     });
 };
 
+const getAllCvs = () => {
+  return axios
+    .get(API_URL + "/cvs/save/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response.data;
+      }
+      return null
+    });
+};
+
+const deleteSaveCv = (cv_id) => {
+  return axios
+    .delete(API_URL + "/cvs/save/" + cv_id + '/', { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response.data;
+      }
+      return null
+    });
+};
+
 const CvService = {
   create_cv,
   getCareers,
   getDesigns,
+  getAllCvs,
+  deleteSaveCv
 };
 
 export default CvService;

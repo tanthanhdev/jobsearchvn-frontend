@@ -5,18 +5,18 @@ import avaCompany from '../../images/avatar company.jpg'
 import { useDispatch, useSelector } from "react-redux";
 import { get_employer_detail } from "slices/company-profile";
 
-export const Header = ({activeIndex, changeTab}) => {
+export const Header = ({activeIndex, changeTab, handleEdit}) => {
     const { isSuccess } = useSelector((state) => state.profileEmployer);
     const dispatch = useDispatch();
 
     const [company, setCompany] = useState(null)
 
     useEffect(() => {
-        dispatch(get_employer_detail({id: 45}))
+        dispatch(get_employer_detail())
         .unwrap()
         .then((res) => {
             let { user, ...companyDetail} = res
-            console.log(companyDetail);
+            // console.log(companyDetail);
             setCompany(companyDetail)
         })
         .catch((err) => {
@@ -37,8 +37,10 @@ export const Header = ({activeIndex, changeTab}) => {
                     <div class="header__item">
                         <div class="item__top">
                             <h3 class="company-name">{company.company_name ?? ''}</h3>
-                            <i class="item__top-icon far fa-comment-alt"></i>
-                            <i class="item__top-icon fas fa-pen"></i>
+                            <div>
+                                <button  style={{ marginRight: '15px' }}><i class="item__top-icon far fa-comment-alt"></i></button>
+                                <button onClick={handleEdit}><i class="item__top-icon fas fa-pen"></i></button>
+                            </div>
                         </div>
                         <div class="item__bottom">
                             <i class="fas fa-map-marker-alt item__bottom-icon"></i>

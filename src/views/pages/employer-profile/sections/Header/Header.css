@@ -17,7 +17,7 @@
     /* margin-top: 50px; */
 }
 .header__item {
-    width: 500px;
+    width: 600px;
     margin-top: 40px;
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
@@ -55,7 +55,7 @@
 /* Navbar */
 .header__navbar {
     margin-left: -40px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 .header__navbar-item {
     color: rgba(118, 118, 118, 1);

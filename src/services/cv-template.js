@@ -26,7 +26,7 @@ const setViewCvTemplate = (template_id) => {
 
 const CvTemplateService = {
   getCvTemplates,
-  setViewCvTemplate
+  setViewCvTemplate,
 };
 
 export default CvTemplateService;
