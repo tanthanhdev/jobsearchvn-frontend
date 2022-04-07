@@ -27,7 +27,7 @@ function HomePage(props) {
         <Banner onChange={handleChangeInputSearch}></Banner>
         <main className="grid main" style={{ paddingTop: "48px" }}>
           {/* Top jobs */}
-          <TopCompanies></TopCompanies>
+          {/* <TopCompanies></TopCompanies> */}
           <Job></Job>
           <Blog></Blog>
         </main>

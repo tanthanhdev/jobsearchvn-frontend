@@ -29,61 +29,63 @@ function Job(props) {
     dispatch(setViewDetailPageSlice(jobToViewDetail[0]));
   };
   return (
-    <div
-      className="grid wide sub-content"
-      style={{ backgroundImage: "url(./assets/img/Vector.png)" }}
-    >
-      <header className="sub-content__header">
-        <h2>Việc Làm Hấp Dẫn</h2>
-      </header>
-      <div className="nav_sub-content roww nav_sub-primary">
-        {jobs &&
-          isActivejobs.map((items, index) => (
-            <>
-              <div
-                onClick={() => handleNavigateToViewDetail(items.id)}
-                key={index}
-                className="nav_sub-content-link coll l-4 m-6 c-12"
-              >
-                <img
-                  src={items.employer.logo}
-                  alt={items.employer.company_name}
-                  className="nav_sub-content-logo"
-                />
-                <div className="nav_sub-content-description">
-                  <header>
-                    <h3>{items.title.toUpperCase()}</h3>
-                  </header>
-                  <nav>
-                    <div className="nav_sub-content-pay">
-                      <i className="fas fa-dollar-sign" />
-                      <span>
-                        Lương: Trên {items.salary} {items.currency}{" "}
+    <>
+      <div
+        className="grid wide sub-content"
+        style={{ backgroundImage: "url(./assets/img/Vector.png)" }}
+      >
+        <header className="sub-content__header">
+          <h2>Việc Làm Hấp Dẫn</h2>
+        </header>
+        <div className="nav_sub-content roww nav_sub-primary">
+          {jobs &&
+            isActivejobs.map((items, index) => (
+              <>
+                <div
+                  onClick={() => handleNavigateToViewDetail(items.id)}
+                  key={index}
+                  className="nav_sub-content-link coll l-4 m-6 c-12"
+                >
+                  <img
+                    src={items.employer.logo}
+                    alt={items.employer.company_name}
+                    className="nav_sub-content-logo"
+                  />
+                  <div className="nav_sub-content-description">
+                    <header>
+                      <h3>{items.title.toUpperCase()}</h3>
+                    </header>
+                    <nav>
+                      <div className="nav_sub-content-pay">
+                        <i className="fas fa-dollar-sign" />
+                        <span>
+                          Lương: Trên {items.salary} {items.currency}{" "}
+                        </span>
+                      </div>
+                      <div className="nav_sub-content-location">
+                        <i className="fas fa-map-marker-alt" />
+                        <span>{items.employer.company_location}</span>
+                      </div>
+                      <span className="nav_sub-content-name">
+                        {items.employer.company_name}
                       </span>
-                    </div>
-                    <div className="nav_sub-content-location">
-                      <i className="fas fa-map-marker-alt" />
-                      <span>{items.employer.company_location}</span>
-                    </div>
-                    <span className="nav_sub-content-name">
-                      {items.employer.company_name}
-                    </span>
-                  </nav>
+                    </nav>
+                  </div>
                 </div>
-              </div>
-            </>
-          ))}
+              </>
+            ))}
+        </div>
+        <div className="sub-content__btn-list">
+          <ul>
+            <li className="sub-content__btn-item-btn sub-content__btn-item-prev"></li>
+            <div className="number__page"></div>
+            <li className="sub-content__btn-item-btn sub-content__btn-item-next">
+              &gt;
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="sub-content__btn-list">
-        <ul>
-          <li className="sub-content__btn-item-btn sub-content__btn-item-prev"></li>
-          <div className="number__page"></div>
-          <li className="sub-content__btn-item-btn sub-content__btn-item-next">
-            &gt;
-          </li>
-        </ul>
-      </div>
-    </div>
+    </>
   );
 }
 

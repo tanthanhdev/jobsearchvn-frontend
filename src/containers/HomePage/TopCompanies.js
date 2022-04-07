@@ -14,9 +14,9 @@ function TopCompanies(props) {
     fetchProducts();
   }, []);
   // check companyList isActived
-  const isActiveCompanies = companies.filter((company, index) => {
-    return company.user.is_active === true && company.user.is_staff === true;
-  });
+  // const isActiveCompanies = companies?.filter((company, index) => {
+  //   return company.user.is_active === true && company.user.is_staff === true;
+  // });
 
   return (
     <div className="grid wide content">
@@ -25,24 +25,26 @@ function TopCompanies(props) {
       </header>
       <div className="nav_content roww">
         {/* 4 cột */}
-        {isActiveCompanies.map((company, index) => (
-          <a key={index} className="nav coll l-3 m-6 c-12 ">
+        {companies?.map((company, index) => (
+          <div key={index} className="nav coll l-3 m-6 c-12 ">
             <div className="sub__nav">
               <img
                 className="nav__img"
-                src={company.logo}
-                alt={company.company_name}
+                src={company?.logo}
+                alt={company?.company_name}
               />
-              <span className="nav__description">{company.description}</span>
+              <span className="nav__description">{company?.description}</span>
               <footer className="nav__footer">
                 <span className="nav_quantity">
-                  {company.employer_job.length} jobs
+                  {company?.employer_job.length} jobs
                 </span>
                 -
-                <span className="nav_location">{company.company_location}</span>
+                <span className="nav_location">
+                  {company?.company_location}
+                </span>
               </footer>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>

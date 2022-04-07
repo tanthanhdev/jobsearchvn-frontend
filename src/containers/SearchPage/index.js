@@ -4,6 +4,7 @@ import { Header } from "components/header/Header";
 import { Footer } from "components/footer/Footer";
 import jobApi from "../../api/jobApi";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 SearchPage.propTypes = {};
 
@@ -11,7 +12,7 @@ function SearchPage(props) {
   const searchNormalSlice = useSelector((state) => state.searchNormalSlice);
   const searchLocationSlice = useSelector((state) => state.searchLocationSlice);
   console.log("searchLocationSlice", searchLocationSlice);
-  console.log(searchNormalSlice);
+  console.log("searchNormalSlice", searchNormalSlice);
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,10 @@ function SearchPage(props) {
     fetchProducts();
   }, []);
 
+  const navigate = useNavigate();
+  const onViewDetailJob = (idJob) => {
+    navigate(`/view-detail/${idJob}`);
+  };
   return (
     <>
       <Header />
@@ -34,8 +39,11 @@ function SearchPage(props) {
           <h2 className="font-bold"> Kết quả được tìm thấy</h2>
           <div className="roww">
             {jobs
-              .filter((value) => {
-                if (searchNormalSlice === "" && searchLocationSlice === "") {
+              ?.filter((value) => {
+                if (
+                  searchNormalSlice.trim() === "" &&
+                  searchLocationSlice.trim() === ""
+                ) {
                   return value;
                 } else if (
                   searchNormalSlice !== "" &&
@@ -52,9 +60,13 @@ function SearchPage(props) {
                     // value.employer.company_location
                     //   .toLowerCase()
                     //   .includes(searchNormalSlice.trim().toLowerCase()) ||
-                    value.city.name
+                    value.employer.company_location
                       .toLowerCase()
-                      .includes(searchLocationSlice.name.trim().toLowerCase())
+                      .includes(
+                        searchLocationSlice.employer.company_location
+                          .trim()
+                          .toLowerCase()
+                      )
                   );
                 } else if (
                   searchNormalSlice !== "" &&
@@ -64,20 +76,29 @@ function SearchPage(props) {
                     value.title
                       .toLowerCase()
                       .includes(searchNormalSlice.trim().toLowerCase()) &&
-                    value.city.name
+                    value.employer.company_location
                       .toLowerCase()
-                      .includes(searchLocationSlice.name.trim().toLowerCase())
+                      .includes(
+                        searchLocationSlice.employer.company_location
+                          .trim()
+                          .toLowerCase()
+                      )
                   );
                 }
               })
               .map((job) => {
                 return (
-                  <div className="coll cursor-pointer l-6 h-[260px] border rounded-2xl group">
+                  <div
+                    onClick={() => onViewDetailJob(job.id)}
+                    className="coll cursor-pointer l-6 h-[260px] border rounded-2xl group"
+                  >
                     <h2 className="font-bold text-base group-hover:text-red">
                       {job.title.toUpperCase()}
                     </h2>
                     <h3>{job.employer.company_name}</h3>
-                    <h3 className="text-base">{job.city.name}</h3>
+                    <h3 className="text-base">
+                      {job.employer.company_location}
+                    </h3>
                     <ul className="max-h-[80px] overflow-y-auto">
                       {job.description.split("\r\n").map((value) => (
                         <li className="text-[#6F6F6F]">{value}</li>
