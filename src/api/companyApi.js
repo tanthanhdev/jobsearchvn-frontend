@@ -4,7 +4,7 @@ const API_URL=process.env.REACT_APP_API_URL;
 const companyApi={
     getAll(){
         return axiosClient.get(API_URL+"/public/employers/"); //{params}
-    }, 
+    },
     // get(id){
     //     const url=`companys/${id}`
     //     return axiosClient.get(url)

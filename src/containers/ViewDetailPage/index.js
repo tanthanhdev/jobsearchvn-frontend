@@ -23,6 +23,7 @@ import classNames from "classnames";
 import { useParams } from "react-router-dom";
 import jobApi from "../../api/jobApi";
 import { useSelector } from "react-redux";
+import Map from "react-map-gl";
 
 ViewDetailPage.propTypes = {};
 const tab = [
@@ -39,6 +40,14 @@ function ViewDetailPage(props) {
   const [tabActive, setTabActive] = useState(0);
   const [dropdown, setDropdown] = useState(0);
 
+  const [viewport, setViewport] = useState({
+    width: "100vw",
+    height: "100vh",
+    latitude: 21.0244246,
+    longitude: 105.7938072,
+    zoom: 16,
+    zIndex: 2,
+  });
   const onSetTabActive = (index) => {
     setTabActive(index);
   };
@@ -61,9 +70,7 @@ function ViewDetailPage(props) {
     fetchProducts();
   }, []);
   console.log("jobView", jobView);
-  //dùng redux
-  // const detailJob = useSelector((state) => state.viewDetailPageSlice);
-  // console.log("jobview", detailJob);
+
   return (
     <>
       <Header></Header>
@@ -125,7 +132,7 @@ function ViewDetailPage(props) {
                 <div className="font-bold"> Địa điểm</div>
               </div>
               <a href="#" className="text-primary hover:underline ml-6">
-                {jobView?.city.name}
+                {jobView?.employer.company_location}
               </a>
               <img
                 alt="asd asd"
@@ -134,6 +141,18 @@ function ViewDetailPage(props) {
               />
             </div>
           </div>
+          <Map
+            initialViewState={{
+              longitude: -100,
+              latitude: 40,
+              zoom: 3.5,
+              width: "100wh",
+              height: "100vh",
+            }}
+            style={{ width: 600, height: 400 }}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+            MapboxAccessToken="pk.eyJ1Ijoidm9uZ3V5ZW50aGFpYW4iLCJhIjoiY2wxbWJsemdyMGg3ZTNjb2JreWhkbjJ1eiJ9.zOqBFP6ZOGtP5cBgKv_AGQ"
+          />
           <div className="py-2 px-3 w-1/3">
             <div>
               <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
@@ -149,14 +168,9 @@ function ViewDetailPage(props) {
                 <BsFillBagFill className="mr-2 mt-1 text-xs" />
                 <div>
                   <div className="font-bold">Ngành nghề</div>
+
                   <a href="#" className="text-primary hover:underline">
-                    Kế toán , kiểm toán ,
-                  </a>
-                  <a href="#" className="text-primary hover:underline">
-                    tài chính và đầu tư ,{" "}
-                  </a>
-                  <a href="#" className="text-primary hover:underline">
-                    Nghành khác
+                    {jobView?.slug}
                   </a>
                 </div>
               </div>
@@ -213,108 +227,25 @@ function ViewDetailPage(props) {
       <div className="container">
         <h2>PHÚC LỢI</h2>
         <ul className="flex flex-wrap">
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
-          <li className="flex w-[33%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
-            <span>Chế độ bảo hiểm</span>
-          </li>
+          {jobView?.job_benefits.map((value, index) => (
+            <li key={index} className="flex w-[33%]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                />
+              </svg>
+              <span>{value.benefit}</span>
+            </li>
+          ))}
         </ul>
         <div>
           <h2>MÔ TẢ CÔNG VIỆC</h2>
@@ -323,31 +254,13 @@ function ViewDetailPage(props) {
           ))}
 
           <h2>YÊU CẦU CÔNG VIỆC</h2>
-          <span className="block">
-            - Tốt nghiệp Đại học, Cao đẳng Dược Có kinh nghiệm quản lý & mua
-            hàng dược phẩm 2 năm
-          </span>
-          <span className="block">
-            - Tốt nghiệp Đại học, Cao đẳng Dược Có kinh nghiệm quản lý & mua
-            hàng dược phẩm 2 năm
-          </span>
-          <span className="block">
-            - Tốt nghiệp Đại học, Cao đẳng Dược Có kinh nghiệm quản lý & mua
-            hàng dược phẩm 2 năm
-          </span>
-          <span className="block">
-            - Tốt nghiệp Đại học, Cao đẳng Dược Có kinh nghiệm quản lý & mua
-            hàng dược phẩm 2 năm
-          </span>
+          {jobView?.job_requirement.split(".").map((value, index) => (
+            <span key={index} className="block">
+              - {value}
+            </span>
+          ))}
           <h2>THÔNG TIN KHÁC</h2>
-          <span className="block">Bằng cấp: Đại học</span>
-          <span className="block">Thời gian thử việc: Tối đa 2 tháng</span>
-          <span className="block">
-            Cơ hội huấn luyện: - Là thành viên của tập đoàn Thế Giới Di Động với
-            môi trường làm việc chuyên nghiệp hàng đầu VN.
-          </span>
-          <span className="block">Bằng cấp: Đại học</span>
-          <span className="block">Bằng cấp: Đại học</span>
+          <span className="block">{jobView?.job_type.name}</span>
 
           <h2>JOBS TAG</h2>
           <ul className="flex flex-wrap">

@@ -8,6 +8,7 @@ import "primeicons/primeicons.css"; //icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+
 // component pages
 import Login from "views/pages/auth/login/Login";
 import Register from "views/pages/auth/member/signup";
@@ -59,6 +60,7 @@ const App = () => {
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile-member" element={<ProfileMember />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/view-detail" element={<ViewDetailPage />}>
           <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
