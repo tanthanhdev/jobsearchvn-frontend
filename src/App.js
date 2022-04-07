@@ -16,7 +16,8 @@ import ForgotPassword from "views/pages/auth/member/forgot-password/";
 import ResetPassword from "views/pages/auth/member/forgot-password/reset-password";
 import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer";
 import ActiveAccount from "views/pages/auth/member/signup/active-account";
-import CompanyReviews from "views/pages/companyReviews";
+import CompanyReviews from "views/pages/companyReviews/company-detail";
+import SearchCompanyReviews from "views/pages/companyReviews/companies";
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
@@ -30,6 +31,7 @@ import HomePage from "containers/HomePage";
 import ProfileMember from "containers/ProfileMember";
 import SearchPage from "containers/SearchPage";
 import ViewDetailPage from "containers/ViewDetailPage";
+import EmployerProfile from "views/pages/employer-profile";
 
 const App = () => {
   const isLoggedIn = authService.isLoggedIn(); //dont remove
@@ -63,7 +65,8 @@ const App = () => {
         <Route path="/view-detail" element={<ViewDetailPage />}>
           <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
         </Route>
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:q" element={<SearchPage />} />
+        <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
           path="/reset-password/:access_token"
           element={<ResetPassword />}
@@ -72,10 +75,15 @@ const App = () => {
           path="/active-account/:access_token"
           element={<ActiveAccount />}
         />
+        <Route path="/companies" element={<SearchCompanyReviews />} />
         <Route path="/companies/:slug" element={<CompanyReviews />} />
         <Route
           path="/login"
           element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/employer/profile"
+          element={<EmployerProfile />}
         />
         )
         <Route

@@ -1,0 +1,338 @@
+
+
+/* Content */
+
+.info-company.apply {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 25%);
+    display: block;
+}
+.info-company {
+    display: none;
+}
+.container__content {
+    margin: 0 150px;
+    background-color: var(--white-color);
+}
+.content {
+    display: flex;
+}
+.content__left {
+    width: 600px;
+    border: 1px solid rgba(75, 75, 75, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+.content__left-info {
+    margin: 40px 34px;
+}
+.left-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 20px 0;
+}
+.left-input {
+    font-size: 1.3rem;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.left__item {
+    margin: 14px 0;
+}
+.left__item-lable {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 4px 0;
+}
+.item__info {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.item__info-icon {
+    color: var(--primary-color);
+}
+.item__info--branch {
+    color: var(--white-color);
+    display: flex;
+    background: #5F9EFD;
+    border-radius: 4px;
+    padding: 1px 4px ;
+}
+.item__info--branch-lable {
+    padding-right: 4px;
+}
+.left__item-content {
+    font-size: 1.2rem;
+    width: 100%;
+    padding: 6px;
+    border: 1px solid;
+    height: 100px;
+}
+.img_choose {
+    text-align: center;
+    padding-top: 38px;
+}
+.btn-save {
+    background: #FFC700;
+    border: 1px solid #FFC700;
+    border-radius: 4px;
+    color: var(--white-color);
+}
+.content__right {
+    width: calc(100% - 600px);
+    font-size: 1.3rem;
+    padding: 10px 0 0 20px;
+}
+.content__right-heading {
+    font-weight: 600;
+}
+.regime {
+    margin-top: 10px;
+}
+
+
+/* Quản lý tuyển dụng */
+.recruitment-manager {
+    padding: 20px 15px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+.recruitment-manager__heading {
+    display: flex;
+    margin-bottom: 30px;
+}
+.content__status {
+    display: flex;
+    width: 100%;
+}
+.content__status-lable,
+.title {
+    font-weight: 600;
+    height: 23px;
+    font-size: 1.2rem;
+    padding: 2px 16px;
+    margin: 0 8px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+.red {
+    color: rgba(255, 0, 0, 1);
+    border-color: rgba(255, 0, 0, 0.5)
+}
+.yellow {
+    color: rgba(255, 199, 0, 1);
+    border-color: rgba(255, 199, 0, 1)
+}
+.green {
+    color: rgba(104, 186, 80, 1);
+    border-color: rgba(104, 186, 80, 1)
+}
+.content__status-filter {
+    font-size: 1.6rem;
+    padding: 2px 16px;
+    border: 1px solid;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-right: 0;
+}
+.job-container {
+    margin: 14px 0;
+}
+.job {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.25)
+}
+.job__img {
+    width: 80px;
+    height: 46px;
+}
+.job__name {
+    margin-left: -60px;
+}
+.job__name-top {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+.job-wage,
+.job-number {
+    font-size: 1.2rem;
+}
+.job-number {
+    text-align: center;
+}
+.job-lable {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: rgba(118, 118, 118, 1);
+}
+.job-detail {
+    margin: auto 0;
+}
+
+.job-discription {
+    height: 140px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+.job-discription__heading {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 4px 0;
+}
+.job-discription__content {
+    font-size: 1.2rem;
+}
+.icon-del {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: auto 0;
+}
+.page {
+    display: flex;
+    font-size: 1.3rem;
+}
+.page__item {
+    border: 1px solid rgba(196, 196, 196, 1);
+    padding: 2px 6px;
+    margin-right: 10px;
+    color: var(--white-color);
+    border-radius: 4px;
+    background-color: rgba(196, 196, 196, 1);
+}
+.selected {
+    background: rgba(93, 155, 248, 1);
+}
+
+/* Hồ sơ đã lưu */
+.content__status-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    width: 120px;
+    border: 1px solid rgba(148, 148, 148, 0.5);
+    margin: 0 8px;
+    border-radius: 4px;
+}
+.item-text {
+    font-weight: 600;
+    margin-right: 2px;
+    color: rgba(148, 148, 148, 1);
+}
+.item-icon {
+    color: rgba(148, 148, 148, 1);
+}
+.online {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.profile-jobseeker {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    margin: 14px 0;
+}
+.tab-job {
+    display: flex;
+    margin: 6px;
+}
+.tab-job__img {
+    width: 46px;
+}
+.tab-job__name {
+    width: 300px;
+    margin-left: 10px;
+}
+.tab-job__name-bottom {
+    display: flex;
+}
+.tab-job__name-top {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.language {
+    width: 30px;
+    font-size: 1.3rem;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 6px;
+    border: 1px solid rgba(118, 118, 118, 1);
+    color: rgba(118, 118, 118, 1);
+}
+.date-joining {
+    font-size: 1.3rem;
+    color: rgba(118, 118, 118, 1);
+    padding: 0 20px;
+}
+.date-joining-lable {
+    padding-bottom: 10px;
+}
+.date-joining-number {
+    text-align: center;
+}
+.title {
+    margin: auto;
+}
+.status {
+    margin-right: 36px;
+}
+
+
+/* ============= BASE ============ */
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+html{
+    /* font-size: 62.5%; */
+    /* line-height: 1.6rem; */
+    scroll-behavior:smooth;
+    font-family: Arial, Helvetica, sans-serif;
+}
+:root{
+    --primary-color:#5993EC;
+    --text-white-color:#fff;
+    --icon-color:#FFE600;
+    --text-color:#000;
+    --white-color:#fff;
+    --color-hover:rgb(255, 40, 40);
+    --text-color-xam:rgb(119, 119, 119);
+    --red-color:#EA2635;
+
+}
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    animation: fadeIn linear 0.01s;
+}
+
+.modal__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+    --growth-from: 0.7;
+    --growth-to: 1;
+    margin: auto;
+    background-color: var(--while-color);
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    animation: growth linear 0.1s;
+}

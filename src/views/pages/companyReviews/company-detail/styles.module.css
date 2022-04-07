@@ -9,4 +9,11 @@
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
+    word-break: break-word;
+}
+
+.sub_content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }

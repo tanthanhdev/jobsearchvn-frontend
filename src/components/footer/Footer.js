@@ -85,8 +85,8 @@ export const Footer = () => (
         <div className={`${styles.footer__footer} ${styles.grid} ${styles.wide}`}>
           <div className={styles["footer__footer-info"]}>
             <div className={styles["footer__footer-info-sub"]}>
-              <h4>Copyright Công ty cổ phần JobSearchVN Việt Nam</h4>
-              <h4>Cẩm Lệ, TP Đà Nẵng, Việt Nam</h4>
+              <h6>Copyright Công ty cổ phần JobSearchVN Việt Nam</h6>
+              <h6>Cẩm Lệ, TP Đà Nẵng, Việt Nam</h6>
             </div>
           </div>
           <div className={styles["footer__footer-contact"]}>

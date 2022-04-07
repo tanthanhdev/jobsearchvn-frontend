@@ -5,9 +5,9 @@ import "./homePage.css";
 import Banner from "./Banner";
 import TopCompanies from "./TopCompanies";
 import Job from "./Job";
-import Blog from "./Blog";
+// import Blog from "./Blog";
 import { Wrap } from "components/wrap/Wrap";
-import { Header } from "components/header/Header";
+// import { Header } from "components/header/Header";
 HomePage.propTypes = {};
 
 function HomePage(props) {
@@ -27,9 +27,9 @@ function HomePage(props) {
         <Banner onChange={handleChangeInputSearch}></Banner>
         <main className="grid main" style={{ paddingTop: "48px" }}>
           {/* Top jobs */}
-          {/* <TopCompanies></TopCompanies> */}
+          <TopCompanies></TopCompanies>
           <Job></Job>
-          <Blog></Blog>
+          {/* <Blog></Blog> */}
         </main>
         {/* Footer */}
       </Wrap>

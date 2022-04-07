@@ -15,7 +15,7 @@ const getEmployerBoard = (id) => {
 };
 
 
-// Public employer
+// Employer
 const getPublicEmployer = () => {
   return axios.get(API_URL + "/public/employers/");
 };
@@ -28,7 +28,65 @@ const getPublicJob = () => {
   return axios.get(API_URL + "/public/jobs/");
 };
 
+const searchPublicEmployer = (q="") => {
+  return axios
+    .get(API_URL + "/public/employers/?q=" + q)
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+};
+
 // Member
+const create_review = (employer_id, title, content, point) => {
+  return axios
+    .post(API_URL + "/reviews/", {
+      employer_id, title, content, point
+    }, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null
+    });
+};
+
+const followCompany = (employer_id) => {
+  return axios
+    .post(API_URL + "/follow/companies/", {
+      employer_id
+    }, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null
+    });
+}
+
+const getFollowOfCompanyDetail = (employer_id) => {
+  return axios
+    .get(API_URL + "/follow/companies/" + employer_id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null
+    });
+}
+
+const deleteFollowOfCompanyDetail = (employer_id) => {
+  return axios
+    .delete(API_URL + "/follow/companies/" + employer_id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
 
 const userService = {
   getPublicContent,
@@ -37,6 +95,11 @@ const userService = {
   getPublicEmployer,
   getPublicJob,
   getPublicEmployerDetail,
+  create_review,
+  searchPublicEmployer,
+  followCompany,
+  getFollowOfCompanyDetail,
+  deleteFollowOfCompanyDetail,
 };
 
 export default userService

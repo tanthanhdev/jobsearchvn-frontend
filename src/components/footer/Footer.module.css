@@ -1,5 +1,5 @@
 .wrapper {
-    margin-top: 48px;
+    padding-top: 48px;
 }
 
 .footer{
@@ -49,6 +49,7 @@
 .footer__footer-info-sub{
     margin: 0 auto;
     width: 400px;
+    text-align: center;
 }
 
 .footer__footer-contact{
