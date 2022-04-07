@@ -28,6 +28,10 @@ const getPublicJob = () => {
   return axios.get(API_URL + "/public/jobs/");
 };
 
+const saveEmployerProfile = (data) => {
+  return axios.patch(API_URL + "/employers/", { headers: authHeader() });
+};
+
 const getJob = () => {
   return axios.get(API_URL + "/jobs/", { headers: authHeader() });
 };
@@ -109,7 +113,8 @@ const userService = {
   getFollowOfCompanyDetail,
   deleteFollowOfCompanyDetail,
   getJob,
-  deleteJob
+  deleteJob,
+  saveEmployerProfile
 };
 
 export default userService

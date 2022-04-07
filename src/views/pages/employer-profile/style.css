@@ -252,7 +252,7 @@ html {
     width: 46px;
 }
 .tab-job__name {
-    width: 300px;
+    /* width: 300px; */
     margin-left: 10px;
 }
 .tab-job__name-bottom {
@@ -264,7 +264,7 @@ html {
     margin-bottom: 10px;
 }
 .language {
-    width: 30px;
+    /* width: 30px; */
     font-size: 1.3rem;
     border: 1px solid;
     border-radius: 4px;

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
 import userService from "services/user.service";
+import CvsService from "services/cv.service";
 
 // const cv = JSON.parse(localStorage.getItem("cv"));
 
@@ -47,6 +48,60 @@ export const delete_employer_jobs = createAsyncThunk(
       if (response.status === 200 || response.status === 201) {
         // thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const getAllCvs = createAsyncThunk(
+  "employers/cvs",
+  async ( slug, thunkAPI) => {
+    try {
+      const response = await CvsService.getAllCvs();
+      console.log(response);
+      // if (response.status === 200 || response.status === 201) {
+        // thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
+      // }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const deleteSaveCv = createAsyncThunk(
+  "employers/cvs/delete",
+  async ( cv_id, thunkAPI) => {
+    try {
+      const response = await CvsService.deleteSaveCv(cv_id);
+      console.log(response);
+      if (response.status === 200 || response.status === 201) {
+        // thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const saveEmployerProfile = createAsyncThunk(
+  "employers/save-profile",
+  async ( data, thunkAPI) => {
+    try {
+      const response = await userService.saveEmployerProfile(data);
+      console.log(response);
+      if (response.status === 200 || response.status === 201) {
+        // thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
       }
     } catch (error) {
       const message = error.response.data;

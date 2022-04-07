@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
 
 import { Navigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Button } from 'primereact/button';
 import * as Yup from "yup";
-
+import { saveEmployerProfile } from 'slices/company-profile';
 import { FileUploader } from "react-drag-drop-files";
 
 export const InfoCompany = ({isActive, isEdit}) => {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [file, setFile] = useState(null);
     const { profile, isError, isSuccess, isLoading } = useSelector((state) => state.profileEmployer);
+    const dispatch = useDispatch()
     // console.log(profile);
     const [initialValues, setInitialValues] = useState({
         company_name: "",
@@ -44,6 +45,7 @@ export const InfoCompany = ({isActive, isEdit}) => {
       }, [profile])
 
       const handleChange = (file) => {
+        // console.log(file);
         setFile(file);
       };
 
@@ -59,14 +61,16 @@ export const InfoCompany = ({isActive, isEdit}) => {
     
       const handleSaveProfile = (formValue) => {
         console.log(initialValues);
+        console.log(file);
         //call api save profile employer
-        // dispatch(login({ email, password }))
-        //   .unwrap()
-        //   .then((res) => { 
-        //     dispatch(authActions.updateUser(res.user))
-        //   })
-        //   .catch(() => {
-        //   });
+        dispatch(saveEmployerProfile({...initialValues, logo: file}))
+          .unwrap()
+          .then((res) => { 
+            console.log(res);
+          })
+          .catch((err) => {
+              console.log(err);
+          });
       };
     
     return (
