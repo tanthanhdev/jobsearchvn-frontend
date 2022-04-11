@@ -38,7 +38,7 @@ const Banner = () => {
 
   return (
     <div
-      className="slider"
+      className="slider-homepage"
       style={{
         backgroundImage:
           "url(https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg)",

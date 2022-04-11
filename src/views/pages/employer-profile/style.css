@@ -14,7 +14,8 @@ html {
     display: none;
 }
 .container__content {
-    margin: 0 150px;
+    /* margin: 0 150px; */
+    margin: 0;
     background-color: var(--white-color);
 }
 .content {

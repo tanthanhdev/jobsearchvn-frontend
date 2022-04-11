@@ -4,6 +4,7 @@ import {InfoCompany} from './sections/InfoCompany/InfoCompany'
 import {InformCompany} from './sections/InformCompany/InformCompany'
 import {ManagerCompany} from './sections/ManagerCompany/ManagerCompany'
 import {SaveProfileCompany} from './sections/SaveProfileCompany/SaveProfileCompany'
+import {CampaignCompany} from './sections/CampaignCompany/CampaignCompany'
 import './style.css'
 import imgLogo from './images/img job.jpg'
 import avaCompany from './images/avatar company.jpg'
@@ -30,8 +31,9 @@ export const EmployerProfile = () => {
       return<InformCompany  isActive={activeIndex === 2}/>
     }else if (activeIndex === 3) {
       return <SaveProfileCompany  isActive={activeIndex === 3}/>
+    } else if (activeIndex === 4) {
+      return <CampaignCompany  isActive={activeIndex === 4}/>
     }
-
   }
 
   return (

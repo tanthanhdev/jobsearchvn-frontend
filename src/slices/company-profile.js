@@ -111,6 +111,41 @@ export const saveEmployerProfile = createAsyncThunk(
   }
 );
 
+// campaign section
+export const create_campaign = createAsyncThunk(
+  "employers/campaign/create",
+  async ( { name, position, city_id }, thunkAPI) => {
+    try {
+      const response = await userService.create_campaign(name, position, city_id);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const UpdateMatchCV = createAsyncThunk(
+  "employers/campaign/update",
+  async ( {slug, data}, thunkAPI) => {
+    try {
+      const response = await userService.update_campaign(slug, data);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 // const initialState = {
 // //   cv: cv ? cv : null,
 //   isError: false,
@@ -148,6 +183,34 @@ const CompanyProfileSlice = createSlice({
     },
     [get_employer_detail.rejected]: (state, action) => {
       state.profile = null;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [create_campaign.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [create_campaign.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [create_campaign.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [UpdateMatchCV.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [UpdateMatchCV.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [UpdateMatchCV.rejected]: (state, action) => {
       state.isLoading = false
       state.isError = true
       state.isSuccess = false
