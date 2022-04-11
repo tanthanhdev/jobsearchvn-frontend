@@ -57,6 +57,24 @@ export const delete_employer_jobs = createAsyncThunk(
   }
 );
 
+export const get_all_notification_cvs = createAsyncThunk(
+  "employers/notification-cvs",
+  async ( slug, thunkAPI) => {
+    try {
+      const response = await CvsService.getAllNotificationCvs();
+      console.log(response);
+      // if (response.status === 200 || response.status === 201) {
+        // thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
+      // }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 export const getAllCvs = createAsyncThunk(
   "employers/cvs",
   async ( slug, thunkAPI) => {
