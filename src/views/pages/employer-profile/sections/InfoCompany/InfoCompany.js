@@ -9,7 +9,7 @@ import { saveEmployerProfile } from 'slices/company-profile';
 import { FileUploader } from "react-drag-drop-files";
 
 export const InfoCompany = ({isActive, isEdit}) => {
-    const fileTypes = ["JPG", "PNG", "png", "jpg"];
+    const fileTypes = ["JPG", "PNG", "GIF"];
     const [file, setFile] = useState(null);
     const { profile, isError, isSuccess, isLoading } = useSelector((state) => state.profileEmployer);
     const dispatch = useDispatch()
@@ -64,21 +64,12 @@ export const InfoCompany = ({isActive, isEdit}) => {
         }))
       }
     
-      const formData = new FormData();
       const handleSaveProfile = (formValue) => {
-        formData["company_name"] = formValue.company_name;
-        formData["phone_number"] = formValue.phone_number;
-        formData["company_location"] = formValue.company_location;
-        formData["company_size"] = formValue.company_size;
-        formData["description"] = formValue.description;
         if (file) {
-            formData["logo"] = file;
-        }
-        if (formData) {
-            console.log(formData);
+            formValue['logo'] = file;
         }
         //call api save profile employer
-        dispatch(saveEmployerProfile({...formData}))
+        dispatch(saveEmployerProfile({...formValue}))
           .unwrap()
           .then((res) => { 
             // console.log(res);
