@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import imgLogo from '../../images/img job.jpg'
+import { useDispatch, useSelector } from "react-redux";
+import { get_all_notification_cvs } from "slices/company-profile";
+// import dateUtils from "utils/date"
+// import strUtils from "utils/string"
 export const InformCompany = ({isActive}) => {
+
+    const dispatch = useDispatch();
+    const [notificationCvs, setNotificationCvs] = useState([])
+
+    useEffect(() => {
+        dispatch(get_all_notification_cvs())
+        .unwrap()
+        .then((res) => {
+            setNotificationCvs(res)
+            console.log(121212, res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, [])
 
     return (
         <div class={`info-company ${isActive ? 'apply' : ''}`}>
