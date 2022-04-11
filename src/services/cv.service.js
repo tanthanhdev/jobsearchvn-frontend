@@ -64,12 +64,25 @@ const deleteSaveCv = (cv_id) => {
     });
 };
 
+const getAllNotificationCvs = () => {
+  return axios
+    .get(API_URL + "/match-cv/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response.data;
+      }
+      return null
+    });
+};
+
+
 const CvService = {
   create_cv,
   getCareers,
   getDesigns,
   getAllCvs,
-  deleteSaveCv
+  deleteSaveCv,
+  getAllNotificationCvs
 };
 
 export default CvService;
