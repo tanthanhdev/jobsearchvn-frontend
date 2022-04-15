@@ -1,5 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import authHeaderFile from "./auth-header-file";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -29,7 +30,8 @@ const getPublicJob = () => {
 };
 
 const saveEmployerProfile = (data) => {
-  return axios.patch(API_URL + "/employers/", {...data}, { headers: authHeader() });
+  console.log(1111, data);
+  return axios.patch(API_URL + "/employers/", data, { headers: authHeaderFile() });
 };
 
 const getJob = () => {

@@ -77,7 +77,7 @@ export const SaveProfileCompany = ({isActive}) => {
                                     <i class={`item-icon fas fa-circle  ${item.cv.status === "1" ? 'online' : ''}`}></i>
                                 </div>
                             </div>
-                            <button onClick={() => handleDeleteCv(item.cv.id)}><i class="icon-del far fa-trash-alt"></i></button>
+                            <button onClick={() => handleDeleteCv(item.id)}><i class="icon-del far fa-trash-alt"></i></button>
                         </div>
                     </div>
                 ))}

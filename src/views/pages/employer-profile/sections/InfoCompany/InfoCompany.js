@@ -50,7 +50,6 @@ export const InfoCompany = ({isActive, isEdit}) => {
       }, [profile])
 
       const handleChange = (file) => {
-        // console.log(file);
         setFile(file);
       };
 
@@ -67,9 +66,17 @@ export const InfoCompany = ({isActive, isEdit}) => {
       const handleSaveProfile = (formValue) => {
         if (file) {
             formValue['logo'] = file;
+            console.log(formValue);
         }
+        let formData = new FormData();
+        formData.append("logo", file);
+        formData.append("company_name", formValue.company_name);
+        formData.append("phone_number", formValue.phone_number);
+        formData.append("company_location", formValue.company_location);
+        formData.append("company_size", formValue.company_size);
+        formData.append("description", formValue.description);
         //call api save profile employer
-        dispatch(saveEmployerProfile({...formValue}))
+        dispatch(saveEmployerProfile(formData))
           .unwrap()
           .then((res) => { 
             // console.log(res);
@@ -212,7 +219,7 @@ export const InfoCompany = ({isActive, isEdit}) => {
                                         {/* <div className="left__item-content img_choose">Kéo và thả hình ảnh ở đây hoặc chọn file</div> */}
                                         <FileUploader handleChange={(e) => {
                                             handleChange(e);
-                                            setFieldValue("logo", e.target.file);
+                                            // setFieldValue("logo", e.target.file);
                                         }} name="file" types={fileTypes} />
                                     </div>
                                     <Button type="submit" disabled={isLoading}>
