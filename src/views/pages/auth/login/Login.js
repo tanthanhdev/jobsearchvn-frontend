@@ -12,12 +12,12 @@ import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
 const Login = () => {
-  const { isLoggedIn, message, isError, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn, isError, isLoading } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearMessage());
   }, [dispatch]);
 
   const initialValues = {
@@ -125,7 +125,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-          {isError && message && typeof(message) === "string" && (
+          {isError && message && (
             <div className="form-group">
               <div
                 className={isLoggedIn ? "alert alert-success" : "alert alert-danger"}

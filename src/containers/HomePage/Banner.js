@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AutoComplete } from "primereact/autocomplete";
-import CityService from "services/city.service";
+import PublicService from "services/public.service";
 import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
@@ -12,7 +12,7 @@ const Banner = () => {
   let navigate = useNavigate();
   
   useEffect(() => {
-    CityService.getCities().then((data) => setCities(data));
+    PublicService.getCities().then((data) => setCities(data));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchCity = (event) => {

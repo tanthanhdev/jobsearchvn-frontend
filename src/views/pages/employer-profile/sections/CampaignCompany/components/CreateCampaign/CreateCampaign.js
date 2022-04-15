@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { AutoComplete } from "primereact/autocomplete";
 // components
 // services
-import CityService from "services/city.service";
+import PublicService from "services/public.service";
 // slices
 import { create_campaign } from "slices/company-profile";
 // utils
@@ -19,7 +19,7 @@ const CreateCampaign = ({ setIsReload }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-      CityService.getCities().then((data) => setCities(data));
+      PublicService.getCities().then((data) => setCities(data));
   }, [])
 
   const searchCity = (event) => {

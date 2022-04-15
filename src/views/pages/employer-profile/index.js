@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useParams } from "react-router-dom";
+// components
 import { Wrap } from 'components/wrap/Wrap';
 import {Header} from './sections/Header/Header'
 import {InfoCompany} from './sections/InfoCompany/InfoCompany'
@@ -5,24 +8,23 @@ import {InformCompany} from './sections/InformCompany/InformCompany'
 import {ManagerCompany} from './sections/ManagerCompany/ManagerCompany'
 import {SaveProfileCompany} from './sections/SaveProfileCompany/SaveProfileCompany'
 import {CampaignCompany} from './sections/CampaignCompany/CampaignCompany'
+import {PostJob} from "./sections/CampaignCompany/components/PostJob";
+import {CampaignDetail} from "./sections/CampaignCompany/components/CampaignDetail";
 import './style.css'
-import imgLogo from './images/img job.jpg'
-import avaCompany from './images/avatar company.jpg'
-import avajob from './images/avatar jobseeker.png'
-import { useState } from 'react';
 
-export const EmployerProfile = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
+export const EmployerProfile = ({ active }) => {
+  const [activeIndex, setActiveIndex] = useState(active ? active : 0);
   const [isEdit, setIsEdit] = useState(false)
   const changeTab = (index) => {
     setActiveIndex(index)
   }
+  let params = useParams();
 
   const handleEditInfo = () => {
     setIsEdit(true)
   }
 
-  const contentRedering = () => {
+  const contentRendering = () => {
     if(activeIndex === 0) {
       return <InfoCompany isActive={activeIndex === 0} isEdit={isEdit}/>
     } else if (activeIndex === 1) {
@@ -33,17 +35,21 @@ export const EmployerProfile = () => {
       return <SaveProfileCompany  isActive={activeIndex === 3}/>
     } else if (activeIndex === 4) {
       return <CampaignCompany  isActive={activeIndex === 4}/>
+    } else if (activeIndex === 5) {
+      return <PostJob slug={params.slug} />
+    } else if (activeIndex === 6) {
+      return <CampaignDetail slug={params.slug} />
     }
   }
 
   return (
     <Wrap>
-      <div className='wrapper__employ' style={{ minHeight: '500px' }}>
+      <div className='wrapper__employ' style={{ minHeight: '100vh' }}>
         <div style={{ paddingTop: '50px' }}></div>
-        <div class="container">
+        <div className="container">
           <Header activeIndex={activeIndex} changeTab={changeTab} handleEdit={handleEditInfo}/>
-          <div class="container__content">
-              {contentRedering()}
+          <div className="container__content">
+              {contentRendering()}
           </div>
       </div>
       </div>

@@ -72,7 +72,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: flex!important;
 }
 .pl-5, .px-5 {
-  padding-left: 3.42rem!important;
+  padding-left: 40px;
 }
 .icon-info-category[data-v-75adf416] {
   border-radius: 50%;
@@ -117,7 +117,12 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   border-bottom: 2px solid #f1f3f4;
   padding: 8px;
 }
-
+.form-control:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #c7d2fe;
+  border: 1px solid #6366F1;
+}
 .input-underline {
   border-radius: 0;
   border: none;
@@ -154,9 +159,14 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 .form-group {
   margin-bottom: 1rem;
 }
-.col-4 {
-  flex: 0 0 33.3333333333%;
-  max-width: 33.3333333333%;
+.form-textarea {
+  padding: 12px;
+}
+.form-textarea:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #c7d2fe;
+  border: 1px solid #6366F1;
 }
 .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-auto, .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto, .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-auto, .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
   position: relative;
@@ -164,6 +174,15 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   padding-right: 15px;
   padding-left: 15px;
 }
+.col-4 {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+}
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
 .text-secondary-dark {
   color: #777;
 }
@@ -237,6 +256,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 .location-box[data-v-f0015b7a] {
   position: relative;
 }
+
 .p-4 {
   padding: 1.6188rem!important;
 }
@@ -258,10 +278,6 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 .location-box .location-title[data-v-f0015b7a] {
   width: 100px;
 }
-.location-box .location-box[data-v-f0015b7a] {
-  padding: 0 8px;
-  width: calc(100% - 100px);
-}
 .location-box[data-v-f0015b7a] {
   position: relative;
 }
@@ -271,26 +287,88 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 .p-4 {
   padding: 1.6188rem!important;
 }
-.address-item[data-v-ee372122] {
+.address-item {
   position: relative;
 }
 .mb-4, .my-4 {
   margin-bottom: 1.6188rem!important;
 }
-.address-item .address-item-input[data-v-ee372122] {
-  width: calc(100% - 95px);
+.address-item .address-item-input {
+  width: 100%;
 }
-.address-item .address-item-working-address[data-v-ee372122] {
-  padding-left: 8px!important;
-  padding-right: 8px!important;
+.address-item .address-item-working-address {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .col-9 {
   flex: 0 0 75%;
   max-width: 75%;
 }
-@media (min-width: 2px) {
+
+@media (min-width: 768px) {
   .col-md-3 {
-      flex: 0 0 25%;
-      max-width: 25%;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
   }
+  .col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.33333333%;
+    max-width: 33.33333333%;
+  }
+  .col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .location-box {
+    flex-direction: column;
+  }
+  .pl-40-reset {
+    padding-left: 40px;
+  }
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.input_benefit {
+  min-height: 36px;
+  border: 1px solid #ced4da;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+  margin-left: 8px;
+}
+
+
+.icon-item {
+  display: flex;
+  align-items: center;
+}
+
+.icon-item img.flag {
+  width: 18px;
+  margin-right: .5rem;
+}
+
+.flag {
+  vertical-align: middle;
+}
+
+span.flag {
+  width:44px;
+  height:30px;
+  display:inline-block;
+}
+
+img.flag {
+  width:30px
+}
+
+.d-block {
+  display:block;
 }

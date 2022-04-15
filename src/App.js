@@ -18,7 +18,6 @@ import RegisterEmployer from "views/pages/auth/employer/signup/RegisterEmployer"
 import ActiveAccount from "views/pages/auth/member/signup/active-account";
 import CompanyReviews from "views/pages/companyReviews/company-detail";
 import SearchCompanyReviews from "views/pages/companyReviews/companies";
-import {PostJob} from "views/pages/employer-profile/sections/CampaignCompany/components/PostJob";
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
@@ -88,8 +87,12 @@ const App = () => {
         />
         )
         <Route
-          path="/employer/campaigns/:campaign_id/create-job"
-          element={isLoggedIn ? <PostJob /> : <Navigate to="/login" />}
+          path="/employer/campaigns/:slug/create-job"
+          element={isLoggedIn ? <EmployerProfile active={5} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/employer/campaigns/:slug"
+          element={isLoggedIn ? <EmployerProfile active={6} /> : <Navigate to="/login" />}
         />
         <Route
           path="/cv-template"

@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import CvTemplateService from 'services/cv-template';
 
 import styles from './style.module.css';
-import { icons } from 'utils/icons';
+// import { icons } from 'utils/icons';
 
 export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
   useEffect(() => {

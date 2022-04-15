@@ -164,6 +164,58 @@ export const UpdateMatchCV = createAsyncThunk(
   }
 );
 
+export const create_job = createAsyncThunk(
+  "employers/job/create",
+  async ( { data, campaign_id }, thunkAPI) => {
+    try {
+      const response = await userService.createJob(data, campaign_id);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const update_job = createAsyncThunk(
+  "employers/job/update",
+  async ( {data, slug}, thunkAPI) => {
+    try {
+      const response = await userService.update_job(data, slug);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const switch_active_job = createAsyncThunk(
+  "employers/switch_active_job/",
+  async ( {data, slug}, thunkAPI) => {
+    try {
+      const response = await userService.switch_active_job(data, slug);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+
 // const initialState = {
 // //   cv: cv ? cv : null,
 //   isError: false,
@@ -229,6 +281,62 @@ const CompanyProfileSlice = createSlice({
       state.isError = false
     },
     [UpdateMatchCV.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [create_job.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [create_job.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [create_job.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [update_job.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [update_job.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [update_job.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [switch_active_job.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [switch_active_job.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [switch_active_job.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [delete_employer_jobs.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [delete_employer_jobs.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [delete_employer_jobs.rejected]: (state, action) => {
       state.isLoading = false
       state.isError = true
       state.isSuccess = false
