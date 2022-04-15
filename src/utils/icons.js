@@ -13,6 +13,9 @@ import angle_down_solid from 'assets/images/icons/angle-down-solid.svg';
 import circle_solid from 'assets/images/icons/circle-solid.svg';
 // images
 import no_record from 'assets/images/notifications/no-records.png';
+//flag for select/dropdown
+import flag_book from 'assets/images/flag/flag_book.svg';
+import flag_person from 'assets/images/flag/flag_person.svg';
 
 // home
 
@@ -29,5 +32,7 @@ export const icons = {
   angle_down_solid,
   circle_solid,
   no_record,
+  flag_book,
+  flag_person,
 };
   

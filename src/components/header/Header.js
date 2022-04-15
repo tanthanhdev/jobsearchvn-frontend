@@ -143,7 +143,7 @@ export const Header = () => {
               >
                 <Link
                   to={
-                    currentUser.is_staff ? "employer/profile" : "member/profile"
+                    currentUser.is_staff ? "/employer/profile" : "/member/profile"
                   }
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >

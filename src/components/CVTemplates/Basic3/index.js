@@ -7,11 +7,11 @@ const Basic3 = () => {
     <div className={`${styles.list__sample}`}>
       <div className={`${styles.CV}`}>
           <div className={`${styles["list__sample-img"]}`}></div>
-          <a className={`${styles.list__btn}`}>
+          <div className={`${styles.list__btn}`}>
               <button className={`${styles["btn-using"]}`} >
                   Dùng mẫu này
               </button>
-          </a>
+          </div>
       </div>
       
       <div className={`${styles.list__status}`}>

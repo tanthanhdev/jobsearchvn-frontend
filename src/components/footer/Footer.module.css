@@ -48,7 +48,8 @@
 }
 .footer__footer-info-sub{
     margin: 0 auto;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
 }
 

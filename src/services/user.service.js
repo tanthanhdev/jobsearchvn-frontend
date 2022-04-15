@@ -16,7 +16,7 @@ const getEmployerBoard = (id) => {
 };
 
 
-// Employer
+// Employer ======================================
 const getPublicEmployer = () => {
   return axios.get(API_URL + "/public/employers/");
 };
@@ -38,6 +38,10 @@ const getJob = () => {
   return axios.get(API_URL + "/jobs/", { headers: authHeader() });
 };
 
+const getJobDetail = (slug) => {
+  return axios.get(API_URL + "/jobs/" + slug + "/", { headers: authHeader() });
+};
+
 const deleteJob = (slug) => {
   return axios.delete(API_URL + "/jobs/" + slug + '/', { headers: authHeader() });
 };
@@ -53,7 +57,117 @@ const searchPublicEmployer = (q="") => {
     });
 };
 
-// Member
+const create_campaign = (name, position, city_id) => {
+  return axios
+    .post(API_URL + "/campaigns/", { name, position, city_id } , { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null;
+    });
+}
+
+const update_campaign = (slug, data) => {
+  return axios
+    .patch(API_URL + '/campaigns/' + slug + '/', {...data} , { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    })
+}
+
+const getAllCampaigns = () => {
+  return axios
+    .get(API_URL + "/campaigns/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
+
+const getCampaign = (slug) => {
+  return axios
+    .get(API_URL + "/campaigns/" + slug + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
+
+const getJobsCampaign = (slug) => {
+  return axios
+    .get(API_URL + "/jobs/campaign/" + slug + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
+
+
+const getMatchCV = () => {
+  return axios
+    .get(API_URL + "/match-cv/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
+
+const getMatchCVOfCampaign = (id) => {
+  return axios
+    .get(API_URL + "/match-cv/campaign/" + id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
+}
+
+const createJob = (data, campaign_id) => {
+  return axios
+    .post(API_URL + "/jobs/", { ...data, campaign_id } , { headers: authHeader() })
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null;
+    });
+}
+
+const update_job = (slug, data) => {
+  return axios
+    .patch(API_URL + '/jobs/' + slug + '/', {...data} , { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    })
+}
+
+const switch_active_job = (data, slug) => {
+  return axios
+    .patch(API_URL + '/switch-active/job/' + slug + '/', {...data} , { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    })
+}
+// Member =================================================
 const create_review = (employer_id, title, content, point) => {
   return axios
     .post(API_URL + "/reviews/", {
@@ -102,49 +216,6 @@ const deleteFollowOfCompanyDetail = (employer_id) => {
     });
 }
 
-const create_campaign = (name, position, city_id) => {
-  return axios
-    .post(API_URL + "/campaigns/", { name, position, city_id } , { headers: authHeader() })
-    .then((response) => {
-      if (response) {
-        return response;
-      }
-      return null;
-    });
-}
-
-const update_campaign = (slug, data) => {
-  return axios
-    .patch(API_URL + '/campaigns/' + slug + '/', {...data} , { headers: authHeader() })
-    .then((response) => {
-      if (response.data) {
-        return response;
-      }
-      return null;
-    })
-}
-
-const getAllCampaigns = () => {
-  return axios
-    .get(API_URL + "/campaigns/", { headers: authHeader() })
-    .then((response) => {
-      if (response) {
-        return response;
-      }
-      return null
-    });
-}
-
-const getMatchCV = () => {
-  return axios
-    .get(API_URL + "/match-cv/", { headers: authHeader() })
-    .then((response) => {
-      if (response) {
-        return response;
-      }
-      return null
-    });
-}
 
 const userService = {
   getPublicContent,
@@ -159,12 +230,19 @@ const userService = {
   getFollowOfCompanyDetail,
   deleteFollowOfCompanyDetail,
   getJob,
+  getJobDetail,
   deleteJob,
   saveEmployerProfile,
   create_campaign,
   getAllCampaigns,
   getMatchCV,
+  getMatchCVOfCampaign,
   update_campaign,
+  getCampaign,
+  createJob,
+  getJobsCampaign,
+  update_job,
+  switch_active_job,
 };
 
 export default userService

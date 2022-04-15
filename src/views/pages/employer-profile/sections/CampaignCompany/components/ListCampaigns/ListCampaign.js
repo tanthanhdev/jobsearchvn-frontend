@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { AutoComplete } from "primereact/autocomplete";
+// import { Formik, Field, Form, ErrorMessage } from "formik";
+// import * as Yup from "yup";
+// import { AutoComplete } from "primereact/autocomplete";
 // components
 // services
 // import userService  from 'services/user.service';
@@ -12,8 +12,8 @@ import { UpdateMatchCV } from "slices/company-profile";
 // utils
 import styles from './ListCampaign.module.css';
 
-const ListCampaign = ({ campaigns, matchCV, setIsReload }) => {
-    const { isError, isSuccess, isLoading } = useSelector((state) => state.profileEmployer);
+const ListCampaign = ({ campaigns, setIsReload }) => {
+    const { isError, isLoading } = useSelector((state) => state.profileEmployer);
     // const { message } = useSelector((state) => state.message);
     const dispatch = useDispatch()
 
@@ -86,20 +86,14 @@ const ListCampaign = ({ campaigns, matchCV, setIsReload }) => {
                                     <div data-v-13db6a09="" className={`${styles['d-flex']}`}><label data-v-13db6a09="" className={`${styles['switch']} ${styles['mr-1']}`}>
                                         <input
                                             type="checkbox" custom-checked={campaign.status ? "true" : "false"} defaultChecked={campaign.status}
-                                            onClick={() => {handleStatus(campaign.status, campaign.slug)}} disabled={isLoading} /> <span
+                                            onClick={() => { handleStatus(campaign.status, campaign.slug) }} disabled={isLoading} /> <span
                                                 className={`${styles['slider']} ${styles['round']}`}></span></label>
-                                        <div data-v-13db6a09="" className={`${styles['ml-2']}`}><a data-v-13db6a09=""
-                                            // href="/app/recruitment-campaigns/717838"
-                                            className={`${styles['text-dark']} ${styles['text-decoration-none']} ${styles['font-weight-bold']}`}>
-                                            {campaign.name}
-                                        </a>
-                                            <div data-v-13db6a09="" className={`${styles['text-secondary-dark']}`}>
-                                                {matchCV && matchCV.length ? (
-                                                    <span>Đã có {matchCV.length} CV phù hợp cho toàn bộ chiến dịch</span>
-                                                ) : (
-                                                    <span>Chưa có CV nào</span>
-                                                )}
-                                            </div>
+                                        <div data-v-13db6a09="" className={`${styles['ml-2']}`}>
+                                            <a data-v-13db6a09=""
+                                                href={`/employer/campaigns/${campaign.slug}`}
+                                                className={`${styles['text-dark']} ${styles['text-decoration-none']} ${styles['font-weight-bold']}`}>
+                                                {campaign.name}
+                                            </a>
                                             <div data-v-13db6a09="" className={`${styles['mt-2']}`}><span data-v-13db6a09=""
                                                 className={`${styles['badge']} ${styles['badge-secondary']} ${styles['text-muted']} ${styles['font-weight-normal']} ${styles['small']}`}>#{campaign.id}</span>
                                             </div>
@@ -119,10 +113,14 @@ const ListCampaign = ({ campaigns, matchCV, setIsReload }) => {
                                 27%
                             </a></span></td> */}
                             <td data-v-14f1a322="" className={`${styles['border-right']}`} style={{ minWidth: '200px', }}>
-                                <div data-v-14cf56b0="" data-v-14f1a322=""><a data-v-14cf56b0=""
-                                    href={"/employer/campaigns/" + campaign.id + "/create-job"}
-                                    target="_blank"
-                                    className={`${styles['btn']} ${styles['btn-xs']} ${styles['btn-primary']} ${styles['transparent-1']}`}>Đăng tin</a>
+                                <div data-v-14cf56b0="" data-v-14f1a322="">
+                                    {campaign && campaign.status && (
+                                        <a
+                                            data-v-14cf56b0=""
+                                            href={"/employer/campaigns/" + campaign.slug + "/create-job"}
+                                            className={`${styles['btn']} ${styles['btn-xs']} ${styles['btn-primary']} ${styles['transparent-1']}`}>Đăng tin
+                                        </a>
+                                    )}
                                 </div>
                             </td>
                             <td data-v-14f1a322="" className={`${styles['border-right']}`} style={{ maxWidth: '150px', }}>
@@ -132,7 +130,7 @@ const ListCampaign = ({ campaigns, matchCV, setIsReload }) => {
                                     </p>
                                     <div className={`${styles['modal-content']} ${styles['border-0']}`}>
                                         <div data-v-e5f5b2d0="" className={`${styles['modal-footer']} ${styles['border-top-0']} ${styles['pt-0']}`}>
-                                            <button data-v-e5f5b2d0="" type="button" onClick={() => {handleSwitchMatchCV(campaign.is_match_cv, campaign.slug)}}
+                                            <button data-v-e5f5b2d0="" type="button" onClick={() => { handleSwitchMatchCV(campaign.is_match_cv, campaign.slug) }}
                                                 disabled={isLoading || !campaign.status}
                                                 className={`${styles['btn']} ${styles['min-width']} ${styles['btn-primary']} ${styles['btn-lg']}`}>
                                                 {isLoading && (

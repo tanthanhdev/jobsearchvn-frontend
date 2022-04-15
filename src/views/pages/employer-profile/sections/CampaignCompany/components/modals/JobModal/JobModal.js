@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import { AutoComplete } from "primereact/autocomplete";
 import { Button } from 'primereact/button';
@@ -12,49 +13,71 @@ import { Editor } from 'primereact/editor';
 import Moment from 'moment';
 // components
 // services
-import userService from 'services/user.service';
+import userService from "services/user.service";
 import jobService from "services/job.service";
-import PublicService from "services/public.service";
+import publicService from "services/public.service";
 // slices
 import { create_job } from "slices/company-profile";
+import { update_job } from "slices/company-profile";
 // utils
 import { icons as iconsUtil } from 'utils/icons';
-import styles from './PostJob.module.css';
+import styles from '../../PostJob/PostJob.module.css';
+import styles2 from './JobModal.module.css';
 
-export const PostJob = ({ slug }) => {
+export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, toggleShow }) => {
+  const { isError, isLoading } = useSelector((state) => state.profileEmployer);
   const user = JSON.parse(localStorage.getItem('user'));
-  const { isError, isSuccess, isLoading } = useSelector((state) => state.profileEmployer);
   // const { message } = useSelector((state) => state.message);
-  const [phoneNumber, setPhoneNumber] = useState(user ? user.phone_number : "");
-  const [email, setEmail] = useState(user ? user.email : "");
-  const [fullName, setFullName] = useState(user ? user.first_name + " " + user.last_name : "");
-  const [campaign, setCampaign] = useState({});
+  const [phoneNumber, setPhoneNumber] = useState(job ? job.phone_number : (user ? user.phone_number : ""));
+  const [email, setEmail] = useState(job ? job.email : (user ? user.email : ""));
+  const [fullName, setFullName] = useState(job ? job.full_name : (user ? user.first_name + " " + user.last_name : ""));
   const [jobTypes, setJobTypes] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [description, setDescription] = useState('');
-  const [job_requirement, setJobRequirement] = useState('');
+  const [tags, setTags] = useState(job ? () => {
+    let tagTemp = [];
+    job.tag.map(tag => {
+      tagTemp.push(tag.name);
+    })
+    return tagTemp;
+  } : []);
+  const [description, setDescription] = useState(job ? job.description : '');
+  const [job_requirement, setJobRequirement] = useState(job ? job.job_requirement : '');
   // select or autocomplete
   const [filteredJobTypes, setFilteredJobTypes] = useState(null);
-  const [selectedJobType, setSelectedJobType] = useState(null);
-  const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [selectedLevel, setSelectedLevel] = useState(null);
-  const [selectedExperience, setSelectedExperience] = useState(null);
-  const [selectedSalaryType, setSelectedSalaryType] = useState(null);
-  const [selectedCity, setSelectedCity] = useState([]);
+  const [selectedJobType, setSelectedJobType] = useState(job ? job.job_type : null);
+  const [selectedCurrency, setSelectedCurrency] = useState(job ? job.currency : null);
+  const [selectedLevel, setSelectedLevel] = useState(job ? job.level : null);
+  const [selectedExperience, setSelectedExperience] = useState(job ? job.experience : null);
+  const [selectedSalaryType, setSelectedSalaryType] = useState(job ? job.salary_type : null);
+  const [selectedCity, setSelectedCity] = useState(job ? () => {
+    let cityTemp = [];
+    job.job_job_addresses.map((adr) => {
+      cityTemp.push(adr.city.id);
+    })
+    return cityTemp;
+  } :[]);
   const [cities, setCities] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(job ? job.country.id : null);
   const [countries, setCountries] = useState([]);
-  const [selectedIcon, setSelectedIcon] = useState([]);
+  const [selectedIcon, setSelectedIcon] = useState(job ? () => {
+    let iconTemp = [];
+    job.job_benefits.map(icon => {
+      iconTemp.push(icon.icon);
+    })
+    return iconTemp;
+  } : []);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     jobService.getJobTypes().then((res) => setJobTypes(res.data));
-    userService.getCampaign(slug).then((res) => { setCampaign(res.data); });
-    PublicService.getCities().then((res) => { setCities(res); });
-    PublicService.getCountries().then((res) => { setCountries(res.data); });
-  }, [dispatch])
+    publicService.getCities().then((res) => { setCities(res); });
+    publicService.getCountries().then((res) => { setCountries(res.data); });
+    if (job) {
+      console.log(job);
+    }
+  }, [dispatch, showModal===true])
+
 
   const currencies = [
     { name: 'VND' },
@@ -182,33 +205,33 @@ export const PostJob = ({ slug }) => {
   }
 
   const initialValues = {
-    title: "",
-    level: "",
-    experience: "",
+    title: job ? job.title : "",
+    level: job ? job.level : "",
+    experience: job ? job.experience : "",
     full_name: fullName,
     phone_number: phoneNumber,
     email: email,
-    hirer_number: "",
-    description: "",
-    job_requirement: "",
-    salary_type: "",
-    salary: 0,
-    salary_from: 0,
-    salary_to: 0,
-    currency: "", //VND, Dolar
-    web_link: "",
-    start_time: Moment(Date()).format('YYYY-MM-DD hh:mm:ss'), //ex: 2022-03-07 02:01:22.189603
-    end_time: "", //ex: 2022-03-17 02:01:22.189603
-    job_type_id: "",
-    country_id: "",
-    tag: [],
-    job_job_addresses: [
+    hirer_number: job ? job.hirer_number : "",
+    description: job ? job.description : "",
+    job_requirement: job ? job.job_requirement : "",
+    salary_type: job ? job.salary_type : "",
+    salary: job ? job.salary : 0,
+    salary_from: job ? job.salary_from : 0,
+    salary_to: job ? job.salary_to : 0,
+    currency: job ? job.currency : "", //VND, Dolar
+    web_link: job ? job.web_link : "",
+    start_time: job ? job.start_time : Moment(Date()).format('YYYY-MM-DD hh:mm:ss'), //ex: 2022-03-07 02:01:22.189603
+    end_time: job ? Moment(job.end_time).format("yyyy-MM-DDTHH:mm") : "", //ex: 2022-03-17 02:01:22.189603
+    job_type_id: job ? job.job_type_id : "",
+    country_id: job ? job.country_id : "",
+    tag: job ? job.tag : [],
+    job_job_addresses: job ? job.job_job_addresses : [
       {
         address: "",
         city_id: ""
       }
     ],
-    job_benefits: [
+    job_benefits: job ? job.job_benefits : [
       {
         benefit: "",
         icon: ""
@@ -276,52 +299,41 @@ export const PostJob = ({ slug }) => {
       .min(1, "Cần ít nhất một lợi ích").max(5, 'Bạn chỉ có thể cung cấp 5 lợi ích'),
   });
 
-  const handleCreateJob = (formValue) => {
-    dispatch(create_job({ data: formValue, campaign_id: campaign.id }))
+  const handleUpdateJob = (formValue) => {
+    dispatch(update_job({ data: formValue, slug }))
       .unwrap()
       .then((res) => {
         // console.log(res);
-        toast.success("Chúc mừng bạn đã tạo thành công công việc", {
+        toast.success("Chúc mừng bạn cập nhật thành công công việc", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
-        setTimeout(() => {
-          navigate('/employer/profile');
-        }, 5000);
+        setIsReload(true);
       })
       .catch(() => {
       });
   };
 
   return (
-    <main data-v-ddcb31ba="" className={`${styles['page-container']} ${styles['has-sub-breadcrumb']}`}>
+    <>
       <div>
         <ToastContainer draggablePercent={60} limit={5} />
       </div>
-      <div data-v-ddcb31ba="" className={`${styles['breadcrumb-box']}`}>
-        <h4 style={{ margin: '0px', marginRight: '8px' }}><b>Đăng tin tuyển dụng:</b></h4>
-        <span>Chiến dịch {campaign.name}</span>
-      </div>
-      <div data-v-ddcb31ba="" className={`${styles['container-fluid']} ${styles['page-content']}`}>
-        <h3 data-v-ddcb31ba="" className={`${styles['page-title']} ${styles['mb-4']}`}>Thông tin đăng tuyển chi tiết</h3>
-        <div data-v-75adf416="" data-v-ddcb31ba="">
-          <div data-v-75adf416="" className={`${styles['bg-white']} ${styles['border-left']} ${styles['border-primary']} ${styles['p-3']}
-            ${styles['mb-4']} ${styles['rounded']} ${styles['shadow-sm']}`}
-            style={{ borderLeftWidth: '3px!important', }}><span data-v-75adf416="">
-              Tin tuyển dụng của bạn sẽ được kiểm duyệt trước khi chính thức hiển thị với các ứng viên tiềm năng.
-            </span>
-          </div>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleCreateJob}
-          // onSubmit={async (values) => {
-          //   await new Promise((r) => setTimeout(r, 500));
-          //   console.log(JSON.stringify(values, null, 2));
-          // }}
-          >
-            {({ values, errors, isSubmitting, setFieldValue }) => (
-              <Form className={styles["form"]} id="duplicateForm">
-                {/* <form data-v-75adf416=""> */}
+      <Modal show={showModal} onHide={toggleShow} dialogClassName={`${styles2["custom-modal"]}`}>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleUpdateJob}
+        // onSubmit={async (values) => {
+        //   await new Promise((r) => setTimeout(r, 500));
+        //   alert(JSON.stringify(values, null, 2));
+        // }}
+        >
+          {({ values, errors, isSubmitting, setFieldValue }) => (
+            <Form className={styles["form"]} id="duplicateForm">
+              <Modal.Header closeButton>
+                <Modal.Title>Công việc: {job.title}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
                 <div data-v-75adf416="" className={`${styles['shadow-sm']} ${styles['bg-white']}
                   ${styles['p-4']} ${styles['pb-0']} ${styles['mb-4']} ${styles['rounded']}`}>
                   <div data-v-75adf416="" className={`${styles['title']} ${styles['d-flex']} ${styles['mb-3']}`}><i data-v-75adf416=""
@@ -333,6 +345,7 @@ export const PostJob = ({ slug }) => {
                     <div data-v-17683809="" data-v-75adf416="">
                       <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']}`}>
                         <Field
+                          disabled={isEdit ? false : true}
                           name="title"
                           type="text"
                           data-v-17683809="" id="SpqWouaUHy"
@@ -344,9 +357,6 @@ export const PostJob = ({ slug }) => {
                           component="div"
                           className="alert alert-danger"
                         />
-                        {/* <input data-v-17683809="" id="SpqWouaUHy" type="text"
-                          placeholder="VD: sdfsdf" autoComplete="off"
-                          className={`${styles['form-control']} ${styles['input-underline']} ${styles['form-control-lg']}`} /> */}
                       </div>
                     </div>
                   </div >
@@ -363,6 +373,7 @@ export const PostJob = ({ slug }) => {
                         <div data-v-1900aee5="" id="ZVSOOKZSPD" className={`${styles['my-custom-select']} ${styles['position-relative']}`}>
                           <div data-v-1900aee5="" tabIndex="-1" className={`${styles['multiselect']} ${styles['w-100']}`}>
                             <AutoComplete
+                              disabled={isEdit ? false : true}
                               value={selectedJobType}
                               suggestions={filteredJobTypes}
                               completeMethod={searchJobType}
@@ -404,6 +415,7 @@ export const PostJob = ({ slug }) => {
                           Số lượng tuyển
                         </label >
                         <Field
+                          disabled={isEdit ? false : true}
                           name="hirer_number"
                           type="text"
                           className={`${styles['form-control']}`}
@@ -415,97 +427,21 @@ export const PostJob = ({ slug }) => {
                           className="alert alert-danger"
                         />
                       </div >
-                      {/* <div data-v-75adf416="" className={`${styles['col-md-4']} ${styles['form-group']}`} > <label data-v-75adf416=""
-                        className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Loại công việc</label >
-                        <div data-v-1900aee5="" data-v-75adf416="">
-                          <div data-v-1900aee5="" id="ynZTUBdscf"
-                            className={`${styles['my-custom-select']} ${styles['position-relative']}`}>
-
-                            <div data-v-1900aee5="" tabIndex="0" className={`${styles['multiselect']}`}>
-                              <div className={`${styles['multiselect__select']}`}></div>
-                              <div className={`${styles['multiselect__tags']}`} >
-                                <div className={`${styles['multiselect__tags-wrap']}`} style={{ display: 'none', }}></div >
-
-                                <div className={`${styles['multiselect__spinner']}`} style={{ display: 'none', }}></div >
-
-                                <span className={`${styles['multiselect__placeholder']}`} >
-                                  --Chọn loại công việc--
-                                </span >
-                              </div >
-                              <div tabIndex="-1" className={`${styles['multiselect__content-wrapper']}`}
-                                style={{ maxHeight: '300px', display: 'none', }}>
-                                <ul className={`${styles['multiselect__content']}`} style={{ display: 'inline-block', }}>
-
-                                  <li className={`${styles['multiselect__element']}`} > <span data-select=""
-                                    data-selected="" data-deselect=""
-                                    className={`${styles['multiselect__option']} ${styles['multiselect__option--highlight']}`} > <span>Toàn
-                                      thời gian</span></span >
-
-                                  </li >
-                                  <li className={`${styles['multiselect__element']}`} > <span data-select=""
-                                    data-selected="" data-deselect=""
-                                    className={`${styles['multiselect__option']}`} > <span>Bán thời
-                                      gian</span></span >
-
-                                  </li >
-                                </ul >
-                              </div >
-                            </div >
-                          </div >
-
-                        </div >
-                      </div > */}
-
                     </div >
                     <div data-v-75adf416="" className={`${styles['row']}`} >
-                      {/* <div data-v-75adf416="" className={`${styles['col-md-4']} ${styles['form-group']}`} > <label data-v-75adf416=""
-                        className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Giới tính</label >
-                        <div data-v-1900aee5="" data-v-75adf416="">
-                          <div data-v-1900aee5="" id="zymiawZuIN"
-                            className={`${styles['my-custom-select']} ${styles['position-relative']}`}>
-
-                            <div data-v-1900aee5="" tabIndex="0" className={`${styles['multiselect']}`}>
-                              <div className={`${styles['multiselect__select']}`}></div>
-                              <div className={`${styles['multiselect__tags']}`} >
-                                <div className={`${styles['multiselect__tags-wrap']}`} style={{ display: 'none', }}></div >
-
-                                <div className={`${styles['multiselect__spinner']}`} style={{ display: 'none', }}></div >
-
-                                <span className={`${styles['multiselect__placeholder']}`} >
-                                  --Chọn giới tính--
-                                </span >
-                              </div >
-                              <div tabIndex="-1" className={`${styles['multiselect__content-wrapper']}`}
-                                style={{ maxHeight: '300px', display: 'none', }}>
-                                <ul className={`${styles['multiselect__content']}`} style={{ display: 'inline-block', }}>
-
-                                  <li className={`${styles['multiselect__element']}`} > <span data-select=""
-                                    data-selected="" data-deselect=""
-                                    className={`${styles['multiselect__option']} ${styles['multiselect__option--highlight']}`} > <span>Nữ</span></span >
-
-                                  </li >
-                                  <li className={`${styles['multiselect__element']}`} > <span data-select=""
-                                    data-selected="" data-deselect=""
-                                    className={`${styles['multiselect__option']}`} > <span>Nam</span></span >
-
-                                  </li >
-                                </ul >
-                              </div >
-                            </div >
-                          </div >
-
-                        </div >
-                      </div > */}
                       <div data-v-75adf416="" className={`${styles['col-md-4']} ${styles['form-group']}`} >
                         <label data-v-75adf416="" className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Cấp bậc</label >
                         <div data-v-1900aee5="" data-v-75adf416="">
                           <Dropdown
+                            disabled={isEdit ? false : true}
                             value={selectedLevel}
                             options={levels}
                             onChange={(e) => {
                               onLevelChange(e);
                               setFieldValue("level", e.value.name);
                             }}
+                            appendTo={document.body}
+                            optionValue="name"
                             optionLabel="name" placeholder="--Chọn cấp bậc--" />
                           <ErrorMessage
                             name="level"
@@ -518,12 +454,14 @@ export const PostJob = ({ slug }) => {
                         <label data-v-75adf416="" className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Kinh nghiệm</label >
                         <div data-v-1900aee5="" data-v-75adf416="">
                           <Dropdown
+                            disabled={isEdit ? false : true}
                             value={selectedExperience}
                             options={experiences}
                             onChange={(e) => {
                               onExperienceChange(e);
                               setFieldValue("experience", e.value.name);
                             }}
+                            optionValue="name"
                             optionLabel="name" placeholder="--Chọn kinh nghiệm--" />
                           <ErrorMessage
                             name="experience"
@@ -541,12 +479,14 @@ export const PostJob = ({ slug }) => {
                           <div data-v-1900aee5="" data-v-75adf416="">
                             <div data-v-1900aee5="" id="UmCemECaOA" className={`${styles['my-custom-select']} ${styles['position-relative']}`}>
                               <Dropdown
+                                disabled={isEdit ? false : true}
                                 value={selectedCurrency}
                                 options={currencies}
                                 onChange={(e) => {
                                   onCurrencyChange(e);
                                   setFieldValue("currency", e.value.name);
                                 }}
+                                optionValue="name"
                                 optionLabel="name" placeholder="--Chọn loại tiền tệ--" />
                               <ErrorMessage
                                 name="currency"
@@ -561,12 +501,14 @@ export const PostJob = ({ slug }) => {
                           <div data-v-1900aee5="" data-v-75adf416="" style={{ marginBottom: '12px' }}>
                             <div data-v-1900aee5="" id="UmCemECaOA" className={`${styles['my-custom-select']} ${styles['position-relative']}`}>
                               <Dropdown
+                                disabled={isEdit ? false : true}
                                 value={selectedSalaryType}
                                 options={salaryTypes}
                                 onChange={(e) => {
                                   onSalaryTypeChange(e);
                                   setFieldValue("salary_type", e.value.name);
                                 }}
+                                optionValue="name"
                                 optionLabel="name" placeholder="--Chọn loại lương--" />
                               <ErrorMessage
                                 name="salary_type"
@@ -575,9 +517,10 @@ export const PostJob = ({ slug }) => {
                               />
                             </div>
                           </div>
-                          {selectedSalaryType && selectedSalaryType.name === "Lương" && (
+                          {selectedSalaryType && selectedSalaryType === "Lương" && (
                             <>
                               <Field
+                                disabled={isEdit ? false : true}
                                 name="salary"
                                 type="number"
                                 className={`${styles['form-control']}`}
@@ -590,10 +533,11 @@ export const PostJob = ({ slug }) => {
                               />
                             </>
                           )}
-                          {selectedSalaryType && selectedSalaryType.name === "Lương khoảng" && (
+                          {selectedSalaryType && selectedSalaryType === "Lương khoảng" && (
                             <div style={{ display: 'flex' }}>
                               <div>
                                 <Field
+                                  disabled={isEdit ? false : true}
                                   name="salary_from"
                                   type="number"
                                   className={`${styles['form-control']}`}
@@ -607,6 +551,7 @@ export const PostJob = ({ slug }) => {
                               </div>
                               <div>
                                 <Field
+                                  disabled={isEdit ? false : true}
                                   name="salary_to"
                                   type="number"
                                   className={`${styles['form-control']}`}
@@ -627,12 +572,14 @@ export const PostJob = ({ slug }) => {
                       className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Khu vực làm việc</label >
                       <div className={`${styles['my-custom-select']} ${styles['position-relative']}`} >
                         <Dropdown
+                          disabled={isEdit ? false : true}
                           value={selectedCountry}
                           options={countries}
                           onChange={(e) => {
                             onCountryChange(e);
                             setFieldValue("country_id", e.value.id);
                           }}
+                          optionValue="id"
                           optionLabel="name" placeholder="Chọn Quốc Gia" />
                         <ErrorMessage
                           name="country_id"
@@ -659,12 +606,14 @@ export const PostJob = ({ slug }) => {
                                         <div data-v-1900aee5="" id="WIoWjAicWj"
                                           className={`${styles['my-custom-select']} ${styles['position-relative']}`} >
                                           <Dropdown
+                                            disabled={isEdit ? false : true}
                                             value={selectedCity[index]}
                                             options={cities}
                                             onChange={(e) => {
                                               onCityChange(e, index);
                                               setFieldValue(`job_job_addresses.${index}.city_id`, e.value.id);
                                             }}
+                                            optionValue="id"
                                             optionLabel="name" placeholder="Chọn Tỉnh / Thành phố" />
                                           <ErrorMessage
                                             name={`job_job_addresses.${index}.city_id`}
@@ -684,6 +633,7 @@ export const PostJob = ({ slug }) => {
                                           className={`${styles['col']} ${styles['address-item-working-address']}`} >
                                           <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']}`} >
                                             <Field
+                                              disabled={isEdit ? false : true}
                                               name={`job_job_addresses.${index}.address`}
                                               type="text"
                                               className={`${styles['form-control']}`}
@@ -699,6 +649,7 @@ export const PostJob = ({ slug }) => {
                                       </div >
                                     </div >
                                   </div >
+                                  {isEdit && (
                                   <Button
                                     type="button"
                                     className="p-button-sm"
@@ -707,7 +658,8 @@ export const PostJob = ({ slug }) => {
                                   >
                                     Xóa
                                   </Button>
-                                  {values.job_job_addresses.length >= 1 && values.job_job_addresses.length === (index + 1) ? (
+                                  )}
+                                  {values.job_job_addresses.length >= 1 && values.job_job_addresses.length === (index + 1) && isEdit ? (
                                     <Button
                                       type="button"
                                       className="p-button-sm ml-8"
@@ -722,7 +674,7 @@ export const PostJob = ({ slug }) => {
                                   ) : null}
                                 </div>
                               ))}
-                            {values.job_job_addresses.length === 0 ? (
+                            {values.job_job_addresses.length === 0 && isEdit ? (
                               <Button
                                 type="button"
                                 className="p-button-sm"
@@ -759,6 +711,7 @@ export const PostJob = ({ slug }) => {
                         className={`${styles['mr-auto']} ${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Mô tả công việc</label >
                       </div >
                       <Editor
+                        disabled={isEdit ? false : true}
                         headerTemplate={header}
                         style={{ height: '200px' }}
                         value={description}
@@ -780,6 +733,7 @@ export const PostJob = ({ slug }) => {
                         className={`${styles['mr-auto']} ${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Yêu cầu ứng viên</label >
                       </div >
                       <Editor
+                        disabled={isEdit ? false : true}
                         headerTemplate={header}
                         style={{ height: '200px' }}
                         value={job_requirement}
@@ -801,26 +755,41 @@ export const PostJob = ({ slug }) => {
                         className={`${styles['mr-auto']} ${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Kỹ năng liên quan</label >
                       </div >
                       {/* <!-- Dùng multiple select --> */}
-                      <Chips
-                        value={tags}
-                        onChange={(e) => {
-                          let tagsCustom = [];
-                          e.value.map(val => {
-                            tagsCustom.push({
-                              name: val
-                            });
-                          })
-                          setTags(e.value);
-                          setFieldValue(`tag`, tagsCustom);
-                        }}
-                        className={`${styles['w-100']} ${styles['d-block']}`}
-                        placeholder="Nhập thông tin kỹ năng liên quan đến công việc. VD: Photoshop, Microsoft Word"
-                      />
-                      <ErrorMessage
-                        name="tag"
-                        component="div"
-                        className="alert alert-danger"
-                      />
+                      {isEdit ? (
+                        <>
+                          <Chips
+                            disabled={isEdit ? false : true}
+                            value={tags}
+                            onChange={(e) => {
+                              let tagsCustom = [];
+                              e.value.map(val => {
+                                tagsCustom.push({
+                                  name: val
+                                });
+                              })
+                              setTags(e.value);
+                              setFieldValue(`tag`, tagsCustom);
+                            }}
+                            className={`${styles['w-100']} ${styles['d-block']}`}
+                            placeholder="Nhập thông tin kỹ năng liên quan đến công việc. VD: Photoshop, Microsoft Word"
+                          />
+                          <ErrorMessage
+                            name="tag"
+                            component="div"
+                            className="alert alert-danger"
+                          />
+                        </>
+                      ) : (
+                        <>
+                        {job && job.tag.map((tag, index) => (
+                          <span key={index} style={{color: 'blue',
+                            backgroundColor: '#ffc107',
+                            padding: '4px',
+                            marginRight: '4px',
+                            borderRadius: '4px',}}>#{tag.name} </span>
+                        ))}
+                        </>
+                      )}
                     </div >
                   </div >
                 </div >
@@ -840,6 +809,7 @@ export const PostJob = ({ slug }) => {
                               <div className={styles['d-flex']} style={{ marginBottom: '8px' }}>
                                 <div>
                                   <Dropdown
+                                    disabled={isEdit ? false : true}
                                     value={selectedIcon[index]}
                                     options={icons}
                                     itemTemplate={iconOptionTemplate}
@@ -847,6 +817,7 @@ export const PostJob = ({ slug }) => {
                                       onIconChange(e, index);
                                       setFieldValue(`job_benefits.${index}.icon`, e.value.name);
                                     }}
+                                    optionValue="name"
                                     optionLabel="name" placeholder="Chọn Icon" />
                                   <ErrorMessage
                                     name={`job_benefits.${index}.icon`}
@@ -856,6 +827,7 @@ export const PostJob = ({ slug }) => {
                                 </div>
                                 <div className={styles['w-100']}>
                                   <Field
+                                    disabled={isEdit ? false : true}
                                     name={`job_benefits.${index}.benefit`}
                                     type="text"
                                     className={`${styles['w-100']} ${styles['form-control']} ${styles['input_benefit']}`}
@@ -868,6 +840,7 @@ export const PostJob = ({ slug }) => {
                                   />
                                 </div>
                               </div>
+                              {isEdit && (
                               <Button
                                 type="button"
                                 className="p-button-sm"
@@ -876,7 +849,8 @@ export const PostJob = ({ slug }) => {
                               >
                                 Xóa
                               </Button>
-                              {values.job_benefits.length >= 1 && values.job_benefits.length === (index + 1) ? (
+                              )}
+                              {values.job_benefits.length >= 1 && values.job_benefits.length === (index + 1) && isEdit ? (
                                 <Button
                                   type="button"
                                   className="p-button-sm ml-8"
@@ -891,7 +865,7 @@ export const PostJob = ({ slug }) => {
                               ) : null}
                             </div>
                           ))}
-                        {values.job_benefits.length === 0 ? (
+                        {values.job_benefits.length === 0 && isEdit ? (
                           <Button
                             type="button"
                             className="p-button-sm"
@@ -922,14 +896,14 @@ export const PostJob = ({ slug }) => {
                   </div >
                   <div data-v-75adf416="" className={`${styles['pl-40-reset']}`} >
                     <div data-v-75adf416="" className={`${styles['row']}`} >
-                      <div data-v-75adf416="" className={`${styles['col-md-3']}`} >
+                      <div data-v-75adf416="" className={`${styles['col-md-4']}`} >
                         <div data-v-75adf416="" className={`${styles['form-group']}`} > <label data-v-75adf416=""
                           className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Hạn chót nhận CV</label >
                           <Field
+                            disabled={isEdit ? false : true}
                             name="end_time"
                             type="datetime-local"
                             className={`${styles['form-control']}`}
-                            placeholder="dd/mm/yyyy"
                           />
                           <ErrorMessage
                             name="end_time"
@@ -944,6 +918,7 @@ export const PostJob = ({ slug }) => {
                         <div data-v-75adf416="" className={`${styles['form-group']}`} > <label data-v-75adf416=""
                           className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} >Liên kết công ty</label >
                           <Field
+                            disabled={isEdit ? false : true}
                             name="web_link"
                             type="text"
                             className={`${styles['form-control']} ${styles['input-underline']} ${styles['form-control-lg']}`}
@@ -967,6 +942,7 @@ export const PostJob = ({ slug }) => {
                             <div data-v-17683809="" data-v-75adf416="">
                               <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']}`}>
                                 <Field
+                                  disabled={isEdit ? false : true}
                                   name="full_name"
                                   type="text"
                                   value={fullName}
@@ -991,6 +967,7 @@ export const PostJob = ({ slug }) => {
                             <label data-v-75adf416="">Số điện thoại</label>
                             <div data-v-e1812212="" data-v-75adf416="" className={`${styles['mask-input']}`} >
                               <Field
+                                disabled={isEdit ? false : true}
                                 name="phone_number"
                                 type="text"
                                 value={phoneNumber}
@@ -1014,6 +991,7 @@ export const PostJob = ({ slug }) => {
                             <label
                               data-v-75adf416="">Email</label>
                             <Field
+                              disabled={isEdit ? false : true}
                               name="email"
                               type="text"
                               value={email}
@@ -1035,27 +1013,21 @@ export const PostJob = ({ slug }) => {
                     </div >
                   </div >
                 </div >
-                <div data-v-75adf416="" className={`${styles['d-flex']}`} >
-                  <Button label="Hủy" style={{ marginRight: '12px' }} onClick={() => {
-                    if (window.confirm('Bạn có chắc muốn hủy bản tạo công việc này?')) {
-                      navigate(-1); 
-                    }
-                  }}></Button >
+              </Modal.Body>
+              <Modal.Footer>
+                {isEdit && (
                   <Button
-                    disabled={isLoading} label="Lưu" type="submit"
-                    className={`${styles['btn']} ${styles['min-width']} ${styles['btn']} ${styles['btn-primary']} ${styles['shadow-sm']}
-                    ${styles['btn-lg']}`}>
+                    disabled={isLoading} variant="primary" label="Lưu" icon="pi pi-check" type="submit">
                     {isLoading && (
                       <span className="spinner-border spinner-border-sm"></span>
                     )}
-                  </Button >
-                </div >
-                {/* </form > */}
-              </Form>
-            )}
-          </Formik>
-        </div >
-      </div >
-    </main >
+                  </Button>
+                )}
+              </Modal.Footer>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
+    </>
   );
 };
