@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import { AutoComplete } from "primereact/autocomplete";
@@ -13,11 +13,11 @@ import { Editor } from 'primereact/editor';
 import Moment from 'moment';
 // components
 // services
-import userService from "services/user.service";
+// import userService from "services/user.service";
 import jobService from "services/job.service";
 import publicService from "services/public.service";
+import { clearMessage } from "slices/message";
 // slices
-import { create_job } from "slices/company-profile";
 import { update_job } from "slices/company-profile";
 // utils
 import { icons as iconsUtil } from 'utils/icons';
@@ -25,9 +25,9 @@ import styles from '../../PostJob/PostJob.module.css';
 import styles2 from './JobModal.module.css';
 
 export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, toggleShow }) => {
-  const { isError, isLoading } = useSelector((state) => state.profileEmployer);
   const user = JSON.parse(localStorage.getItem('user'));
-  // const { message } = useSelector((state) => state.message);
+  const { isError, isLoading } = useSelector((state) => state.profileEmployer);
+  const { message } = useSelector((state) => state.message);
   const [phoneNumber, setPhoneNumber] = useState(job ? job.phone_number : (user ? user.phone_number : ""));
   const [email, setEmail] = useState(job ? job.email : (user ? user.email : ""));
   const [fullName, setFullName] = useState(job ? job.full_name : (user ? user.first_name + " " + user.last_name : ""));
@@ -60,33 +60,60 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
   const [countries, setCountries] = useState([]);
   const [selectedIcon, setSelectedIcon] = useState(job ? () => {
     let iconTemp = [];
-    job.job_benefits.map(icon => {
-      iconTemp.push(icon.icon);
+    job.job_benefits.map(be => {
+      iconTemp.push(be.icon);
     })
     return iconTemp;
   } : []);
+  const job_addresses = () => {
+    let temp = [];
+    job.job_job_addresses.map((address) => {
+      temp.push({
+        address: address.address,
+        city_id: address.city.id,
+      })
+    })
+    return temp;
+  };
+  const job_benefits = () => {
+    let temp = [];
+    job.job_benefits.map((be) => {
+      temp.push({
+        benefit: be.benefit,
+        icon: be.icon,
+      })
+    })
+    return temp;
+  }
+  const job_tags = () => {
+    let temp = [];
+    job.tag.map(tag => {
+      temp.push({
+        name: tag.name
+      });
+    })
+    return temp;
+  }
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch()
 
   useEffect(() => {
     jobService.getJobTypes().then((res) => setJobTypes(res.data));
     publicService.getCities().then((res) => { setCities(res); });
     publicService.getCountries().then((res) => { setCountries(res.data); });
-    if (job) {
-      console.log(job);
-    }
+    dispatch(clearMessage());
   }, [dispatch, showModal===true])
 
 
   const currencies = [
     { name: 'VND' },
-    { name: 'Dolar' },
+    { name: 'USD' },
   ];
 
   const levels = [
     { name: 'Nhân viên' },
-    { name: 'Trưởng phòng' },
+    { name: 'Quản lý' },
   ];
 
   const experiences = [
@@ -224,14 +251,14 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
     end_time: job ? Moment(job.end_time).format("yyyy-MM-DDTHH:mm") : "", //ex: 2022-03-17 02:01:22.189603
     job_type_id: job ? job.job_type_id : "",
     country_id: job ? job.country_id : "",
-    tag: job ? job.tag : [],
-    job_job_addresses: job ? job.job_job_addresses : [
+    tag: job ? job_tags() : [],
+    job_job_addresses: job ? job_addresses() : [
       {
         address: "",
         city_id: ""
       }
     ],
-    job_benefits: job ? job.job_benefits : [
+    job_benefits: job ? job_benefits() : [
       {
         benefit: "",
         icon: ""
@@ -268,7 +295,11 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
     salary_to: Yup.number()
       .when("salary_type", {
         is: (salary_type) => salary_type === "Lương khoảng",
-        then: Yup.number().required("Vui lòng không để trống!").min(0),
+        then: Yup.number().required("Vui lòng không để trống!")
+        .min(
+          Yup.ref('salary_from'),
+          "Luơng tối đa không được nhỏ hơn lương khởi điểm"
+        ),
       }),
     currency: Yup.string().required("Vui lòng không để trống!"),
     web_link: Yup.string().required("Vui lòng không để trống!"),
@@ -310,22 +341,23 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
         setIsReload(true);
       })
       .catch(() => {
+        toast.error(message.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
       });
   };
 
   return (
     <>
-      <div>
-        <ToastContainer draggablePercent={60} limit={5} />
-      </div>
       <Modal show={showModal} onHide={toggleShow} dialogClassName={`${styles2["custom-modal"]}`}>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleUpdateJob}
         // onSubmit={async (values) => {
-        //   await new Promise((r) => setTimeout(r, 500));
-        //   alert(JSON.stringify(values, null, 2));
+        //   console.log(values);
+        //   // await new Promise((r) => setTimeout(r, 500));
+        //   // alert(JSON.stringify(values, null, 2));
         // }}
         >
           {({ values, errors, isSubmitting, setFieldValue }) => (
@@ -438,7 +470,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                             options={levels}
                             onChange={(e) => {
                               onLevelChange(e);
-                              setFieldValue("level", e.value.name);
+                              setFieldValue("level", e.value);
                             }}
                             appendTo={document.body}
                             optionValue="name"
@@ -451,7 +483,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                         </div >
                       </div >
                       <div data-v-75adf416="" className={`${styles['col-md-4']} ${styles['form-group']}`} >
-                        <label data-v-75adf416="" className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Kinh nghiệm</label >
+                        <label data-v-75adf416="" className={`${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} >Kinh nghiệm</label >
                         <div data-v-1900aee5="" data-v-75adf416="">
                           <Dropdown
                             disabled={isEdit ? false : true}
@@ -459,7 +491,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                             options={experiences}
                             onChange={(e) => {
                               onExperienceChange(e);
-                              setFieldValue("experience", e.value.name);
+                              setFieldValue("experience", e.value);
                             }}
                             optionValue="name"
                             optionLabel="name" placeholder="--Chọn kinh nghiệm--" />
@@ -484,7 +516,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                                 options={currencies}
                                 onChange={(e) => {
                                   onCurrencyChange(e);
-                                  setFieldValue("currency", e.value.name);
+                                  setFieldValue("currency", e.value);
                                 }}
                                 optionValue="name"
                                 optionLabel="name" placeholder="--Chọn loại tiền tệ--" />
@@ -506,7 +538,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                                 options={salaryTypes}
                                 onChange={(e) => {
                                   onSalaryTypeChange(e);
-                                  setFieldValue("salary_type", e.value.name);
+                                  setFieldValue("salary_type", e.value);
                                 }}
                                 optionValue="name"
                                 optionLabel="name" placeholder="--Chọn loại lương--" />
@@ -577,7 +609,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                           options={countries}
                           onChange={(e) => {
                             onCountryChange(e);
-                            setFieldValue("country_id", e.value.id);
+                            setFieldValue("country_id", e.value);
                           }}
                           optionValue="id"
                           optionLabel="name" placeholder="Chọn Quốc Gia" />
@@ -611,7 +643,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                                             options={cities}
                                             onChange={(e) => {
                                               onCityChange(e, index);
-                                              setFieldValue(`job_job_addresses.${index}.city_id`, e.value.id);
+                                              setFieldValue(`job_job_addresses.${index}.city_id`, e.value);
                                             }}
                                             optionValue="id"
                                             optionLabel="name" placeholder="Chọn Tỉnh / Thành phố" />
@@ -710,18 +742,23 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                       <div data-v-75adf416="" className={`${styles['d-flex']}`} > <label data-v-75adf416=""
                         className={`${styles['mr-auto']} ${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Mô tả công việc</label >
                       </div >
-                      <Editor
-                        disabled={isEdit ? false : true}
-                        headerTemplate={header}
-                        style={{ height: '200px' }}
-                        value={description}
-                        onTextChange={
-                          (e) => {
-                            setDescription(e.htmlValue);
-                            setFieldValue('description', e.htmlValue);
+                      {!isEdit ? (
+                        <div dangerouslySetInnerHTML={{
+                          __html: description
+                        }}></div>
+                      ) : (
+                        <Editor
+                          headerTemplate={header}
+                          style={{ height: '200px' }}
+                          value={description}
+                          onTextChange={
+                            (e) => {
+                              setDescription(e.htmlValue);
+                              setFieldValue('description', e.htmlValue);
+                            }
                           }
-                        }
-                      />
+                        />
+                      )}
                       <ErrorMessage
                         name="description"
                         component="div"
@@ -732,18 +769,23 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                       <div data-v-75adf416="" className={`${styles['d-flex']}`} > <label data-v-75adf416=""
                         className={`${styles['mr-auto']} ${styles['text-secondary-dark']} ${styles['font-weight-bold']}`} > Yêu cầu ứng viên</label >
                       </div >
-                      <Editor
-                        disabled={isEdit ? false : true}
-                        headerTemplate={header}
-                        style={{ height: '200px' }}
-                        value={job_requirement}
-                        onTextChange={
-                          (e) => {
-                            setJobRequirement(e.htmlValue);
-                            setFieldValue('job_requirement', e.htmlValue);
+                      {!isEdit ? (
+                        <div dangerouslySetInnerHTML={{
+                          __html: job_requirement
+                        }}></div>
+                      ) : (
+                        <Editor
+                          headerTemplate={header}
+                          style={{ height: '200px' }}
+                          value={job_requirement}
+                          onTextChange={
+                            (e) => {
+                              setJobRequirement(e.htmlValue);
+                              setFieldValue('job_requirement', e.htmlValue);
+                            }
                           }
-                        }
-                      />
+                        />
+                      )}
                       <ErrorMessage
                         name="job_requirement"
                         component="div"
@@ -815,7 +857,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                                     itemTemplate={iconOptionTemplate}
                                     onChange={(e) => {
                                       onIconChange(e, index);
-                                      setFieldValue(`job_benefits.${index}.icon`, e.value.name);
+                                      setFieldValue(`job_benefits.${index}.icon`, e.value);
                                     }}
                                     optionValue="name"
                                     optionLabel="name" placeholder="Chọn Icon" />

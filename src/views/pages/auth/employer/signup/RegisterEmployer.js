@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css';
 import { icons } from 'utils/icons';
 import { registerEmployer } from "slices/auth";
-import { clearMessage, setMessage } from "slices/message";
+import { clearMessage } from "slices/message";
 
 const RegisterEmployer = () => {
     const { isError, isSuccess, isLoading } = useSelector((state) => state.auth);

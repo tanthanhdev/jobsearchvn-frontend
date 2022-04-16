@@ -58,12 +58,12 @@ export const PostJob = ({ slug }) => {
 
   const currencies = [
     { name: 'VND' },
-    { name: 'Dolar' },
+    { name: 'USD' },
   ];
 
   const levels = [
     { name: 'Nhân viên' },
-    { name: 'Trưởng phòng' },
+    { name: 'Quản lý' },
   ];
 
   const experiences = [

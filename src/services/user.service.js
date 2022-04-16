@@ -79,9 +79,9 @@ const update_campaign = (slug, data) => {
     })
 }
 
-const getAllCampaigns = () => {
+const getAllCampaigns = (q="") => {
   return axios
-    .get(API_URL + "/campaigns/", { headers: authHeader() })
+    .get(API_URL + "/campaigns/?q=" + q, { headers: authHeader() })
     .then((response) => {
       if (response) {
         return response;
@@ -146,7 +146,7 @@ const createJob = (data, campaign_id) => {
     });
 }
 
-const update_job = (slug, data) => {
+const update_job = (data, slug) => {
   return axios
     .patch(API_URL + '/jobs/' + slug + '/', {...data} , { headers: authHeader() })
     .then((response) => {

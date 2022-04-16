@@ -157,8 +157,12 @@ export const CampaignDetail = ({ slug }) => {
                                                     {job.phone_number}
                                                 </td>
                                                 <td className={`${styles['border-right']}`}>
-                                                    <div>{(job.is_active || job.end_time < job.start_time) ? 'Đang bật' : 'Đã tắt hoặc hết hạn'}</div>
-                                                    <InputSwitch checked={(job.is_active || job.end_time < job.start_time)} onChange={() => handleStatus(job.is_active, job.slug)} disabled={isLoading || (job.end_time < job.start_time)} />
+                                                    <div>{(job.is_active && new Date(job.end_time) >= new Date()) ? 'Đang bật' : (new Date(job.end_time) < new Date() ? 'Hết hạn' : 'Đang tắt')}</div>
+                                                    <InputSwitch checked={(job.is_active && new Date(job.end_time) >= new Date())} onChange={() => {
+                                                        if (new Date(job.end_time) >= new Date()) {
+                                                            handleStatus(job.is_active, job.slug)
+                                                        }
+                                                    }} disabled={isLoading || (new Date(job.end_time) < new Date())} />
                                                 </td>
                                                 <td className={`${styles['border-right']}`}>
                                                     <Button icon="pi pi-search" className="p-button-rounded p-button-success"

@@ -12,7 +12,7 @@ import { UpdateMatchCV } from "slices/company-profile";
 // utils
 import styles from './ListCampaign.module.css';
 
-const ListCampaign = ({ campaigns, setIsReload }) => {
+const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
     const { isError, isLoading } = useSelector((state) => state.profileEmployer);
     // const { message } = useSelector((state) => state.message);
     const dispatch = useDispatch()
@@ -60,7 +60,9 @@ const ListCampaign = ({ campaigns, setIsReload }) => {
                     <div data-v-14f1a322="" className={`${styles['search-campaign-wrapper']}`}>
                         <input data-v-14f1a322="" type="text"
                             placeholder="Tìm chiến dịch (Nhấn enter để tìm kiếm)"
-                            className={`${styles['form-control']} ${styles['search-campaign']} ${styles['form-control-lg']}`} />
+                            className={`${styles['form-control']} ${styles['form-control-lg']}`}
+                            onChange={(e) => {setQueryString(e.target.value)}}
+                        />
                     </div>
                 </div>
             </div>

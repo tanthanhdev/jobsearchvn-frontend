@@ -20,18 +20,23 @@ import styles from "./CampaignCompany.module.css";
 export const CampaignCompany = ({ isActive }) => {
     const [isReload, setIsReload] = useState(false);
     const [campaigns, setCampaigns] = useState([]);
+    const [q, setQueryString] = useState("");
 
     useEffect(() => {
-        userService.getAllCampaigns().then((res) => {
+        userService.getAllCampaigns(q).then((res) => {
             setCampaigns(res.data);
             setIsReload(false);
+        }).catch((err) => {
+            if (err.response.status === 404) {
+                setCampaigns([]);
+            }
         });
-    }, [isReload===true])
+    }, [isReload===true, q])
 
     return (
         <div className={styles.wrapper}>
             <CreateCampaign  setIsReload={setIsReload}/>
-            <ListCampaign campaigns={campaigns} setIsReload={setIsReload}/>
+            <ListCampaign campaigns={campaigns} setIsReload={setIsReload} setQueryString={setQueryString} />
         </div>
     )
 };
