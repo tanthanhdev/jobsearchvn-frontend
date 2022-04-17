@@ -10,6 +10,7 @@ import {SaveProfileCompany} from './sections/SaveProfileCompany/SaveProfileCompa
 import {CampaignCompany} from './sections/CampaignCompany/CampaignCompany'
 import {PostJob} from "./sections/CampaignCompany/components/PostJob";
 import {CampaignDetail} from "./sections/CampaignCompany/components/CampaignDetail";
+import {SearchCV} from "./sections/CampaignCompany/components/SearchCV";
 import './style.css'
 
 export const EmployerProfile = ({ active }) => {
@@ -39,6 +40,8 @@ export const EmployerProfile = ({ active }) => {
       return <PostJob slug={params.slug} />
     } else if (activeIndex === 6) {
       return <CampaignDetail slug={params.slug} />
+    } else if (activeIndex === 7) {
+      return <SearchCV slug={params.slug} />
     }
   }
 

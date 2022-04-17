@@ -46,9 +46,9 @@ const CreateCampaign = ({ setIsReload }) => {
     };
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string().required("This field is required!"),
-        position: Yup.string().required("This field is required!"),
-        city_id: Yup.string().required("This field is required!"),
+        name: Yup.string().required("Tên chiến dịch không để trống!"),
+        position: Yup.string().required("Vị trí không để trống!"),
+        city_id: Yup.string().required("Khu vực làm việc không hợp lệ! (Gợi ý: Tìm kiếm khu vực có tồn tại)"),
     });
 
     const handleCampaign = (formValue) => {
@@ -115,8 +115,7 @@ const CreateCampaign = ({ setIsReload }) => {
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <div className="form-group"><label className="font-weight-bold">Khu
-                                    vực làm việc</label>
+                                <div className="form-group"><label className="font-weight-bold">Khu vực làm việc</label>
                                     <div>
                                         <AutoComplete
                                             value={selectedCity}
@@ -125,7 +124,7 @@ const CreateCampaign = ({ setIsReload }) => {
                                             field="name"
                                             onChange={(e) => {
                                                 setSelectedCity(e.value);
-                                                setFieldValue("city_id", e.value.id);
+                                                setFieldValue("city_id", e.value.id ? e.value.id : "");
                                             }}
                                             placeholder="-- Chọn khu vực làm việc --"
                                         />

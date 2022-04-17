@@ -95,6 +95,10 @@ const App = () => {
           element={isLoggedIn ? <EmployerProfile active={6} /> : <Navigate to="/login" />}
         />
         <Route
+          path="/employer/campaigns/:slug/search-cv"
+          element={isLoggedIn ? <EmployerProfile active={7} /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/cv-template"
           element={
             !isLoggedIn ? (

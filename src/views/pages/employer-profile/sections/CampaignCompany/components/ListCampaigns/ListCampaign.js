@@ -149,7 +149,9 @@ const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
                             </td>
                             <td data-v-14f1a322="" className={`${styles['border-right']}`}>
                                 <div data-v-14f1a322="">
-                                    <a className={`${styles['btn']} ${styles['btn-xs']} ${styles['btn-primary']} ${styles['transparent-1']}`}>Tìm CV</a>
+                                    <a className={`${styles['btn']} ${styles['btn-xs']} ${styles['btn-primary']} ${styles['transparent-1']}`}
+                                        href={"/employer/campaigns/" + campaign.slug + "/search-cv"}
+                                    >Tìm CV</a>
                                 </div>
                             </td>
                         </tr>

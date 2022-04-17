@@ -218,7 +218,7 @@ export const PostJob = ({ slug }) => {
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Vui lòng không để trống!"),
-    job_type_id: Yup.string().required("Vui lòng không để trống!"),
+    job_type_id: Yup.string().required("Vui lòng không để trống hoặc không hợp lệ! (Gợi ý: Tìm kiếm lĩnh vực tồn tại.)"),
     country_id: Yup.string().required("Vui lòng không để trống!"),
     full_name: Yup.string().required("Vui lòng không để trống!"),
     phone_number: Yup.string().required("Vui lòng không để trống!"),
@@ -370,7 +370,7 @@ export const PostJob = ({ slug }) => {
                               name="job_type_id"
                               onChange={(e) => {
                                 setSelectedJobType(e.value);
-                                setFieldValue("job_type_id", e.value.id);
+                                setFieldValue("job_type_id", e.value.id ? e.value.id : "");
                               }}
                               className={`${styles['w-100']}`}
                               placeholder="Lựa chọn tối đa 1 ngành nghề chính cho tin tuyển dụng này"
