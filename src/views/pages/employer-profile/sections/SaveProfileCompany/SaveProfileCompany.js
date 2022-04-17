@@ -10,6 +10,10 @@ export const SaveProfileCompany = ({isActive}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        fetchCvs()
+    }, [])
+
+    const fetchCvs = () => {
         dispatch(getAllCvs())
         .unwrap()
         .then((res) => {
@@ -19,17 +23,19 @@ export const SaveProfileCompany = ({isActive}) => {
         .catch((err) => {
             console.log(err);
         });
-    }, [])
+    }
 
     const handleDeleteCv = (cv_id) => {
         dispatch(deleteSaveCv(cv_id))
         .unwrap()
         .then((res) => {
-            // console.log(res);
+            console.log(res);
             setSaveCvs(res)
+
         })
         .catch((err) => {
             console.log(err);
+            fetchCvs()
         });
     }
 

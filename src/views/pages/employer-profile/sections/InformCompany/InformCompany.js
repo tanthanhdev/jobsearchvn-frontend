@@ -34,28 +34,33 @@ export const InformCompany = ({isActive}) => {
                         <i class="fas fa-filter"></i>
                     </div>                       
                 </div>
-                <div class="job-container">
-                    <div class="job">
-                        <img class="job__img" src={imgLogo} alt=""/>
-                        <div class="job__name">
-                            <div class="job__name-top">Software Engineer Fresher (Java, .NET)</div>
-                            <div class="job-wage">Thương lượng</div>
+                { notificationCvs && notificationCvs.length > 0 &&
+                    notificationCvs.map((item, index) => (
+                        <div class="job-container">
+                            <div class="job">
+                                <img class="job__img" src={imgLogo} alt=""/>
+                                <div class="job__name">
+                                    <div class="job__name-top">Software Engineer Fresher (Java, .NET)</div>
+                                    <div class="job-wage">Thương lượng</div>
+                                </div>
+                                <div class="job__date">
+                                    <div class="job-lable">Ngày hết hạn</div>
+                                    <div class="job-number">3/11/2021</div>
+                                </div>
+                                <div class="job__view">
+                                    <div class="job-lable">Số lần xem</div>
+                                    <div class="job-number">123</div>
+                                </div>
+                                <div class="content__status-lable job-detail">Hồ sơ ứng tuyển</div>
+                                <div class="status job-detail">
+                                    <div class="content__status-lable red">Không đạt</div>
+                                </div>
+                                <i class="icon-del far fa-trash-alt"></i>
+                            </div>
                         </div>
-                        <div class="job__date">
-                            <div class="job-lable">Ngày hết hạn</div>
-                            <div class="job-number">3/11/2021</div>
-                        </div>
-                        <div class="job__view">
-                            <div class="job-lable">Số lần xem</div>
-                            <div class="job-number">123</div>
-                        </div>
-                        <div class="content__status-lable job-detail">Hồ sơ ứng tuyển</div>
-                        <div class="status job-detail">
-                            <div class="content__status-lable red">Không đạt</div>
-                        </div>
-                        <i class="icon-del far fa-trash-alt"></i>
-                    </div>
-                </div>
+                    ))
+                }
+                
                 <div class="job-container">
                     <div class="job">
                         <img class="job__img" src={imgLogo} alt=""/>
