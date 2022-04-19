@@ -76,13 +76,28 @@ const getAllNotificationCvs = () => {
 };
 
 
+const searchCV = (q="", adr="", gender="", edu_lv="", edu_name="",
+  comp_worked="", language="", display_priority="") => {
+  return axios
+    .get(API_URL + "/searches/cv/?q=" + q + "&adr=" + adr + "&gender=" + gender + "&edu_lv=" + edu_lv
+      + "&edu_name=" + edu_name + "&comp_worked=" + comp_worked
+      + "&language="+ language + "&display_priority=" + display_priority, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
 const CvService = {
   create_cv,
   getCareers,
   getDesigns,
   getAllCvs,
   deleteSaveCv,
-  getAllNotificationCvs
+  getAllNotificationCvs,
+  searchCV
 };
 
 export default CvService;

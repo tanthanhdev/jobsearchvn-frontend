@@ -5,7 +5,7 @@ import React from "react";
 // services
 // import authService from "services/auth.service";
 // utils
-import dateUtils from "utils/date"
+import dateUtils from "utils/date";
 import styles from './jobs.module.css';
 
 export const Jobs = (company) => {

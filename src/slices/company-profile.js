@@ -215,6 +215,25 @@ export const switch_active_job = createAsyncThunk(
   }
 );
 
+export const search_cv = createAsyncThunk(
+  "employers/campaigns/search-cv",
+  async ( {q, adr, gender, edu_lv, edu_name, comp_worked, language, display_priority}, thunkAPI) => {
+    try {
+      const response = await CvsService.searchCV(q, adr, gender, edu_lv, edu_name,
+        comp_worked, language, display_priority);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      // return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+
 
 // const initialState = {
 // //   cv: cv ? cv : null,
@@ -337,6 +356,20 @@ const CompanyProfileSlice = createSlice({
       state.isError = false
     },
     [delete_employer_jobs.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [search_cv.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [search_cv.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [search_cv.rejected]: (state, action) => {
       state.isLoading = false
       state.isError = true
       state.isSuccess = false
