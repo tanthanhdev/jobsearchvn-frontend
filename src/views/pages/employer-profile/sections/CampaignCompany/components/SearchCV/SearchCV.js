@@ -31,9 +31,9 @@ export const SearchCV = ({ slug }) => {
 
   useEffect(() => {
     if (!CVs) {
-      UserService.getCampaign(slug).then((res) => {
+      UserService.getCampaign(slug).then(() => {
         // setCampaign(res.data);
-        CvService.searchCV('a').then((res) => { setCVs(res.data); });
+        CvService.searchCV().then((res) => { setCVs(res.data); });
         // console.log(CVs)
       });
     }

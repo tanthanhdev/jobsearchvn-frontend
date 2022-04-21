@@ -15,7 +15,7 @@ import styles from './ListCampaign.module.css';
 const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
     const { isError, isLoading } = useSelector((state) => state.profileEmployer);
     // const { message } = useSelector((state) => state.message);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isError) {

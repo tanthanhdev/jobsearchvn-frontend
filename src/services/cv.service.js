@@ -20,6 +20,17 @@ const create_cv = (title, target_major, cv_cv_educations, cv_cv_experiences,
     });
 };
 
+const saveCV = (cv_id) => {
+  return axios
+    .post(API_URL + "/cvs/save/", {cv_id}, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
 const getCareers = () => {
   return axios
     .get(API_URL + "/public/cv_careers/", {})
@@ -101,8 +112,20 @@ const searchCV = (q="", adr="", gender="", edu_lv="", edu_name="",
     });
 };
 
+const getIsCVSaveExists = (cv_id) => {
+  return axios
+    .get(API_URL + "/cvs/save/" + cv_id + "/exists/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
 const CvService = {
   create_cv,
+  saveCV,
   getCareers,
   getDesigns,
   getAllCvs,
@@ -110,6 +133,7 @@ const CvService = {
   getAllNotificationCvs,
   searchCV,
   getPublicCVDetail,
+  getIsCVSaveExists,
 };
 
 export default CvService;

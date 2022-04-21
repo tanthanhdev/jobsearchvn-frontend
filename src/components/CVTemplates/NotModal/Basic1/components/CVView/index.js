@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Modal } from 'react-bootstrap';
+// import { Modal } from 'react-bootstrap';
 // import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
+// import { Button } from 'primereact/button';
 
 // import CvTemplateService from 'services/cv-template';
 
@@ -43,7 +43,7 @@ export const CVView = ({ Cv }) => {
                         <div className={`${styles.search} ${styles["bg-primary-trans"]}`}>
                           <div className={`${styles["input-search"]}`}>
                             <span className={`${styles.title}`}>
-                              {Cv.title}
+                              {"https://www.jobsearchdtu.site/cv/" + Cv.slug}
                             </span>
                           </div>
                         </div>
@@ -61,7 +61,7 @@ export const CVView = ({ Cv }) => {
                       <div className={`${styles["h-content"]}`}>
                         <div className={`${styles["top-content"]}`}>
                           <div className={`${styles["profile-item"]}  ${styles["cvo-profile-avatar-wraper"]}`}>
-                            <img className={`${styles["cvo-profile-avatar"]}`} src={Cv.member.user.avatar ? Cv.member.user.avatar : icons.logo_default} value="preview_avatar" alt="avatar" />
+                            <img className={`${styles["cvo-profile-avatar"]}`} src={Cv.member.avatar ? Cv.member.avatar : icons.logo_default} value="preview_avatar" alt="avatar" />
                           </div>
                           <div className={`${styles["cvo-profile-fullname-and-title"]}`}>
                             <div className={`${styles["cvo-profile-fullname-wraper"]}`}>
