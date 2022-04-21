@@ -203,11 +203,8 @@ body.cv-viewer {
 }
 
 .cvo-document .cvo-subpage {
-    padding: initial;
-}
-.cvo-document .cvo-subpage {
     padding: 5mm;
-    min-height: 200mm;
+    box-shadow: 0px 0px 4px #a1a1a1;
 }
 .cvo-body {
     position: relative;
@@ -220,7 +217,6 @@ body.cv-viewer {
     font-size: 12px;
     color: #555;
 }
-
 .cv-watermark {
     cursor: help;
 }
@@ -271,10 +267,6 @@ body.cv-viewer {
     border-radius: 10px;
     margin: 0 2px;
 }
-.navigation .nav-header>div {
-    display: inline-block;
-}
-
 .navigation .nav-header .tabs {
     position: relative;
 }
@@ -339,6 +331,9 @@ body.cv-viewer {
     position: relative;
     padding-left: 10px;
 }
+.navigation .nav-header>div {
+    display: inline-block;
+}
 .navigation .nav-body {
     background: #fff;
     padding: 16px;
@@ -347,9 +342,11 @@ body.cv-viewer {
 .navigation .nav-body .action {
     font-size: 24px;
 }
-
+.nav-body {
+    display: flex;
+}
 .navigation .nav-body>div {
-    display: inline-block;
+    /* display: inline-block; */
     padding-left: 30px;
 }
 .navigation .nav-body .action>span {
@@ -358,8 +355,16 @@ body.cv-viewer {
 .navigation .nav-body .action>.next {
     margin-right: 26px;
 }
+
+.navigation .nav-body .action>span {
+    margin-right: 9px;
+}
 .navigation .nav-body .action .reload {
     font-size: 20px;
+}
+
+.navigation .nav-body .action>span {
+    margin-right: 9px;
 }
 .navigation .nav-body .search {
     width: 75%;
@@ -378,6 +383,10 @@ body.cv-viewer {
     padding: initial;
 }
 
+.navigation .nav-body>div {
+    display: inline-block;
+    padding-left: 30px;
+}
 .pb-0 {
     padding-bottom: 0;
 }
@@ -397,11 +406,6 @@ body.cv-viewer {
 .group-header .h-content .profile-item img {
     width: 100%;
     border-radius: 50%;
-}
-.cvo-profile-title {
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
 }
 .cvo-profile-title-wraper {
     margin-bottom: 20px;
@@ -520,90 +524,9 @@ body.cv-viewer {
 .clear {
     clear:both;
 }
-/* other */
-.cvo-objective-objective {
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
+.cvo-profile-avatar {
+    height: 130px;
 }
-.row {
-    margin-bottom: 28px;
-}
-
-.cvo-education-time {
-    display: flex;
-}
-
-.flex {
-    display: flex;
-}
-
-.time-background {
-    display: flex;
-    max-width: 265px;
-}
-
-.cvo-education-details {
-    display: flex;
-}
-
-.cvo-profile-title[name="gpa"] {
-    max-width: 28px;
-    margin-left: 4px;
-}
-.cvo-education-title {
-    display: flex;
-}
-.cvo-profile-title[name="major"] {
-    max-width: 168px;
-    margin-right: 4px;
-}
-.cvo-profile-title[name="degree_name"] {
-    max-width: 144px;
-    margin-right: 4px;
-}
-
-.cvo-profile-title[name="description"] {
-    color: #999;
-}
-
-/* CVO Skills */
-.cvo-skill-name {
-    width: 100%;
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
-}
-
-.cvo-skill-description {
-    width: 100%;
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
-}
-
-.cvo-skill-block {
-    margin-top: 24px;
-}
-/* CVO Skills end */
-/* CVO certificate */
-.cvo-certificate-year {
-    width: 100%;
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
-}
-
-.cvo-certificate-name {
-    width: 100%;
-    border-radius: 4px;
-    border: none;
-    outline: 1pt dashed #77a5cc;
-    margin-bottom: 8px;
-}
-/* CVo certificate end */
-
 .d-flex {
     display: flex!important;
 }

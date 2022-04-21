@@ -53,6 +53,17 @@ const getAllCvs = () => {
     });
 };
 
+const getPublicCVDetail = (slug) => {
+  return axios
+    .get(API_URL + "/public/cvs/" + slug + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null
+    });
+};
+
 const deleteSaveCv = (cv_id) => {
   return axios
     .delete(API_URL + "/cvs/save/" + cv_id + '/', { headers: authHeader() })
@@ -97,7 +108,8 @@ const CvService = {
   getAllCvs,
   deleteSaveCv,
   getAllNotificationCvs,
-  searchCV
+  searchCV,
+  getPublicCVDetail,
 };
 
 export default CvService;

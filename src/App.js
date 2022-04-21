@@ -21,6 +21,7 @@ import SearchCompanyReviews from "views/pages/companyReviews/companies";
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
+import {CVPublic} from "views/layout/CVPublic/CVPublic";
 // services
 import authService from "services/auth.service";
 // slices
@@ -97,6 +98,10 @@ const App = () => {
         <Route
           path="/employer/campaigns/:slug/search-cv"
           element={isLoggedIn ? <EmployerProfile active={7} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/cv/:slug"
+          element={<CVPublic/>}
         />
         <Route
           path="/cv-template"
