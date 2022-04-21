@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 // components
 // services
-import CvService  from 'services/cv.service';
+import CvService from 'services/cv.service';
 // slices
 import { saveCV } from "slices/cv";
 // Utils
 import styles from './Right.module.css';
 import { icons } from 'utils/icons';
 import dateUtils from "utils/date";
+import script from "utils/script";
 
 export const Right = ({ Cv }) => {
   const { isLoading } = useSelector((state) => state.cv_template);
@@ -16,8 +26,10 @@ export const Right = ({ Cv }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    CvService.getIsCVSaveExists(Cv.id).then(() => {setIsCvSaveExists(true);}).catch(() => {setIsCvSaveExists(false);});
+    CvService.getIsCVSaveExists(Cv.id).then(() => { setIsCvSaveExists(true); }).catch(() => { setIsCvSaveExists(false); });
     console.log(Cv);
+    // External javascript with DOM
+    script.appendScript('https://sp.zalo.me/plugins/sdk.js');
   }, [dispatch]);
 
   const handleSaveCV = () => {
@@ -25,6 +37,24 @@ export const Right = ({ Cv }) => {
       .unwrap()
       .then(() => { setIsCvSaveExists(true); })
       .catch(() => { });
+  }
+
+  const printDocument = () => {
+    let input = document.getElementById('divToPrint');
+    html2canvas(input, {
+      allowTaint: true,
+      useCORS: true,
+      logging: false,
+      height: window.outerHeight + window.innerHeight,
+      windowHeight: window.outerHeight + window.innerHeight,
+    }).then((canvas) => {
+      let imgData = canvas.toDataURL('image/png');
+      let pdf = new jsPDF();
+      pdf.addImage(imgData, 'JPEG', 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save(Cv.title + '_' + new Date().getTime() + ".pdf");
+    })
+      ;
   }
 
   return (
@@ -115,13 +145,40 @@ export const Right = ({ Cv }) => {
                     ${styles["btn-lg"]} ${styles["btn-block"]} ${styles["w-100"]}`}>
                     Chia sẻ CV
                   </button>
+                  <div style={{ display: 'flex' }}>
+                    <TwitterShareButton
+                      title={"Chia sẻ CV từ jobsearchdtu.site"}
+                      url={"https://www.jobsearchdtu.site/cv/" + Cv.slug}
+                      hashtags={["jobsearchdtu.site", "cv"]}
+                    >
+                      <TwitterIcon size={32} round={true} className={styles['mr-2']} />
+                    </TwitterShareButton>
+                    <FacebookShareButton
+                      url={"https://www.jobsearchdtu.site/cv/" + Cv.slug}
+                      quote={"Chia sẻ CV từ jobsearchdtu.site"}
+                      hashtag={"#jobsearchdtu.site"}
+                      description={"cv"}
+                    >
+                      <FacebookIcon size={32} round={true} className={styles['mr-2']} />
+                    </FacebookShareButton>
+                    <a
+                      target="_blank"
+                      href={"https://www.linkedin.com/sharing/share-offsite/?url=https://www.jobsearchdtu.site/cv/" + Cv.slug}
+                    >
+                      <LinkedinIcon size={32} round={true} className={styles['mr-2']} />
+                    </a>
+                    <div className="zalo-share-button" data-href={"https://www.jobsearchdtu.site/cv/" + Cv.slug} data-oaid="579745863508352884" data-layout="3" data-color="blue" data-customize="false"></div>
+                  </div>
                 </div>
               </div>
               <div data-v-48d91b5b="" className={`${styles["v-popover"]} ${styles["w-100"]}`}>
                 <div className={`${styles["trigger"]}`} style={{ display: 'inline-block' }}>
                   <a data-v-48d91b5b=""
+                    style={{ fontSize: '14px' }}
                     className={`${styles["btn"]} ${styles["btn-lg"]} ${styles["btn-block"]}
-                      ${styles["btn-secondary"]} ${styles["disabled"]} ${styles["w-100"]} ${styles["h-100"]}`}>
+                      ${styles["btn-secondary"]} ${styles["w-100"]}`}
+                    onClick={printDocument}
+                  >
                     Tải CV PDF
                   </a>
                 </div>
@@ -139,10 +196,10 @@ export const Right = ({ Cv }) => {
                 className={`${styles["btn"]} ${styles["min-width"]} ${styles["btn-secondary"]} ${styles["w-100"]} ${styles["mr-3"]} ${styles["cv-btn"]}`}>
                 Sao chép mã
               </button> */}
-              <button data-v-48d91b5b="" type="button" className={`${styles["btn"]} ${styles["min-width"]} ${styles["btn-secondary"]}
+              {/* <button data-v-48d91b5b="" type="button" className={`${styles["btn"]} ${styles["min-width"]} ${styles["btn-secondary"]}
                 ${styles["w-100"]} ${styles["cv-btn"]}`}>
                 Báo cáo CV
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

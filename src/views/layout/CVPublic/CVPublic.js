@@ -20,13 +20,17 @@ export const CVPublic = () => {
   }, []);
 
   return (
-    <section className={styles.container}>
+    <main className={styles.wrapper}>
+      <section className={styles.container} id="divToPrint">
+        {Cv && (
+          <div className={`${styles.container__content}`} >
+            <CV Cv={Cv} />
+          </div>
+        )}
+      </section>
       {Cv && (
-        <div className={`${styles.container__content}`}>
-          <Right Cv={Cv} />
-          <CV Cv={Cv} />
-        </div>
+        <Right Cv={Cv} />
       )}
-    </section>
+    </main>
   );
 };

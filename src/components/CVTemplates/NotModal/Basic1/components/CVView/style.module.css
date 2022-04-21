@@ -142,31 +142,22 @@ body.cv-viewer {
     padding-top: 0;
 }
 .cv-layout-viewer {
-    width: 1150px;
     margin: 0 auto;
-    overflow: hidden;
     padding-top: 80px;
 }
 /* .cv-layout-viewer {
     margin-bottom: 90px;
     margin-top: 90px;
 } */
-.iframe .cvo-document-root {
-    margin: 0 auto;
-    float: none;
-}
 
 .cvo-document-root {
-    width: 800px;
-    float: left;
+    width: 100%;
 }
 .cvo-document-root {
     font-size: 12pt;
-    margin: 0 auto;
     padding: 0;
 }
 .cvo-document-root {
-    margin: 0 auto;
     padding: 0;
     font-size: 12pt;
     position: relative;
@@ -183,8 +174,8 @@ body.cv-viewer {
 }
 
 .cvo-document .cvo-page {
-    width: 210mm;
-    min-height: 260mm;
+    width: 100%;
+    height: 100%;
     padding: 20mm;
     margin: 0 auto;
     box-shadow: 0 0 1px rgb(0 0 0 / 25%);
@@ -367,7 +358,7 @@ body.cv-viewer {
     margin-right: 9px;
 }
 .navigation .nav-body .search {
-    width: 75%;
+    width: 100%;
     margin-left: 10px;
     padding: 10px;
     border-radius: 25px;
@@ -529,4 +520,7 @@ body.cv-viewer {
 }
 .d-flex {
     display: flex!important;
+}
+.input-search {
+    word-break: break-all;
 }
