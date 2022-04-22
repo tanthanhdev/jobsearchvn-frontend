@@ -5,6 +5,7 @@ import { InputSwitch } from 'primereact/inputswitch';
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from 'primereact/button';
 import { ToastContainer, toast } from 'react-toastify';
+import { RadioButton } from 'primereact/radiobutton';
 // import { useDispatch, useSelector } from "react-redux";
 // import { Formik, Field, Form, ErrorMessage } from "formik";
 // import * as Yup from "yup";
@@ -15,21 +16,23 @@ import { JobModal } from '../modals/JobModal';
 // import PublicService from "services/public.service";
 import UserService from "services/user.service";
 // slices
-import { switch_active_job } from "slices/company-profile";
-import { delete_employer_jobs } from "slices/company-profile";
+import { switch_active_job, delete_employer_jobs, get_apply_for_campaign } from "slices/company-profile";
 // utils
 import styles from './CampaignDetail.module.css';
 
 export const CampaignDetail = ({ slug }) => {
-    const { isError, isLoading } = useSelector((state) => state.profileEmployer);
+    const { isLoading } = useSelector((state) => state.profileEmployer);
     const [campaign, setCampaign] = useState([]);
     const [jobCampaign, setJobCampaign] = useState([]);
+    const [apply, setApply] = useState(null);
     const [job, setJob] = useState([]);
     const [matchCV, setMatchCV] = useState(null);
     const [isReload, setIsReload] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const search = useLocation().search;
     const tab = new URLSearchParams(search).get('tab');
+    const categories = [{ name: 'Không đạt', key: '1' }, { name: 'Ứng viên từ chối', key: '2' }, { name: 'Đã tuyển', key: '3' },];
+    // const [selectedCategory, setSelectedCategory] = useState(null);
     // modal toggle
     const [showModal, setShowModal] = useState(false);
     const toggleShow = () => setShowModal(p => !p);
@@ -44,11 +47,19 @@ export const CampaignDetail = ({ slug }) => {
                 setMatchCV(res.data);
             })
                 .catch(error => {
-                    if (error.response.status === 404) {setMatchCV(null)}
+                    if (error.response.status === 404) { setMatchCV(null) }
                 });
         });
         UserService.getJobsCampaign(slug).then((res) => setJobCampaign(res.data));
         setIsReload(false);
+        // first get
+        dispatch(get_apply_for_campaign({ slug }))
+            .unwrap()
+            .then((data) => {
+                setApply(data);
+            })
+            .catch(() => {
+            });
     }, [isReload === true, tab === "match_cv"])
 
     const handleStatus = (is_active, slug) => {
@@ -63,6 +74,19 @@ export const CampaignDetail = ({ slug }) => {
             .catch(() => {
             });
     }
+
+    // const handleStatusApply = (is_active, slug) => {
+    //     let data = {
+    //         "is_active": is_active ? false : true,
+    //     }
+    //     dispatch(switch_active_job({ data, slug }))
+    //         .unwrap()
+    //         .then((res) => {
+    //             setIsReload(true);
+    //         })
+    //         .catch(() => {
+    //         });
+    // }
 
     const handleDeleteJob = (slug) => {
         dispatch(delete_employer_jobs(slug))
@@ -194,43 +218,121 @@ export const CampaignDetail = ({ slug }) => {
                 )}
                 {tab && tab === 'apply_cv' && (
                     <div data-v-620e97db="" data-v-649e7bbb="" id="" role="tabpanel" className={`${styles['tab-pane']} ${styles['active']} ${styles['show']}`} campaign-id="731437">
-                        <div data-v-620e97db="" className={`${styles['bg-white']} ${styles['shadow-sm']} ${styles['p-3']} ${styles['mb-3']}`}>
-                            <div data-v-620e97db="" className={`${styles['filter']} ${styles['d-flex']} ${styles['align-items-center']} ${styles['mb-3']}`}>
-                                <div data-v-620e97db="" className={`${styles['mr-4']}`}>
-                                    <div data-v-17683809="" data-v-620e97db="">
-                                        <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']} ${styles['right-inner-addon']}`}>
-                                            <i data-v-17683809="" className={`${styles['right']} ${styles['far']} ${styles['fa-search']}`}></i>
-                                            <input data-v-17683809="" id="KJFkWLxRvW" type="text" placeholder="Tìm ứng viên"
-                                                className={`${styles['form-control']} ${styles['search-input']}`} />
+                        {apply && !apply ? (
+                            <div data-v-620e97db="" className={`${styles['bg-white']} ${styles['shadow-sm']} ${styles['p-3']} ${styles['mb-3']}`}>
+                                <div data-v-620e97db="" className={`${styles['filter']} ${styles['d-flex']} ${styles['align-items-center']} ${styles['mb-3']}`}>
+                                    <div data-v-620e97db="" className={`${styles['mr-4']}`}>
+                                        <div data-v-17683809="" data-v-620e97db="">
+                                            <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']} ${styles['right-inner-addon']}`}>
+                                                <i data-v-17683809="" className={`${styles['right']} ${styles['far']} ${styles['fa-search']}`}></i>
+                                                <input data-v-17683809="" id="KJFkWLxRvW" type="text" placeholder="Tìm ứng viên"
+                                                    className={`${styles['form-control']} ${styles['search-input']}`} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-v-620e97db="" className={`${styles['quick-filter']} ${styles['flex-m']} ${styles['mr-auto']}`}>
+                                        <div data-v-1438c604="" data-v-620e97db="" className={`${styles['custom-control']} ${styles['custom-radio']} ${styles[' mr-4']}`}>
+                                            <input data-v-1438c604="" id="515VftxW" type="radio" name="quick-filter"
+                                                className={`${styles['custom-control-input']}`} value="all" />
+                                            <label data-v-1438c604="" className={`${styles['custom-control-label']}`}>
+                                                Hiển thị tất cả CV
+                                            </label>
+                                        </div>
+                                        <div data-v-1438c604="" data-v-620e97db="" className={`${styles['custom-control']} ${styles['custom-radio']} ${styles[' mr-4']}`}>
+                                            <input data-v-1438c604="" id="515YbZqm" type="radio" name="quick-filter"
+                                                className={`${styles['custom-control-input']}`} value="notViewed" />
+                                            <label data-v-1438c604="" className={`${styles['custom-control-label']}`}>
+                                                Chỉ hiển thị CV chưa xem
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div data-v-620e97db="" className={`${styles['quick-filter']} ${styles['flex-m']} ${styles['mr-auto']}`}>
-                                    <div data-v-1438c604="" data-v-620e97db="" className={`${styles['custom-control']} ${styles['custom-radio']} ${styles[' mr-4']}`}>
-                                        <input data-v-1438c604="" id="515VftxW" type="radio" name="quick-filter"
-                                            className={`${styles['custom-control-input']}`} value="all" />
-                                        <label data-v-1438c604="" className={`${styles['custom-control-label']}`}>
-                                            Hiển thị tất cả CV
-                                        </label>
+                                <div data-v-620e97db="" className={`${styles['text-center']} ${styles['p-3']}`}>
+                                    <div data-v-620e97db="" className={`${styles['mb-3']}`}>
+                                        <img data-v-620e97db="" src="https://tuyendung.topcv.vn/app/_nuxt/img/empty.6324905.png"
+                                            className={`${styles['w-25']}`} />
                                     </div>
-                                    <div data-v-1438c604="" data-v-620e97db="" className={`${styles['custom-control']} ${styles['custom-radio']} ${styles[' mr-4']}`}>
-                                        <input data-v-1438c604="" id="515YbZqm" type="radio" name="quick-filter"
-                                            className={`${styles['custom-control-input']}`} value="notViewed" />
-                                        <label data-v-1438c604="" className={`${styles['custom-control-label']}`}>
-                                            Chỉ hiển thị CV chưa xem
-                                        </label>
-                                    </div>
+                                    <div data-v-620e97db="">Hiện chưa có CV nào ứng tuyển vào tin tuyển dụng.</div>
                                 </div>
                             </div>
-                            <div data-v-620e97db="" className={`${styles['text-center']} ${styles['p-3']}`}>
-                                <div data-v-620e97db="" className={`${styles['mb-3']}`}>
-                                    <img data-v-620e97db="" src="https://tuyendung.topcv.vn/app/_nuxt/img/empty.6324905.png"
-                                        className={`${styles['w-25']}`} />
-                                    <div data-v-620e97db=""><h1>Comming Soon</h1></div>
-                                </div>
-                                {/* <div data-v-620e97db="">Hiện chưa có CV nào ứng tuyển vào tin tuyển dụng.</div> */}
+                        ) : (
+                            <div data-v-7df64288="" className={`${styles['d-flex']} ${styles['flex-column']} ${styles['mt-4']}`}
+                                style={{ overflowX: 'auto' }}>
+                                {/* table list jobs */}
+                                <table
+                                    className={`${styles['table']} ${styles['table-hover']} ${styles['bg-white']}
+                                    ${styles['mt-4']} ${styles['mb-3']} ${styles['shadow-sm']} ${styles['border-0']}
+                                    ${styles['rounded']} ${styles['campaign-table']} ${styles['w-100']}`}>
+                                    <thead>
+                                        <tr>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Ảnh đại diện</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Tên CV</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Họ và tên</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Kinh nghiệm</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Lượt xem</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Trạng thái</th>
+                                            <th className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Xem chi tiết</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {apply && apply.map((app, index) => (
+                                            <tr className="" index={index}>
+                                                <td className={`${styles['border-right']}`}>
+                                                    <a href={'/cv/' + app.member.member_cvs[0].slug} target="_blank">
+                                                        <img alt={app.member.member_cvs[0].title} src={app.member.avatar} style={{ width: '100%', height: '120px' }} />
+                                                    </a>
+                                                </td>
+                                                <td className={`${styles['border-right']}`}>
+                                                    {app.member.member_cvs[0].title}
+                                                </td>
+                                                <td className={`${styles['border-right']}`}>
+                                                    {app.member.user.first_name + ' ' + app.member.user.last_name}
+                                                </td>
+                                                <td className={`${styles['border-right']}`}>
+                                                    <ul>
+                                                        {app.member.member_cvs[0].cv_cv_experiences.map((exp, index) => (
+                                                            <div dangerouslySetInnerHTML={{
+                                                                __html: "Giai đoạn " + (index + 1) + ": </br >" +
+                                                                    "- Tên vị trí: " + exp.job_title + "</br >" +
+                                                                    "- Tên công ty: " + exp.company_name + "</br >" +
+                                                                    "- Bắt đầu: " + exp.start_date + "</br >" +
+                                                                    "- Kết thúc: " + exp.end_date + "</br >"
+                                                            }}></div>
+                                                        ))}
+                                                    </ul>
+                                                </td>
+                                                <td className={`${styles['border-right']}`}>
+                                                    {app.member.member_cvs[0].view}
+                                                </td>
+                                                <td>
+                                                    [Coming soon]
+                                                    {categories.map((category) => (
+                                                        <div key={category.key} className="field-radiobutton">
+                                                            <RadioButton
+                                                                inputId={category.key}
+                                                                name="category"
+                                                                value={category}
+                                                                onChange={(e) => {}}
+                                                                checked={app.status === category.key} disabled={app.status == 1 || app.status == 2 || app.status == 3} />
+                                                            <label htmlFor={category.key}>{category.name}</label>
+                                                        </div>
+                                                    ))}
+
+                                                </td>
+                                                <td className={`${styles['border-right']}`}>
+                                                    <a href={'/cv/' + app.member.member_cvs[0].slug} target="_blank">
+                                                        <Button icon="pi pi-search" className="p-button-rounded p-button-success" />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
+                        )}
+
+
+
 
                     </div>
                 )}
@@ -302,7 +404,7 @@ export const CampaignDetail = ({ slug }) => {
                                             {matchCV.results.map((cv, index) => (
                                                 <tr className="" index={index}>
                                                     <td className={`${styles['border-right']}`}>
-                                                        <a href={'/search-cv/' + cv.slug}>
+                                                        <a href={'/cv/' + cv.slug} target="_blank">
                                                             <img alt={cv.title} src={cv.member.avatar} style={{ width: '100%', height: '120px' }} />
                                                         </a>
                                                     </td>
@@ -338,7 +440,7 @@ export const CampaignDetail = ({ slug }) => {
                                                         {cv.view}
                                                     </td>
                                                     <td className={`${styles['border-right']}`}>
-                                                        <a href={'/search-cv/' + cv.slug}>
+                                                        <a href={'/cv/' + cv.slug}>
                                                             <Button icon="pi pi-search" className="p-button-rounded p-button-success" />
                                                         </a>
                                                     </td>

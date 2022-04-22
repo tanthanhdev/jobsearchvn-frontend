@@ -233,6 +233,22 @@ export const search_cv = createAsyncThunk(
   }
 );
 
+export const get_apply_for_campaign = createAsyncThunk(
+  "apply/campaigns/slug",
+  async ( {slug}, thunkAPI) => {
+    try {
+      const response = await userService.getApplyForCampaign(slug);
+      if (response.status === 200 || response.status === 201) {
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      // return thunkAPI.rejectWithValue();
+    }
+  }
+);
 
 
 // const initialState = {
@@ -361,15 +377,29 @@ const CompanyProfileSlice = createSlice({
       state.isSuccess = false
       state.message = action.payload
     },
-    [search_cv.pending]: (state, action) => {
+    [search_cv.pending]: (state) => {
       state.isLoading = true
     },
-    [search_cv.fulfilled]: (state, action) => {
+    [search_cv.fulfilled]: (state) => {
       state.isLoading = false
       state.isSuccess = true
       state.isError = false
     },
     [search_cv.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [get_apply_for_campaign.pending]: (state) => {
+      state.isLoading = true
+    },
+    [get_apply_for_campaign.fulfilled]: (state) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [get_apply_for_campaign.rejected]: (state, action) => {
       state.isLoading = false
       state.isError = true
       state.isSuccess = false

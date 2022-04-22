@@ -167,6 +167,30 @@ const switch_active_job = (data, slug) => {
       return null;
     })
 }
+
+const getApplyForCampaign = (slug) => {
+  return axios
+    .get(API_URL + "/apply/campaigns/" + slug + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const updateApplyForCampaign = (status, apply_id) => {
+  return axios
+    .patch(API_URL + "/employer/apply/jobs/" + apply_id + "/", {status}, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+
 // Member =================================================
 const create_review = (employer_id, title, content, point) => {
   return axios
@@ -216,6 +240,49 @@ const deleteFollowOfCompanyDetail = (employer_id) => {
     });
 }
 
+const createApplyJob = (job_id) => {
+  return axios
+    .post(API_URL + "/apply/job/", {job_id}, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getApplyJob = () => {
+  return axios
+    .get(API_URL + "/apply/job/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getApplyJobDetail = (id) => {
+  return axios
+    .get(API_URL + "/apply/job/" + id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const deleteApplyJobDetail = (id) => {
+  return axios
+    .delete(API_URL + "/apply/job/" + id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
 
 const userService = {
   getPublicContent,
@@ -243,6 +310,12 @@ const userService = {
   getJobsCampaign,
   update_job,
   switch_active_job,
+  getApplyJob,
+  createApplyJob,
+  getApplyJobDetail,
+  deleteApplyJobDetail,
+  getApplyForCampaign,
+  updateApplyForCampaign,
 };
 
 export default userService

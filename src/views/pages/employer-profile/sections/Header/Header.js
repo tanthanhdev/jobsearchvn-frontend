@@ -52,7 +52,7 @@ export const Header = ({activeIndex, changeTab, handleEdit}) => {
                     <div className="header__navbar">
                         <span className={`header__navbar-item ${activeIndex === 0 ? 'active' : ''}`} onClick={() => handleChangeTab(0)}>Hồ sơ công ty</span>
                         {/* <span className={`header__navbar-item ${activeIndex === 1 ? 'active' : ''}`} onClick={() =>  handleChangeTab(1)}>Quản lý tuyển dụng</span> */}
-                        <span className={`header__navbar-item ${activeIndex === 2 ? 'active' : ''}`} onClick={ () => handleChangeTab(2)}>Thông báo ứng tuyển</span>
+                        {/* <span className={`header__navbar-item ${activeIndex === 2 ? 'active' : ''}`} onClick={ () => handleChangeTab(2)}>Thông báo ứng tuyển</span> */}
                         <span className={`header__navbar-item ${activeIndex === 3 ? 'active' : ''}`} onClick={() => handleChangeTab(3)}>Hồ sơ đã lưu</span>
                         <span className={`header__navbar-item ${activeIndex === 4 ? 'active' : ''}`} onClick={ () => handleChangeTab(4)}>
                             Chiến dịch tuyển dụng

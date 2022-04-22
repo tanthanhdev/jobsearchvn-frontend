@@ -31,7 +31,7 @@ export const EmployerProfile = ({ active }) => {
     } else if (activeIndex === 1) {
       // return <ManagerCompany  isActive={activeIndex === 1}/>
     } else if (activeIndex === 2) {
-      return <InformCompany isActive={activeIndex === 2} />
+      // return <InformCompany isActive={activeIndex === 2} />
     } else if (activeIndex === 3) {
       return <SaveProfileCompany isActive={activeIndex === 3} />
     } else if (activeIndex === 4) {
