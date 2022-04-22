@@ -129,7 +129,7 @@ export const InformCompany = ({isActive}) => {
                         <i class="icon-del far fa-trash-alt"></i>
                     </div>
                 </div>
-                <div class="page">
+                {/* <div class="page">
                     <div class="page__item">
                         <i class="page__icon fas fa-angle-left"></i>
                     </div>
@@ -138,7 +138,7 @@ export const InformCompany = ({isActive}) => {
                     <div class="page__item">
                         <i class="page__icon fas fa-angle-right"></i>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
         )
