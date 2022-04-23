@@ -117,13 +117,13 @@ export const CampaignDetail = ({ slug }) => {
                     <a data-v-649e7bbb="" onClick={() => { navigate('/employer/campaigns/' + campaign.slug + '?tab=match_cv') }} className={`${styles['nav-item']} ${styles['nav-link']} ${tab === 'match_cv' ? styles['active'] : ''}`}>
                         CV đề xuất - MatchCV
                     </a>
-                    <a data-v-649e7bbb="" onClick={() => { navigate('/employer/campaigns/' + campaign.slug + '?tab=viewed_job') }} className={`${styles['nav-item']} ${styles['nav-link']} ${tab === 'viewed_job' ? styles['active'] : ''}`}>
+                    {/* <a data-v-649e7bbb="" onClick={() => { navigate('/employer/campaigns/' + campaign.slug + '?tab=viewed_job') }} className={`${styles['nav-item']} ${styles['nav-link']} ${tab === 'viewed_job' ? styles['active'] : ''}`}>
                         Ứng viên đã xem tin
                         <span data-v-649e7bbb="" className={`${styles['number-item']} ${styles['lock']}`}>
                             <i data-v-649e7bbb="" className={`${styles['fas']} ${styles['fa-lock']}`}>
                             </i>
                         </span>
-                    </a>
+                    </a> */}
                 </div>
             </nav>
             <div data-v-649e7bbb="" className={`${styles['tab-content']}`}>
@@ -305,19 +305,19 @@ export const CampaignDetail = ({ slug }) => {
                                                     {app.member.member_cvs[0].view}
                                                 </td>
                                                 <td>
-                                                    [Coming soon]
                                                     {categories.map((category) => (
                                                         <div key={category.key} className="field-radiobutton">
                                                             <RadioButton
                                                                 inputId={category.key}
                                                                 name="category"
                                                                 value={category}
-                                                                onChange={(e) => {}}
-                                                                checked={app.status === category.key} disabled={app.status == 1 || app.status == 2 || app.status == 3} />
+                                                                onChange={(e) => { UserService.updateApplyForCampaign(e.value.key, app.id).then(() => { setIsReload(true) }) }}
+                                                                checked={app.status === category.key}
+                                                                disabled={app.status == 1 || app.status == 2 || app.status == 3}
+                                                            />
                                                             <label htmlFor={category.key}>{category.name}</label>
                                                         </div>
                                                     ))}
-
                                                 </td>
                                                 <td className={`${styles['border-right']}`}>
                                                     <a href={'/cv/' + app.member.member_cvs[0].slug} target="_blank">
@@ -330,10 +330,6 @@ export const CampaignDetail = ({ slug }) => {
                                 </table>
                             </div>
                         )}
-
-
-
-
                     </div>
                 )}
                 {tab && tab === 'match_cv' && (
@@ -454,7 +450,7 @@ export const CampaignDetail = ({ slug }) => {
 
                     </div>
                 )}
-                {tab && tab === 'viewed_job' && (
+                {/* {tab && tab === 'viewed_job' && (
                     <div data-v-45fdeade="" data-v-649e7bbb="" id="" role="tabpanel" className={`${styles['tab-pane']} ${styles['active']} ${styles['show']}`}>
                         <div data-v-45fdeade="" className={`${styles['bg-white']} ${styles['mb-3']}`}>
                             {jobCampaign && !jobCampaign.totals ? (
@@ -479,7 +475,7 @@ export const CampaignDetail = ({ slug }) => {
                             )}
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
             {/* modals */}
             {showModal && (

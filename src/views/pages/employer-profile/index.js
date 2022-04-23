@@ -27,7 +27,7 @@ export const EmployerProfile = ({ active }) => {
 
   const contentRendering = () => {
     if (activeIndex === 0) {
-      return <InfoCompany isActive={activeIndex === 0} isEdit={isEdit} />
+      return <InfoCompany isActive={activeIndex === 0} isEdit={isEdit} setIsEdit={setIsEdit} />
     } else if (activeIndex === 1) {
       // return <ManagerCompany  isActive={activeIndex === 1}/>
     } else if (activeIndex === 2) {
