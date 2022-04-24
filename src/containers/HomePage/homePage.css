@@ -360,7 +360,7 @@
   border-right: 1px solid #333;
 }
 .search__input-location {
-  width: 40%;
+  /* width: 40%; */
   display: flex;
 }
 .search__select-location {

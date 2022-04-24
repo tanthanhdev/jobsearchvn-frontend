@@ -62,6 +62,7 @@ const Banner = () => {
               suggestions={filteredCities}
               completeMethod={searchCity}
               field="name"
+              dropdown
               onChange={(e) => {
                 setSelectedCity(e.value);
               }}

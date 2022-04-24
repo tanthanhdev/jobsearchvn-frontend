@@ -411,6 +411,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                               completeMethod={searchJobType}
                               field="name"
                               name="job_type_id"
+                              dropdown
                               onChange={(e) => {
                                 setSelectedJobType(e.value);
                                 setFieldValue("job_type_id", e.value.id ? e.value.id : "");

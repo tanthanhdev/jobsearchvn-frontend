@@ -96,7 +96,16 @@ function Job(props) {
                   <div className="nav_sub-content-pay">
                     <i className="fas fa-dollar-sign" />
                     <span>
-                      Lương: Trên {items.salary} {items.currency}{" "}
+                      Lương: 
+                      {items.salary_type === "Lương" ? (
+                        " " + items.salary + items.currency
+                      ) : ""}
+                      {items.salary_type === "Lương khoảng" ? (
+                        <span> {items.salary_from} - {items.salary_to} {items.currency}</span>
+                      ) : ""}
+                      {items.salary_type === "Thương lượng" ? (
+                        <span> Thương lượng</span>
+                      ) : ""}
                     </span>
                   </div>
                   <div className="nav_sub-content-location">

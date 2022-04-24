@@ -77,6 +77,7 @@ export const SearchCompanyReviews = () => {
                                     suggestions={filteredCompanies}
                                     completeMethod={searchCompany}
                                     field="company_name"
+                                    dropdown
                                     maxlength={5}
                                     onChange={(e) => setSelectedCompany(e.value)} />
                                     <div className={`${styles["search-form__action-section"]} `}>

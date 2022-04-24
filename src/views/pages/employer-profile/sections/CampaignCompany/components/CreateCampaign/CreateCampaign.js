@@ -122,6 +122,7 @@ const CreateCampaign = ({ setIsReload }) => {
                                             suggestions={filteredCities}
                                             completeMethod={searchCity}
                                             field="name"
+                                            dropdown
                                             onChange={(e) => {
                                                 setSelectedCity(e.value);
                                                 setFieldValue("city_id", e.value.id ? e.value.id : "");
