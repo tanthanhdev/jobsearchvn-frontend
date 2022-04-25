@@ -133,7 +133,7 @@ export const SearchCompanyReviews = () => {
                                                     </span>
                                                 </footer>
                                             </div>
-                                            {comp.employer_reviews ? (
+                                            {comp.employer_reviews.length ? (
                                                 <div className={`${styles["company__rated"]} `}>
                                                     <div className={`${styles["highly-rated"]} `}>
                                                         <svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 60.36">
@@ -153,7 +153,7 @@ export const SearchCompanyReviews = () => {
                                                                 ></path>
                                                         </svg>
                                                         <div className={`${styles["highly-rated-field"]} `}>
-                                                            {comp.employer_reviews[0].title}
+                                                            {comp.employer_reviews[0].title }
                                                         </div>
                                                     </div>
                                                 </div>
