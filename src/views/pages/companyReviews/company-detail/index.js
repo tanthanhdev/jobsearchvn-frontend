@@ -46,7 +46,7 @@ export const CompanyReviews = () => {
 
   return (
     <Wrap>
-      {company && company.status && (
+      {company && (
         <div className={styles.container}>
           <div className={styles.content}>
             <CompHeader company={company} setIsReloadReview={setIsReloadReview} isReloadReview={isReloadReview} />
