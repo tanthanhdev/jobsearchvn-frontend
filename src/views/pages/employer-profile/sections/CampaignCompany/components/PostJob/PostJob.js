@@ -286,7 +286,7 @@ export const PostJob = ({ slug }) => {
         });
         setTimeout(() => {
           navigate('/employer/profile');
-        }, 5000);
+        }, 1000);
       })
       .catch(() => {
       });

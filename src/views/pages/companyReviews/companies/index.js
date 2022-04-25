@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AutoComplete } from 'primereact/autocomplete';
 import { Wrap } from 'components/wrap/Wrap';
 // components
@@ -8,21 +9,23 @@ import { Wrap } from 'components/wrap/Wrap';
 import { get_all_public_employer } from "slices/company-reviews"
 // utils
 import styles from './styles.module.css';
+import { icons } from 'utils/icons';
 
 export const SearchCompanyReviews = () => {
     // const isLoggedIn = authService.isLoggedIn()
     const { isError } = useSelector((state) => state.company_review);
     // const { message } = useSelector((state) => state.message);
-    const [companies, setCompanies] = useState([]);
+    const [companies, setCompanies] = useState(null);
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [filteredCompanies, setFilteredCompanies] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(get_all_public_employer({}))
             .unwrap()
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setCompanies(res);
             })
             .catch(() => {
@@ -64,7 +67,7 @@ export const SearchCompanyReviews = () => {
                     <div className={styles["company-reviews-index__header panel"]}>
                         <div className={styles["content"]}>
                             <h1 className={styles["content__title"]}>
-                                Đã có 16,495 bài đánh giá trên hệ thống JobSearchVN
+                                Đã có {companies ? companies.totals : '0'} công ty trên hệ thống JobSearchVN
                             </h1>
                             <h2 className={styles["content__slogan"]}>
                                 Mọi người đang nói gì về công ty của bạn? Tìm nó ngay tại đây!
@@ -82,7 +85,7 @@ export const SearchCompanyReviews = () => {
                                     onChange={(e) => setSelectedCompany(e.value)} />
                                     <div className={`${styles["search-form__action-section"]} `}>
                                         <input type="submit" name="commit" value="See Reviews" className={`${styles["search-form__action"]} `}
-                                            data-disable-with="See Reviews" />
+                                            data-disable-with="See Reviews" onClick={() => {navigate('/companies/' + selectedCompany.slug);}}  />
                                     </div>
                                 </div>
                             </div>
@@ -94,70 +97,69 @@ export const SearchCompanyReviews = () => {
                                 data-controller="popular-companies">
                                 <h2 className={`${styles["title"]} `}>Danh Sách Công Ty</h2>
                                 <div className={`${styles["companies"]} `} data-popular-companies-target="body">
-                                    <a className={`${styles["featured-company"]} `} target="_blank" data-controller="utm-tracking"
-                                        href="/companies/jobsearchvn">
-                                        <div className={`${styles["company__banner"]} `}>
-                                            <img alt="KMS Technology Headline Photo" data-controller="lazyload"
-                                                data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMUZIRWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--0bb1ef1a1a2efe808e227d5e291ee06751f167e0/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFKR0FXa0JvQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--cdd50bdc4b315fce1925283d37f51f41105d8ae8/Techcon.jpg"
-                                                height="160" width="326" className={`${styles["lazyloaded"]} `}
-                                                src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMUZIRWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--0bb1ef1a1a2efe808e227d5e291ee06751f167e0/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFKR0FXa0JvQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--cdd50bdc4b315fce1925283d37f51f41105d8ae8/Techcon.jpg"
-                                            />
-                                        </div>
-                                        <div className={`${styles["company__info"]} `}>
-                                            <header className={`${styles["company__header"]} `}>
-                                                <div className={`${styles["company__logo"]} `}>
-                                                    <img alt="KMS Technology Vietnam Small Logo" data-controller="lazyload"
-                                                        data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNE1uREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--97db4f0be292da42408f8c8ba126cbf20b1626a8/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjloYm1SZmNHRmtXd2RwUm1sRyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--d55b6722f71e82d147ad94b8445be27797820f9f/kms-technology-logo.png"
-                                                        height="62" width="64" className={`${styles["lazyloaded"]} `}
-                                                        src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNE1uREE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--97db4f0be292da42408f8c8ba126cbf20b1626a8/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjloYm1SZmNHRmtXd2RwUm1sRyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--d55b6722f71e82d147ad94b8445be27797820f9f/kms-technology-logo.png"
-                                                    />
-                                                </div>
-                                                <h3 className={`${styles["company__name"]} `}>KMS Technology</h3>
-                                                <div className={`${styles["company__star"]} `}>
-                                                    <img width="21"
-                                                        src="https://itviec.com/assets/rating-star-white-7e936fe21658ee9a7bf982b9ec56935cc7e20ffb6565217982c371d50c919653.svg"
-                                                    />
-                                                    <span className={`${styles["company__star-rate"]} `}>4.0</span>
-                                                </div>
-                                            </header>
-                                            <div className={`${styles["company__desc"]} `}>Agile, Innovative &amp; Excellent Global Technology
-                                                Company with deep roots ...</div>
-                                            <footer className={`${styles["company__footer"]} `}>
-                                                <span className={`${styles["company__footer-city"]} `} data-popular-companies-target="city">Ho Chi
-                                                    Minh</span>
-                                                <span className={`${styles["company__footer-jobs"]} `}>
-                                                    19 jobs
-                                                </span>
-                                                <span className={`${styles["company__footer-reviews"]} `}>
-                                                    207 reviews
-                                                </span>
-                                            </footer>
-                                        </div>
-                                        <div className={`${styles["company__rated"]} `}>
-                                            <div className={`${styles["highly-rated"]} `}>
-                                                <svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 60.36">
-                                                    <rect x="1" y="1" width="55" height="58.36" fill="#fff" stroke="#2e2a2b"
-                                                        stroke-miterlimit="10" stroke-width="2"></rect>
-                                                    <rect x="9.85" y="12.82" width="9.61" height="9.61" fill="#d1d3d4"
-                                                        stroke="#2e2a2b" stroke-miterlimit="10" stroke-width="2"></rect>
-                                                    <rect x="37.67" y="12.82" width="9.61" height="9.61" fill="#d1d3d4"
-                                                        stroke="#2e2a2b" stroke-miterlimit="10" stroke-width="2"></rect>
-                                                    <rect x="9.85" y="28.46" width="9.61" height="9.61" fill="#d1d3d4"
-                                                        stroke="#2e2a2b" stroke-miterlimit="10" stroke-width="2"></rect>
-                                                    <rect x="37.67" y="28.46" width="9.61" height="9.61" fill="#d1d3d4"
-                                                        stroke="#2e2a2b" stroke-miterlimit="10" stroke-width="2"></rect>
-                                                    <path
-                                                        d="M430.76,326.62v-8.24c0-3.1-1.67-5.65-3.72-5.65H416.25c-2.05,0-3.72,2.55-3.72,5.65v8.24Z"
-                                                        transform="translate(-392.81 -267.5)" fill="#d1d3d4" stroke="#2e2a2b"
-                                                        stroke-miterlimit="10" stroke-width="2"></path>
-                                                </svg>
-                                                <div className={`${styles["highly-rated-field"]} `}>
-                                                    Best about
-                                                    Office &amp; workspace
-                                                </div>
+                                    {companies && companies.results.map((comp, index) => (
+                                        <a key={index} className={`${styles["featured-company"]} `} data-controller="utm-tracking"
+                                            href={"/companies/" + comp.slug}>
+                                            <div className={`${styles["company__banner"]} `}>
+                                                <img alt="KMS Technology Headline Photo" data-controller="lazyload"
+                                                    height="160" width="326" className={`${styles["lazyloaded"]} `}
+                                                    src={comp.logo ? comp.logo : icons.logo_default}
+                                                />
                                             </div>
-                                        </div>
-                                    </a>
+                                            <div className={`${styles["company__info"]} `}>
+                                                <header className={`${styles["company__header"]} `}>
+                                                    <div className={`${styles["company__logo"]} `}>
+                                                        <img alt={comp.company_name + "logo"} data-controller="lazyload"
+                                                            height="62" width="64" className={`${styles["lazyloaded"]} `}
+                                                            src={comp.logo ? comp.logo : icons.logo_default}
+                                                        />
+                                                    </div>
+                                                    <h3 className={`${styles["company__name"]} `}>{`${comp.company_name.substring(0, 10)}...`}</h3>
+                                                    <div className={`${styles["company__star"]} `}>
+                                                        <img width="21"
+                                                            src="https://itviec.com/assets/rating-star-white-7e936fe21658ee9a7bf982b9ec56935cc7e20ffb6565217982c371d50c919653.svg"
+                                                        />
+                                                        <span className={`${styles["company__star-rate"]} `}>4.0</span>
+                                                    </div>
+                                                </header>
+                                                <div className={`${styles["company__desc"]} `}>{comp.description ? `${comp.description.substring(0, 10)}...` : ""}</div>
+                                                <footer className={`${styles["company__footer"]} `}>
+                                                    <span className={`${styles["company__footer-city"]} `} data-popular-companies-target="city">{comp.company_location}</span>
+                                                    <span className={`${styles["company__footer-jobs"]} `}>
+                                                        {comp.employer_job ? comp.employer_job.length : 0} công việc
+                                                    </span>
+                                                    <span className={`${styles["company__footer-reviews"]} `}>
+                                                    {comp.employer_reviews ? comp.employer_reviews.length : 0} đánh giá
+                                                    </span>
+                                                </footer>
+                                            </div>
+                                            {comp.employer_reviews ? (
+                                                <div className={`${styles["company__rated"]} `}>
+                                                    <div className={`${styles["highly-rated"]} `}>
+                                                        <svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 60.36">
+                                                            <rect x="1" y="1" width="55" height="58.36" fill="#fff" 
+                                                                ></rect>
+                                                            <rect x="9.85" y="12.82" width="9.61" height="9.61" fill="#d1d3d4"
+                                                                ></rect>
+                                                            <rect x="37.67" y="12.82" width="9.61" height="9.61" fill="#d1d3d4"
+                                                                ></rect>
+                                                            <rect x="9.85" y="28.46" width="9.61" height="9.61" fill="#d1d3d4"
+                                                                ></rect>
+                                                            <rect x="37.67" y="28.46" width="9.61" height="9.61" fill="#d1d3d4"
+                                                                ></rect>
+                                                            <path
+                                                                d="M430.76,326.62v-8.24c0-3.1-1.67-5.65-3.72-5.65H416.25c-2.05,0-3.72,2.55-3.72,5.65v8.24Z"
+                                                                transform="translate(-392.81 -267.5)" fill="#d1d3d4" 
+                                                                ></path>
+                                                        </svg>
+                                                        <div className={`${styles["highly-rated-field"]} `}>
+                                                            {comp.employer_reviews[0].title}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : null}
+                                        </a>
+                                    ))}
                                 </div>
                                 <div className={`${styles["show-more text-center"]} `}>
                                     <a className={`${styles["d-inline-flex"]} `} data-action="popular-companies#showMore"

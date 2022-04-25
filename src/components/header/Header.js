@@ -43,7 +43,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="company-reviews"
+              href="/companies"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Đánh giá công ty
@@ -51,7 +51,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="blogs"
+              href="/blogs"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Blog
@@ -59,7 +59,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="cv-template"
+              href="/cv-template"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Mẫu CV
