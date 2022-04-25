@@ -103,6 +103,7 @@ export const SearchCompanyReviews = () => {
                                             <div className={`${styles["company__banner"]} `}>
                                                 <img alt="KMS Technology Headline Photo" data-controller="lazyload"
                                                     height="160" width="326" className={`${styles["lazyloaded"]} `}
+                                                    style={{height: '160px'}}
                                                     src={comp.logo ? comp.logo : icons.logo_default}
                                                 />
                                             </div>
