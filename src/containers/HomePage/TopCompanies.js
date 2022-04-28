@@ -25,7 +25,7 @@ function TopCompanies(props) {
         <div className="nav_content roww">
           {/* 4 cột */}
           {companies && companies.map((company, index) => (
-            <a key={index} className="nav coll l-3 m-6 c-12 ">
+            <a key={index} className="nav coll l-3 m-6 c-12 " href={"/companies/" + company.slug}>
               <div className="sub__nav">
                 <img
                   className="nav__img"

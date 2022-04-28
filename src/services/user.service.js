@@ -29,6 +29,10 @@ const getPublicJob = () => {
   return axios.get(API_URL + "/public/jobs/");
 };
 
+const getPublicJobDetail = (slug) => {
+  return axios.get(API_URL + "/public/jobs/" + slug + "/");
+};
+
 const saveEmployerProfile = (data) => {
   console.log(1111, data);
   return axios.patch(API_URL + "/employers/", data, { headers: authHeaderFile() });
@@ -242,7 +246,7 @@ const deleteFollowOfCompanyDetail = (employer_id) => {
 
 const createApplyJob = (job_id) => {
   return axios
-    .post(API_URL + "/apply/job/", {job_id}, { headers: authHeader() })
+    .post(API_URL + "/apply/jobs/", {job_id}, { headers: authHeader() })
     .then((response) => {
       if (response.data) {
         return response;
@@ -253,7 +257,7 @@ const createApplyJob = (job_id) => {
 
 const getApplyJob = () => {
   return axios
-    .get(API_URL + "/apply/job/", { headers: authHeader() })
+    .get(API_URL + "/apply/jobs/", { headers: authHeader() })
     .then((response) => {
       if (response.data) {
         return response;
@@ -262,9 +266,9 @@ const getApplyJob = () => {
     });
 };
 
-const getApplyJobDetail = (id) => {
+const getApplyJobDetail = (id, slug) => {
   return axios
-    .get(API_URL + "/apply/job/" + id + "/", { headers: authHeader() })
+    .get(API_URL + "/apply/jobs/" + (id ? id : slug ? slug : '') + "/", { headers: authHeader() })
     .then((response) => {
       if (response.data) {
         return response;
@@ -275,7 +279,7 @@ const getApplyJobDetail = (id) => {
 
 const deleteApplyJobDetail = (id) => {
   return axios
-    .delete(API_URL + "/apply/job/" + id + "/", { headers: authHeader() })
+    .delete(API_URL + "/apply/jobs/" + id + "/", { headers: authHeader() })
     .then((response) => {
       if (response.data) {
         return response;
@@ -316,6 +320,7 @@ const userService = {
   deleteApplyJobDetail,
   getApplyForCampaign,
   updateApplyForCampaign,
+  getPublicJobDetail,
 };
 
 export default userService

@@ -63,9 +63,10 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-member" element={<ProfileMember />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/view-detail" element={<ViewDetailPage />}>
+        {/* <Route path="/view-detail" element={<ViewDetailPage />}>
           <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
-        </Route>
+        </Route> */}
+        <Route path="/:slug" element={<ViewDetailPage />}></Route>
         <Route path="/search/:q" element={<SearchPage />} />
         <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
@@ -80,7 +81,7 @@ const App = () => {
         <Route path="/companies/:slug" element={<CompanyReviews />} />
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+          element={<Login />}
         />
         <Route
           path="/employer/profile"

@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import jobApi from "api/jobApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setViewDetailPageSlice } from "./viewDetailPageSlice";
+// import { setViewDetailPageSlice } from "./viewDetailPageSlice";
 import { icons } from "utils/icons";
 Job.propTypes = {};
 
@@ -59,12 +59,12 @@ function Job(props) {
     fetchProducts();
   }, []);
 
-  const handleNavigateToViewDetail = (id) => {
-    const jobToViewDetail = jobs.filter((job) => {
-      return job.id === id;
-    });
-    navigate(`/view-detail/${id}`);
-    dispatch(setViewDetailPageSlice(jobToViewDetail[0]));
+  const handleNavigateToViewDetail = (slug) => {
+    // const jobToViewDetail = jobs.filter((job) => {
+    //   return job.id === id;
+    // });
+    navigate(`/${slug}`);
+    // dispatch(setViewDetailPageSlice(jobToViewDetail[0]));
   };
   return (
     <div
@@ -76,44 +76,43 @@ function Job(props) {
         <h2>Việc Làm Hấp Dẫn</h2>
       </header>
       <Slider {...settings}>
-        {jobs && jobs.map((items, index) => (
-          <div>
+        {jobs && jobs.map((item, index) => (
+          <div key={index}>
             <div
-              onClick={() => handleNavigateToViewDetail(items.id)}
-              key={index}
+              onClick={() => handleNavigateToViewDetail(item.slug)}
               className="nav_sub-content-link"
             >
               <img
-                src={items.employer.logo ? items.employer.logo : icons.logo_default}
-                alt={items.employer.company_name}
+                src={item.employer.logo ? item.employer.logo : icons.logo_default}
+                alt={item.employer.company_name}
                 className="nav_sub-content-logo"
               />
               <div className="nav_sub-content-description">
                 <header>
-                  <h3>{items.title.toUpperCase()}</h3>
+                  <h3>{item.title.toUpperCase()}</h3>
                 </header>
                 <nav>
                   <div className="nav_sub-content-pay">
                     <i className="fas fa-dollar-sign" />
                     <span>
                       Lương: 
-                      {items.salary_type === "Lương" ? (
-                        " " + items.salary + items.currency
+                      {item.salary_type === "Lương" ? (
+                        " " + item.salary + item.currency
                       ) : ""}
-                      {items.salary_type === "Lương khoảng" ? (
-                        <span> {items.salary_from} - {items.salary_to} {items.currency}</span>
+                      {item.salary_type === "Lương khoảng" ? (
+                        <span> {item.salary_from} - {item.salary_to} {item.currency}</span>
                       ) : ""}
-                      {items.salary_type === "Thương lượng" ? (
+                      {item.salary_type === "Thương lượng" ? (
                         <span> Thương lượng</span>
                       ) : ""}
                     </span>
                   </div>
                   <div className="nav_sub-content-location">
                     <i className="fas fa-map-marker-alt" />
-                    <span>{items.employer.company_location}</span>
+                    <span>{item.employer.company_location}</span>
                   </div>
                   <span className="nav_sub-content-name">
-                    {items.employer.company_name}
+                    {item.employer.company_name}
                   </span>
                 </nav>
               </div>
