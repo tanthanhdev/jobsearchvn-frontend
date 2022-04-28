@@ -32,6 +32,7 @@ import ProfileMember from "containers/ProfileMember";
 import SearchPage from "containers/SearchPage";
 import ViewDetailPage from "containers/ViewDetailPage";
 import EmployerProfile from "views/pages/employer-profile";
+import NotFoundPage from "components/NotFoundPage";
 
 const App = () => {
   const isLoggedIn = authService.isLoggedIn(); //dont remove
@@ -56,15 +57,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-member" element={<ProfileMember />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/view-detail" element={<ViewDetailPage />}>
-          <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
-        </Route>
+        <Route path="/view-detail" element={<NotFoundPage />}></Route>
+        <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
         <Route path="/search/:q" element={<SearchPage />} />
         <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
@@ -81,10 +82,7 @@ const App = () => {
           path="/login"
           element={isLoggedIn ? <Navigate to="/" /> : <Login />}
         />
-        <Route
-          path="/employer/profile"
-          element={<EmployerProfile />}
-        />
+        <Route path="/employer/profile" element={<EmployerProfile />} />
         )
         <Route
           path="/cv-template"

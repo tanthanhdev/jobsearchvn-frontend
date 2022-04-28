@@ -142,16 +142,16 @@ export const Header = () => {
                 className={`${styles.header__left__item} ${styles["header-login"]}`}
               >
                 <Link
-                  to={
-                    currentUser.is_staff ? "employer/profile" : "member/profile"
-                  }
+                  to={`${
+                    currentUser.is_staff ? "employer/profile" : "profile-member"
+                  }  `}
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >
                   {currentUser.first_name + " " + currentUser.last_name}
                 </Link>
               </li>
               <li
-                className={`${styles.header__left__item} ${styles["header-post-job"]}`}
+                class Name={`${styles.header__left__item} ${styles["header-post-job"]}`}
               >
                 <a
                   href="/"

@@ -150,7 +150,7 @@ function ViewDetailPage(props) {
               height: "100vh",
             }}
             style={{ width: 600, height: 400 }}
-            mapStyle="mapbox://styles/mapbox/streets-v9"
+            mapStyle="mapbox://styles/mapbox/streets-v9" // ua thay ho de ri van chay dc ma
             MapboxAccessToken="pk.eyJ1Ijoidm9uZ3V5ZW50aGFpYW4iLCJhIjoiY2wxbWJsemdyMGg3ZTNjb2JreWhkbjJ1eiJ9.zOqBFP6ZOGtP5cBgKv_AGQ"
           />
           <div className="py-2 px-3 w-1/3">

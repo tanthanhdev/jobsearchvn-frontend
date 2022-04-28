@@ -11,7 +11,7 @@ import { searchesJob } from "slices/searches";
 import dateUtils from "utils/date";
 
 const SearchPage = () => {
-  const { isLoading } = useSelector((state) => state.searches);
+  // const { isLoading } = useSelector((state) => state.searches);
   const [jobs, setJobs] = useState({});
   const dispatch = useDispatch();
   let params = useParams();
