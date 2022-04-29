@@ -32,14 +32,14 @@ const Login = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("This field is required!"),
     password: Yup.string()
-      .test(
-        "len",
-        "The password must be between 8 and 20 characters.",
-        (val) =>
-          val &&
-          val.toString().length >= 6 &&
-          val.toString().length <= 20
-      )
+      // .test(
+      //   "len",
+      //   "The password must be between 8 and 20 characters.",
+      //   (val) =>
+      //     val &&
+      //     val.toString().length >= 6 &&
+      //     val.toString().length <= 20
+      // )
       .required("This field is required!"),
   });
 

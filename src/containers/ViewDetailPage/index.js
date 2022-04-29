@@ -25,12 +25,13 @@ import { useParams, Navigate } from "react-router-dom";
 import userService from "services/user.service";
 import authService from "services/auth.service";
 // Utils
-import { icons as iconsUtil } from "utils/icons";
+import { icons as iconsUtil } from 'utils/icons';
 // Css
 import "./viewDetailPage.css";
 
+
 export const ViewDetailPage = (props) => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
   const isLoggedIn = authService.isLoggedIn(); //dont remove
   const [jobView, setJobView] = useState(null);
   const [isReloadReview, setIsReloadReview] = useState(false);
@@ -47,7 +48,7 @@ export const ViewDetailPage = (props) => {
       setIsApply(true);
       setIsReloadReview(false);
     });
-  }, [isReloadReview === true]);
+  }, [isReloadReview===true]);
 
   const tab = [
     {
@@ -58,8 +59,8 @@ export const ViewDetailPage = (props) => {
     },
   ];
   const icons = [
-    { name: "book", code: iconsUtil.flag_book },
-    { name: "person", code: iconsUtil.flag_person },
+    { name: 'book', code: iconsUtil.flag_book },
+    { name: 'person', code: iconsUtil.flag_person },
   ];
 
   const onSetTabActive = (index) => {
@@ -68,13 +69,13 @@ export const ViewDetailPage = (props) => {
 
   const handleApplyJob = () => {
     userService.createApplyJob(jobView?.id).then(() => {
-      console.log("thanh cong");
+      console.log('thanh cong');
       setIsReloadReview(true);
     });
-  };
-
+  }
+  
   return (
-    <div style={{ backgroundColor: "rgb(249 249 249)" }}>
+    <div style={{backgroundColor: 'rgb(249 249 249)'}}>
       <Header></Header>
       <div className="container wrapper-job-detail">
         <div className="text-sm pt-[100px]">
@@ -193,23 +194,15 @@ export const ViewDetailPage = (props) => {
                   <div>
                     <div className="font-bold">Lương</div>
                     <div className="text-gray-500 py-1">
-                      {jobView?.salary_type === "Lương"
-                        ? " " + jobView?.salary + jobView?.currency
-                        : ""}
-                      {jobView?.salary_type === "Lương khoảng" ? (
-                        <span>
-                          {" "}
-                          {jobView?.salary_from} - {jobView?.salary_to}{" "}
-                          {jobView?.currency}
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                      {jobView?.salary_type === "Thương lượng" ? (
-                        <span> Thương lượng</span>
-                      ) : (
-                        ""
-                      )}
+                        {jobView?.salary_type === "Lương" ? (
+                          " " + jobView?.salary + jobView?.currency
+                        ) : ""}
+                        {jobView?.salary_type === "Lương khoảng" ? (
+                          <span> {jobView?.salary_from} - {jobView?.salary_to} {jobView?.currency}</span>
+                        ) : ""}
+                        {jobView?.salary_type === "Thương lượng" ? (
+                          <span> Thương lượng</span>
+                        ) : ""}
                     </div>
                   </div>
                 </div>
@@ -237,39 +230,29 @@ export const ViewDetailPage = (props) => {
         <ul>
           {jobView?.job_benefits.map((item, index) => (
             <li key={index} className="flex w-[33%]">
-              <img
-                width="16"
-                height="16"
-                src={item.icon === "person" ? icons[1].code : icons[0].code}
-              ></img>
+              <img width="16" height="16"src={item.icon === 'person' ? icons[1].code : icons[0].code}></img>
               <span>{item.benefit}</span>
             </li>
           ))}
         </ul>
         <div>
           <h2>MÔ TẢ CÔNG VIỆC</h2>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: jobView?.description,
-            }}
-          ></div>
+          <div dangerouslySetInnerHTML={{
+            __html: jobView?.description
+          }}></div>
           <h2>YÊU CẦU CÔNG VIỆC</h2>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: jobView?.job_requirement,
-            }}
-          ></div>
+          <div dangerouslySetInnerHTML={{
+            __html: jobView?.job_requirement
+          }}></div>
           <h2>ĐỊA ĐIỂM LÀM VIỆC</h2>
           {jobView?.job_job_addresses.map((adr, index) => (
             <div index={index}>- {adr.address}</div>
+
           ))}
           <h2>Từ khoá:</h2>
           <ul className="flex flex-wrap">
             {jobView?.tag.map((item, index) => (
-              <li
-                className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2"
-                index={index}
-              >
+              <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2" index={index}>
                 #{item.name}
               </li>
             ))}
@@ -294,17 +277,16 @@ export const ViewDetailPage = (props) => {
             <div>
             </div>
           </div> */}
-          <button
-            className="bg-buttonSubmitBackground rounded-lg p-2"
-            disabled={
-              (isLoggedIn && user?.is_active && !user?.is_staff) || isApply
-            }
-            onClick={handleApplyJob}
-          >
-            {isLoggedIn && isApply && "Đã nộp đơn ứng tuyển"}
-            {isLoggedIn && !isApply && "Nộp đơn ứng tuyển"}
+          <button className="bg-buttonSubmitBackground rounded-lg p-2" disabled={isLoggedIn && user?.is_active && !user?.is_staff || isApply}
+            onClick={handleApplyJob}>
+            {isLoggedIn && isApply && (
+              'Đã nộp đơn ứng tuyển'
+            )}
+            {isLoggedIn && !isApply && (
+              'Nộp đơn ứng tuyển'
+            )}
             {!isLoggedIn && (
-              <a href={"/login?next=/" + jobView?.slug}>Nộp đơn ứng tuyển</a>
+              <a href={'/login?next=/' + jobView?.slug}>Nộp đơn ứng tuyển</a>
             )}
           </button>
         </div>
@@ -312,5 +294,5 @@ export const ViewDetailPage = (props) => {
       <Footer></Footer>
     </div>
   );
-};
+}
 export default ViewDetailPage;

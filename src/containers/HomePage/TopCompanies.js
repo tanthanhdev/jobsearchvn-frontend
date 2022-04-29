@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 // import PropTypes from 'prop-types';
 import companyApi from "api/companyApi";
 // utils
-import { icons } from "utils/icons";
-import { Link } from "react-router-dom";
+import {icons} from 'utils/icons'
 
 TopCompanies.propTypes = {};
 
@@ -17,7 +16,6 @@ function TopCompanies(props) {
     fetchProducts();
   }, []);
 
-  console.log("companies", companies);
   return (
     <>
       <header className="content__header">
@@ -39,18 +37,12 @@ function TopCompanies(props) {
                   <span className="nav_quantity">
                     {company.employer_job.length} jobs
                   </span>
-                  <footer className="nav__footer">
-                    <span className="nav_quantity">
-                      {company.employer_job.length} jobs
-                    </span>
-                    -
-                    <span className="nav_location">
-                      {company.company_location}
-                    </span>
-                  </footer>
-                </div>
-              </Link>
-            ))}
+                  -
+                  <span className="nav_location">{company.company_location}</span>
+                </footer>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </>
