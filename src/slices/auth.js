@@ -9,7 +9,12 @@ export const register = createAsyncThunk(
   "auth/sign-up/member",
   async ({ first_name, last_name, email, password }, thunkAPI) => {
     try {
-      const response = await authService.register(first_name, last_name, email, password);
+      const response = await authService.register(
+        first_name,
+        last_name,
+        email,
+        password
+      );
       if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
@@ -24,11 +29,36 @@ export const register = createAsyncThunk(
 
 export const registerEmployer = createAsyncThunk(
   "auth/sign-up/employer/",
-  async ({ first_name, last_name, email, phone_number, password, company_name, company_location, status }, thunkAPI) => {
+  async (
+    {
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      password,
+      company_name,
+      company_location,
+      status,
+    },
+    thunkAPI
+  ) => {
     try {
-      const response = await authService.registerEmployer(first_name, last_name, email, phone_number, password, company_name, company_location, status);
+      const response = await authService.registerEmployer(
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password,
+        company_name,
+        company_location,
+        status
+      );
       if (response.status === 200 || response.status === 201) {
-        thunkAPI.dispatch(setMessage("Cảm ơn bạn đã đăng ký nhà tuyển dụng. Vui lòng chờ hệ thống xác thực tối đa 24 giờ!"));
+        thunkAPI.dispatch(
+          setMessage(
+            "Cảm ơn bạn đã đăng ký nhà tuyển dụng. Vui lòng chờ hệ thống xác thực tối đa 24 giờ!"
+          )
+        );
         return response.data;
       }
     } catch (error) {
@@ -48,7 +78,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();;
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -62,7 +92,7 @@ export const forgotPass = createAsyncThunk(
     } catch (error) {
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();;
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -71,12 +101,16 @@ export const resetPass = createAsyncThunk(
   "auth/reset-password/",
   async ({ password, confirm_password, access_token }, thunkAPI) => {
     try {
-      const data = await authService.resetPass({ password, confirm_password, access_token });
-      return data.data
+      const data = await authService.resetPass({
+        password,
+        confirm_password,
+        access_token,
+      });
+      return data.data;
     } catch (error) {
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();;
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -86,11 +120,11 @@ export const activeAccount = createAsyncThunk(
   async ({ access_token }, thunkAPI) => {
     try {
       const data = await authService.activeAccount({ access_token });
-      return data.data
+      return data.data;
     } catch (error) {
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();;
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -100,11 +134,11 @@ export const accountVerified = createAsyncThunk(
   async ({ access_token }, thunkAPI) => {
     try {
       const data = await authService.resetPass({ access_token });
-      return data.data
+      return data.data;
     } catch (error) {
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();;
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -119,90 +153,90 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: '',
-}
+  message: "",
+};
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     updateUser: (state, action) => {
-      state.user = action.payload
+      state.user = action.payload;
       console.log(3333, action.payload);
     },
-    logout: state => {
+    logout: (state) => {
       state.isLoggedIn = false;
       state.user = undefined;
-      state.message = '';
+      state.message = "";
     },
     reset: (state) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.isError = false
-      state.message = ''
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = "";
     },
   },
   extraReducers: {
     [register.pending]: (state, action) => {
-      state.isLoading = true
+      state.isLoading = true;
     },
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
-      state.isLoading = false
-      state.isSuccess = true
+      state.isLoading = false;
+      state.isSuccess = true;
     },
     [register.rejected]: (state, action) => {
       state.isLoggedIn = false;
-      state.isLoading = false
-      state.isError = true
-      state.isSuccess = false
-      state.message = action.payload
+      state.isLoading = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.message = action.payload;
     },
     [registerEmployer.pending]: (state, action) => {
-      state.isLoading = true
+      state.isLoading = true;
     },
     [registerEmployer.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
-      state.isLoading = false
-      state.isSuccess = true
+      state.isLoading = false;
+      state.isSuccess = true;
     },
     [registerEmployer.rejected]: (state, action) => {
       state.isLoggedIn = false;
-      state.isLoading = false
-      state.isError = true
-      state.isSuccess = false
-      state.message = action.payload
+      state.isLoading = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.message = action.payload;
     },
     [login.pending]: (state, action) => {
-      state.isLoading = true
+      state.isLoading = true;
     },
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload.user;
-      state.isLoading = false
-      state.isSuccess = true
+      state.isLoading = false;
+      state.isSuccess = true;
     },
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
-      state.isLoading = false
-      state.isError = true
-      state.isSuccess = false
-      state.message = action.payload
+      state.isLoading = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.message = action.payload;
     },
     [logout.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
     },
-  }
+  },
 });
 
 // Actions
-export const authActions = authSlice.actions
+export const authActions = authSlice.actions;
 
 // Selectors
-export const selectIsLoggedIn = state => state.auth.isLoggedIn;
-export const selectIsLogging = state => state.auth.logging;
+export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const selectIsLogging = (state) => state.auth.logging;
 
 // Reducer
 const authReducer = authSlice.reducer;

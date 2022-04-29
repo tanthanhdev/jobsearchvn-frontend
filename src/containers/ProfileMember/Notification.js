@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-Notification.propTypes = {};
+Notification.propTypes = {
+  currentUser: PropTypes.object,
+};
 
-function Notification(props) {
+function Notification({ currentUser }) {
   return (
     <div className="container p-8 border border-solid">
       <div className="flex justify-between border-b">
@@ -26,26 +28,32 @@ function Notification(props) {
           <span>Tạo thông báo</span>
         </p>
       </div>
-      <table class="table">
-        <thead>
-          <tr className="flex flex-row">
-            <th className="basis-2/4">Công nghệ thông tin</th>
-            <th className="basis-1/4">Nhận</th>
-            <th className="basis-1/4">Ngày tạo</th>
-          </tr>
-        </thead>
-        <tbody className="flex flex-row">
-          <tr className="basis-2/4">
-            <td>Đà Nẵng - IT - Phần mềm - Thực tập sinh/Sinh viên - $123</td>
-          </tr>
-          <tr className="basis-1/4">
-            <td>Hàng ngày</td>
-          </tr>
-          <tr className="basis-1/4">
-            <td>2021-10-22 02:34:25</td>
-          </tr>
-        </tbody>
-      </table>
+      {currentUser?.Notification ? (
+        <table class="table">
+          <thead>
+            <tr className="flex flex-row">
+              <th className="basis-2/4">Công nghệ thông tin</th>
+              <th className="basis-1/4">Nhận</th>
+              <th className="basis-1/4">Ngày tạo</th>
+            </tr>
+          </thead>
+          <tbody className="flex flex-row">
+            <tr className="basis-2/4">
+              <td>Đà Nẵng - IT - Phần mềm - Thực tập sinh/Sinh viên - $123</td>
+            </tr>
+            <tr className="basis-1/4">
+              <td>Hàng ngày</td>
+            </tr>
+            <tr className="basis-1/4">
+              <td>2021-10-22 02:34:25</td>
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        <h1 style={{ textAlign: "center", textDecoration: "underline" }}>
+          HIỆN TẠI CHƯA CÓ THÔNG BÁO NÀO <i style={{ color: "red" }}></i>
+        </h1>
+      )}
     </div>
   );
 }
