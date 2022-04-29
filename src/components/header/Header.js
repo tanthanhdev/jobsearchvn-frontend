@@ -145,7 +145,7 @@ export const Header = () => {
                   to={
                     currentUser.is_staff
                       ? "/employer/profile"
-                      : "/member/profile"
+                      : "/profile-member"
                   }
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >

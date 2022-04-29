@@ -21,14 +21,16 @@ export const Jobs = (company) => {
                     return (
                         <div className={styles["job__item"]} index={index}>
                             <div className={styles["job"]}>
-                                <img className={styles["content__company-logo"]} src={company.company.logo} alt="logo" />
+                                <a  href={"/" + item.slug}>
+                                    <img className={styles["content__company-logo"]} src={company.company.logo} alt="logo" />
+                                </a>
                                 <div className={styles["job__info"]}>
                                     <span className={styles["job-name"]}>{item.title ? item.title : ''}</span>
                                     <span className={styles["salary"]}>{item.salary ? item.salary : ''}</span>
                                     <span className={styles["job-requirements"]}>
                                         {item.tag && item.tag.map((tagItem, tagIndex) => {
                                             return (
-                                                <span className={styles["job-requirements__language"]} key={tagIndex}>{tagItem.name ? tagItem.name : ''}</span>
+                                                <span className={styles["job-requirements__language"]} key={tagIndex}>#{tagItem.name ? tagItem.name : ''}</span>
                                             )
                                         })}
                                     </span>
