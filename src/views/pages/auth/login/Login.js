@@ -1,5 +1,6 @@
 import React, {  useEffect  } from "react";
 import { Navigate, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Button } from 'primereact/button';
 import * as Yup from "yup";
@@ -12,12 +13,15 @@ import styles from './style.module.css';
 import { icons } from 'utils/icons';
 
 const Login = () => {
-  const { isLoggedIn, message, isError, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn, isError, isLoading } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
+  const search = useLocation().search;
+  const next = new URLSearchParams(search).get('next');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearMessage());
+    console.log(next)
   }, [dispatch]);
 
   const initialValues = {
@@ -45,15 +49,25 @@ const Login = () => {
     dispatch(login({ email, password }))
       .unwrap()
       .then((res) => {
-        dispatch(authActions.updateUser(res.user))
+        dispatch(authActions.updateUser(res.user));
+        if (next) {
+          return <Navigate to={next} />;
+        } else {
+          return <Navigate to="/" />;
+        }
       })
       .catch(() => {
       });
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/" />;
+    if (next) {
+      return <Navigate to={next} />;
+    } else {
+      return <Navigate to="/" />;
+    }
   }
+
 
   return (
     <>
@@ -125,7 +139,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-          {isError && message && typeof(message) === "string" && (
+          {isError && message && (
             <div className="form-group">
               <div
                 className={isLoggedIn ? "alert alert-success" : "alert alert-danger"}

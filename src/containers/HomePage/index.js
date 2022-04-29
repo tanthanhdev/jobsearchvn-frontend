@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+// import PropTypes from "prop-types";
 // import PropTypes from 'prop-types'; ???
 import "./homePage.css";
 import Banner from "./Banner";
@@ -8,14 +8,14 @@ import Job from "./Job";
 // import Blog from "./Blog";
 import { Wrap } from "components/wrap/Wrap";
 // import { Header } from "components/header/Header";
-HomePage.propTypes = {};
+// HomePage.propTypes = {};
 
-function HomePage(props) {
-  const [searchInput, setSearchInput] = useState("");
+export const HomePage = (props) => {
+  // const [searchInput, setSearchInput] = useState("");
 
   const handleChangeInputSearch = (e) => {
-    setSearchInput(e.target.value);
-    console.log("e.target.value", e.target.value);
+    // setSearchInput(e.target.value);
+    // console.log("e.target.value", e.target.value);
   };
 
   return (

@@ -43,7 +43,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="company-reviews"
+              href="/companies"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Đánh giá công ty
@@ -51,7 +51,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="blogs"
+              href="/blogs"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Blog
@@ -59,7 +59,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <a
-              href="cv-template"
+              href="/cv-template"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Mẫu CV
@@ -142,16 +142,19 @@ export const Header = () => {
                 className={`${styles.header__left__item} ${styles["header-login"]}`}
               >
                 <Link
-                  to={`${
-                    currentUser.is_staff ? "employer/profile" : "profile-member"
-                  }  `}
+                  to={
+                    currentUser.is_staff
+                      ? "/employer/profile"
+                      : "/member/profile"
+                  }
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >
                   {currentUser.first_name + " " + currentUser.last_name}
                 </Link>
               </li>
               <li
-                class Name={`${styles.header__left__item} ${styles["header-post-job"]}`}
+                class
+                Name={`${styles.header__left__item} ${styles["header-post-job"]}`}
               >
                 <a
                   href="/"

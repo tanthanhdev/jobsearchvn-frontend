@@ -20,7 +20,7 @@ const Basic1 = (CvTemplate) => {
       <div className={`${styles.list__sample}`}>
         <div className={`${styles.CV}`}>
           <div className={`${styles["list__sample-img"]}`}></div>
-          <a className={`${styles.list__btn}`}>
+          <div className={`${styles.list__btn}`}>
             <button
               className={`${styles["btn-using"]} ${styles["btn-using-view"]}`}
               onClick={toggleShow2}
@@ -33,7 +33,7 @@ const Basic1 = (CvTemplate) => {
             >
               Dùng mẫu này
             </button>
-          </a>
+          </div>
         </div>
 
         <div className={`${styles.list__status}`}>

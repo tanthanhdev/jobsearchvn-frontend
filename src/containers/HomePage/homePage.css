@@ -1,5 +1,5 @@
 .main {
-  background-color: #E5E5E5;
+  background-color: #f9f9f9;
 }
 /* Header */
 .header {
@@ -157,7 +157,7 @@
 /* slide */
 
 /*  */
-.slider {
+.slider-homepage {
   height: 600px;
   width: 100%;
   background-size: cover;
@@ -360,7 +360,7 @@
   border-right: 1px solid #333;
 }
 .search__input-location {
-  width: 40%;
+  /* width: 40%; */
   display: flex;
 }
 .search__select-location {

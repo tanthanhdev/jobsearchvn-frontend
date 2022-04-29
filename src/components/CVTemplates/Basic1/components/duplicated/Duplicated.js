@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'primereact/button';
-import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
 // components
@@ -299,7 +299,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                     <div className={`${styles.tabs}`}>
                                       <div className={`${styles.tab} ${styles.prev}`}></div>
                                       <div className={`${styles.tab} ${styles.active} ${styles["text-primary"]}`}>
-                                        <span>Curriculum Vitae</span>
+                                        <span>Sơ yếu lý lịch</span>
                                         {/* <i className={`${styles.custommodal}`}"fa fa-times icon text-primary" aria-hidden="true" style="float: right;"></i> */}
                                       </div>
                                       <div className={`${styles.tab} ${styles.next}`}></div>
@@ -307,23 +307,9 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                     <div className={`${styles["add-tab"]} ${styles["text-primary"]}`}>
                                       {/* <i className={`${styles.custommodal}`}"fa fa-plus" aria-hidden="true"></i></div> */}
                                     </div>
-                                    <div className={`${styles["nav-body"]}`}>
-                                      <div className={`${styles.action}`}>
-                                        <span className={`${styles.prev} ${styles["text-primary"]}`}>
-                                          {/* <i className={`${styles.custommodal}`}"fa fa-angle-left" aria-hidden="true"></i> */}
-                                        </span>
-                                        <span className={`${styles.prev} ${styles["text-primary"]}`}>
-                                          {/* <i className={`${styles.custommodal}`}"fa fa-angle-right" aria-hidden="true"></i> */}
-                                        </span>
-                                        <span className={`${styles.reload} ${styles["text-primary"]}`}>
-                                          {/* <i className={`${styles.custommodal}`}"fa fa-repeat" aria-hidden="true"></i> */}
-                                        </span>
-                                      </div>
+                                    <div className={`${styles["nav-body"]} ${styles['d-flex']}`}>
                                       <div className={`${styles.search} ${styles["bg-primary-trans"]}`}>
                                         <div className={`${styles["input-search"]}`}>
-                                          <span className={`${styles.icon} ${styles["text-primary"]}`}>
-                                            {/* <i className={`${styles.custommodal}`}"fa fa-briefcase" aria-hidden="true"></i> */}
-                                          </span>
                                           <span className={`${styles.title}`}>
                                             Nhân viên kinh doanh
                                           </span>

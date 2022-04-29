@@ -9,13 +9,27 @@ export const create_cv = createAsyncThunk(
   "cvs/",
   async ({ title, target_major, cv_cv_educations, cv_cv_experiences,
     cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design }, thunkAPI) => {
-      console.log(title, target_major, cv_cv_educations, cv_cv_experiences,
-        cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design);
     try {
       const response = await CvService.create_cv(title, target_major, cv_cv_educations, cv_cv_experiences,
         cv_cv_skills, cv_cv_social_activities, cv_cv_certificates, cv_template_id, cv_career, cv_design);
       if (response.status === 200 || response.status === 201) {
-        console.log(response.status)
+        thunkAPI.dispatch(setMessage(response.data.message));
+        return response.data;
+      }
+    } catch (error) {
+      const message = error.response.data;
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const saveCV = createAsyncThunk(
+  "cvs/save",
+  async ({ cv_id }, thunkAPI) => {
+    try {
+      const response = await CvService.saveCV(cv_id);
+      if (response.status === 200 || response.status === 201) {
         thunkAPI.dispatch(setMessage(response.data.message));
         return response.data;
       }
@@ -51,7 +65,7 @@ const CvTemplateSlice = createSlice({
     },
   },
   extraReducers: {
-    [create_cv.pending]: (state, action) => {
+    [create_cv.pending]: (state) => {
       state.isLoading = true
     },
     [create_cv.fulfilled]: (state, action) => {
@@ -62,6 +76,20 @@ const CvTemplateSlice = createSlice({
     },
     [create_cv.rejected]: (state, action) => {
       state.cv = null;
+      state.isLoading = false
+      state.isError = true
+      state.isSuccess = false
+      state.message = action.payload
+    },
+    [saveCV.pending]: (state) => {
+      state.isLoading = true
+    },
+    [saveCV.fulfilled]: (state) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.isError = false
+    },
+    [saveCV.rejected]: (state, action) => {
       state.isLoading = false
       state.isError = true
       state.isSuccess = false

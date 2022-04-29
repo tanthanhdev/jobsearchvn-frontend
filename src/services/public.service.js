@@ -13,8 +13,20 @@ const getCities = () => {
     });
 };
 
-const CityService = {
-  getCities,
+const getCountries = () => {
+  return axios
+    .get(API_URL + "/public/countries/", {})
+    .then((response) => {
+      if (response) {
+        return response;
+      }
+      return null
+    });
 };
 
-export default CityService;
+const PublicService = {
+  getCities,
+  getCountries,
+};
+
+export default PublicService;

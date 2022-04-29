@@ -29,7 +29,7 @@ export const CompanyReviews = () => {
     dispatch(get_public_employer_detail({ slug }))
       .unwrap()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setCompany(res);
         setIsReloadReview(false);
       })
@@ -46,7 +46,7 @@ export const CompanyReviews = () => {
 
   return (
     <Wrap>
-      {company && company.status && (
+      {company && (
         <div className={styles.container}>
           <div className={styles.content}>
             <CompHeader company={company} setIsReloadReview={setIsReloadReview} isReloadReview={isReloadReview} />

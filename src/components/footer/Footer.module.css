@@ -1,5 +1,7 @@
 .wrapper {
     padding-top: 48px;
+    background-color: white;
+    margin-top: 80px;
 }
 
 .footer{
@@ -48,7 +50,8 @@
 }
 .footer__footer-info-sub{
     margin: 0 auto;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
 }
 

@@ -21,6 +21,7 @@ import SearchCompanyReviews from "views/pages/companyReviews/companies";
 // import Home from "views/pages/home";
 import Profile from "views/pages/auth/member/profile/Profile";
 import CVTemplate from "views/pages/CVTemplates";
+import { CVPublic } from "views/layout/CVPublic/CVPublic";
 // services
 import authService from "services/auth.service";
 // slices
@@ -64,8 +65,10 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-member" element={<ProfileMember />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/view-detail" element={<NotFoundPage />}></Route>
-        <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
+        {/* <Route path="/view-detail" element={<ViewDetailPage />}>
+          <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
+        </Route> */}
+        <Route path="/:slug" element={<ViewDetailPage />}></Route>
         <Route path="/search/:q" element={<SearchPage />} />
         <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
@@ -78,12 +81,43 @@ const App = () => {
         />
         <Route path="/companies" element={<SearchCompanyReviews />} />
         <Route path="/companies/:slug" element={<CompanyReviews />} />
+        <Route path="/login" element={<Login />} />
         <Route
-          path="/login"
-          element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+          path="/employer/profile"
+          element={isLoggedIn ? <EmployerProfile /> : <Navigate to="/login" />}
         />
-        <Route path="/employer/profile" element={<EmployerProfile />} />
         )
+        <Route
+          path="/employer/campaigns/:slug/create-job"
+          element={
+            isLoggedIn ? (
+              <EmployerProfile active={5} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/employer/campaigns/:slug"
+          element={
+            isLoggedIn ? (
+              <EmployerProfile active={6} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/employer/campaigns/:slug/search-cv"
+          element={
+            isLoggedIn ? (
+              <EmployerProfile active={7} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route path="/cv/:slug" element={<CVPublic />} />
         <Route
           path="/cv-template"
           element={

@@ -10,6 +10,7 @@ import userService from "services/user.service";
 import { followCompany } from "slices/company-reviews";
 // utils
 import styles from './CompHeader.module.css';
+import { icons } from 'utils/icons';
 
 export const CompHeader = ({company, setIsReloadReview}) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -69,7 +70,7 @@ export const CompHeader = ({company, setIsReloadReview}) => {
   return (
     <div className={styles["header"]}>
       <div className={styles["header-left"]}>
-        <img className={styles["company-logo"]} src={company.logo} alt="logo"/>
+        <img className={styles["company-logo"]} src={company.logo ? company.logo : icons.logo_default} alt="logo"/>
       </div>
       <div className={styles["header-center"]}>
         <div className={styles["header-center__name"]}>

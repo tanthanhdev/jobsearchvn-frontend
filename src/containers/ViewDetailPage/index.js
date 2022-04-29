@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Header } from "components/header/Header";
 import { Footer } from "components/footer/Footer";
 import {
@@ -18,296 +17,264 @@ import {
 } from "react-icons/bs";
 import { GrLinkedinOption } from "react-icons/gr";
 import { SiGmail, SiZalo } from "react-icons/si";
-import { GiPositionMarker } from "react-icons/gi";
+// import { GiPositionMarker } from "react-icons/gi";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
-import jobApi from "../../api/jobApi";
-import { useSelector } from "react-redux";
-import Map from "react-map-gl";
+import { useParams, Navigate } from "react-router-dom";
+// import Map from "react-map-gl";
+// services
+import userService from "services/user.service";
+import authService from "services/auth.service";
+// Utils
+import { icons as iconsUtil } from "utils/icons";
+// Css
+import "./viewDetailPage.css";
 
-ViewDetailPage.propTypes = {};
-const tab = [
-  {
-    tabName: "Chi tiết",
-  },
-  {
-    tabName: "Tổng quan công ty",
-  },
-];
-
-const tabIcon = [<AiOutlineHeart />, <BsShare />, <BsFlag />];
-function ViewDetailPage(props) {
+export const ViewDetailPage = (props) => {
+  const user = localStorage.getItem("user");
+  const isLoggedIn = authService.isLoggedIn(); //dont remove
+  const [jobView, setJobView] = useState(null);
+  const [isReloadReview, setIsReloadReview] = useState(false);
+  const [isApply, setIsApply] = useState(false);
   const [tabActive, setTabActive] = useState(0);
-  const [dropdown, setDropdown] = useState(0);
+  let params = useParams();
 
-  const [viewport, setViewport] = useState({
-    width: "100vw",
-    height: "100vh",
-    latitude: 21.0244246,
-    longitude: 105.7938072,
-    zoom: 16,
-    zIndex: 2,
-  });
+  useEffect(() => {
+    userService.getPublicJobDetail(params.slug).then((res) => {
+      setJobView(res.data);
+      setIsReloadReview(false);
+    });
+    userService.getApplyJobDetail(null, params.slug).then(() => {
+      setIsApply(true);
+      setIsReloadReview(false);
+    });
+  }, [isReloadReview === true]);
+
+  const tab = [
+    {
+      tabName: "Chi tiết",
+    },
+    {
+      tabName: "Tổng quan công ty",
+    },
+  ];
+  const icons = [
+    { name: "book", code: iconsUtil.flag_book },
+    { name: "person", code: iconsUtil.flag_person },
+  ];
+
   const onSetTabActive = (index) => {
     setTabActive(index);
   };
 
-  const setShowDropdown = (index) => {
-    setDropdown(index);
+  const handleApplyJob = () => {
+    userService.createApplyJob(jobView?.id).then(() => {
+      console.log("thanh cong");
+      setIsReloadReview(true);
+    });
   };
-  // viewDetail
-  const [jobView, setJobView] = useState(null);
-  let params = useParams();
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const jobList = await jobApi.getAll();
-      let jobViewDetail = jobList.filter((job, index) => {
-        return job.id === Number(params.id);
-      });
-      console.log("jobViewDetail", jobViewDetail);
-      setJobView(jobViewDetail[0]);
-    };
-    fetchProducts();
-  }, []);
-  console.log("jobView", jobView);
 
   return (
-    <>
+    <div style={{ backgroundColor: "rgb(249 249 249)" }}>
       <Header></Header>
-      <div className="w-3/4 text-sm pl-3 pt-[100px]">
-        <div className="py-2 flex justify-between items-center border-b-2 border-gray-300 pb-1 mb-3">
-          <div className="flex items-center">
-            {tab.map((tabItem, index) => {
-              const isActive = index === tabActive;
-              return (
-                <div
-                  key={index}
-                  className={classNames(
-                    "mr-4 pseudo-tab relative cursor-pointer",
-                    { "tab-active": isActive }
-                  )}
-                  onClick={() => onSetTabActive(index)}
-                >
-                  {tabItem.tabName}
-                </div>
-                /* <div key={index} className={`mr-4 pseudo-tab relative cursor-pointer ${isActive? 'tab-active' : false}`} onClick={()=>onSetTabActive(index)}>{tabItem.tabName}</div></> */
-              );
-            })}
-          </div>
-
-          <div className="flex items-center">
+      <div className="container wrapper-job-detail">
+        <div className="text-sm pt-[100px]">
+          <div className="py-2 flex justify-between items-center border-b-2 border-gray-300 pb-1 mb-3">
             <div className="flex items-center">
-              <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
-                <AiOutlineHeart />
-                <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
-                  Lưu việc làm
-                </div>
-              </div>
-              <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
-                <BsShare />
-                <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500">
-                  <div className="flex items-center py-2">
-                    <AiFillFacebook className="mr-2 text-lg" />
-                    <GrLinkedinOption className="mr-2 text-lg" />
-                    <SiGmail className="mr-2 text-lg" />
-                    <SiZalo className="mr-2 text-lg" />
-                    <AiOutlineGoogle className="mr-2 text-lg" />
+              {tab.map((tabItem, index) => {
+                const isActive = index === tabActive;
+                return (
+                  <div
+                    key={index}
+                    className={classNames(
+                      "mr-4 pseudo-tab relative cursor-pointer",
+                      { "tab-active": isActive }
+                    )}
+                    onClick={() => onSetTabActive(index)}
+                  >
+                    {tabItem.tabName}
                   </div>
-                </div>
-              </div>
-              <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
-                <BsFlag />
-                <div className="bg-white w-24 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
-                  Báo Xấu
-                </div>
-              </div>
+                  /* <div key={index} className={`mr-4 pseudo-tab relative cursor-pointer ${isActive? 'tab-active' : false}`} onClick={()=>onSetTabActive(index)}>{tabItem.tabName}</div></> */
+                );
+              })}
             </div>
-          </div>
-        </div>
-        <div className="flex justify-between bg-light-blue">
-          <div className="py-2 px-3 w-1/3">
-            <div>
-              <div className="flex items-center">
-                <GiPositionMarker className="mr-2" />
-                <div className="font-bold"> Địa điểm</div>
-              </div>
-              <a href="#" className="text-primary hover:underline ml-6">
-                {jobView?.employer.company_location}
-              </a>
-              <img
-                alt="asd asd"
-                className="w-3/4 mt-4"
-                src="https://static.careerbuilder.vn/themes/careerbuilder/img/icon-map.svg"
-              />
-            </div>
-          </div>
-          <Map
-            initialViewState={{
-              longitude: -100,
-              latitude: 40,
-              zoom: 3.5,
-              width: "100wh",
-              height: "100vh",
-            }}
-            style={{ width: 600, height: 400 }}
-            mapStyle="mapbox://styles/mapbox/streets-v9" // ua thay ho de ri van chay dc ma
-            MapboxAccessToken="pk.eyJ1Ijoidm9uZ3V5ZW50aGFpYW4iLCJhIjoiY2wxbWJsemdyMGg3ZTNjb2JreWhkbjJ1eiJ9.zOqBFP6ZOGtP5cBgKv_AGQ"
-          />
-          <div className="py-2 px-3 w-1/3">
-            <div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <AiOutlineClockCircle className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Ngày cập nhật</div>
-                  <div className="text-gray-500 py-1">
-                    {jobView?.updated_at.slice(0, 10)}
-                  </div>
-                </div>
-              </div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsFillBagFill className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Ngành nghề</div>
 
-                  <a href="#" className="text-primary hover:underline">
-                    {jobView?.slug}
-                  </a>
+            <div className="flex items-center">
+              <div className="flex items-center">
+                <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
+                  <AiOutlineHeart />
+                  <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
+                    Lưu việc làm
+                  </div>
                 </div>
-              </div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsBagXFill className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Hình thức</div>
-                  <div className="text-gray-500 py-1">Nhân viên chính thức</div>
+                <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
+                  <BsShare />
+                  <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500">
+                    <div className="flex items-center py-2">
+                      <AiFillFacebook className="mr-2 text-lg" />
+                      <GrLinkedinOption className="mr-2 text-lg" />
+                      <SiGmail className="mr-2 text-lg" />
+                      <SiZalo className="mr-2 text-lg" />
+                      <AiOutlineGoogle className="mr-2 text-lg" />
+                    </div>
+                  </div>
+                </div>
+                <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
+                  <BsFlag />
+                  <div className="bg-white w-24 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
+                    Báo Xấu
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="py-2 px-3 w-1/3">
-            <div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsCurrencyDollar className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Lương</div>
-                  <div className="text-gray-500 py-1">
-                    Trên{" "}
-                    <span className="text-textTitle">
-                      {jobView?.salary} {jobView?.currency}
-                    </span>
+          <div className="flex justify-between bg-light-blue">
+            {/* <div className="py-2 px-3 w-1/3">
+              <div>
+                <div className="flex items-center">
+                  <GiPositionMarker className="mr-2" />
+                  <div className="font-bold"> Địa điểm</div>
+                </div>
+                <a href="#" className="text-primary hover:underline ml-6">
+                  {jobView?.employer.company_location}
+                </a>
+                <img
+                  alt="asd asd"
+                  className="w-3/4 mt-4"
+                  src="https://static.careerbuilder.vn/themes/careerbuilder/img/icon-map.svg"
+                />
+              </div>
+            </div>
+            <Map
+              initialViewState={{
+                longitude: -100,
+                latitude: 40,
+                zoom: 3.5,
+                width: "100wh",
+                height: "100vh",
+              }}
+              style={{ width: 600, height: 400 }}
+              mapStyle="mapbox://styles/mapbox/streets-v9"
+              MapboxAccessToken="pk.eyJ1Ijoidm9uZ3V5ZW50aGFpYW4iLCJhIjoiY2wxbWJsemdyMGg3ZTNjb2JreWhkbjJ1eiJ9.zOqBFP6ZOGtP5cBgKv_AGQ"
+            /> */}
+            <div className="py-2 px-3 w-1/3">
+              <div>
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <AiOutlineClockCircle className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Ngày cập nhật</div>
+                    <div className="text-gray-500 py-1">
+                      {jobView?.updated_at.slice(0, 10)}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <BsFillBagFill className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Ngành nghề</div>
+
+                    <a href="#" className="text-primary hover:underline">
+                      {jobView?.job_type.name}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <BsBagXFill className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Hình thức</div>
+                    <div className="text-gray-500 py-1">{jobView?.title}</div>
                   </div>
                 </div>
               </div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsFillBagFill className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Kinh nghiệm</div>
-                  <div className="text-primary">2 - 3 năm </div>
+            </div>
+            <div className="py-2 px-3 w-1/3">
+              <div>
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <BsCurrencyDollar className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Lương</div>
+                    <div className="text-gray-500 py-1">
+                      {jobView?.salary_type === "Lương"
+                        ? " " + jobView?.salary + jobView?.currency
+                        : ""}
+                      {jobView?.salary_type === "Lương khoảng" ? (
+                        <span>
+                          {" "}
+                          {jobView?.salary_from} - {jobView?.salary_to}{" "}
+                          {jobView?.currency}
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                      {jobView?.salary_type === "Thương lượng" ? (
+                        <span> Thương lượng</span>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsBagXFill className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Cấp bậc</div>
-                  <div className="text-gray-500 py-1">Nhân viên</div>
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <BsBagXFill className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Cấp bậc</div>
+                    <div className="text-gray-500 py-1">{jobView?.level}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
-                <BsFillPersonFill className="mr-2 mt-1 text-xs" />
-                <div>
-                  <div className="font-bold">Hết hạn nộp</div>
-                  <div className="text-gray-500 py-1">
-                    {jobView?.end_time.slice(0, 10)}
+                <div className="flex pb-2 mb-2 border-b-2 border-gray-300">
+                  <BsFillPersonFill className="mr-2 mt-1 text-xs" />
+                  <div>
+                    <div className="font-bold">Hết hạn nộp</div>
+                    <div className="text-gray-500 py-1">
+                      {jobView?.end_time.slice(0, 10)}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container">
         <h2>PHÚC LỢI</h2>
-        <ul className="flex flex-wrap">
-          {jobView?.job_benefits.map((value, index) => (
+        <ul>
+          {jobView?.job_benefits.map((item, index) => (
             <li key={index} className="flex w-[33%]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                />
-              </svg>
-              <span>{value.benefit}</span>
+              <img
+                width="16"
+                height="16"
+                src={item.icon === "person" ? icons[1].code : icons[0].code}
+              ></img>
+              <span>{item.benefit}</span>
             </li>
           ))}
         </ul>
         <div>
           <h2>MÔ TẢ CÔNG VIỆC</h2>
-          {jobView?.description.split("\r\n").map((value) => (
-            <p>{value}</p>
-          ))}
-
+          <div
+            dangerouslySetInnerHTML={{
+              __html: jobView?.description,
+            }}
+          ></div>
           <h2>YÊU CẦU CÔNG VIỆC</h2>
-          {jobView?.job_requirement.split(".").map((value, index) => (
-            <span key={index} className="block">
-              - {value}
-            </span>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: jobView?.job_requirement,
+            }}
+          ></div>
+          <h2>ĐỊA ĐIỂM LÀM VIỆC</h2>
+          {jobView?.job_job_addresses.map((adr, index) => (
+            <div index={index}>- {adr.address}</div>
           ))}
-          <h2>THÔNG TIN KHÁC</h2>
-          <span className="block">{jobView?.job_type.name}</span>
-
-          <h2>JOBS TAG</h2>
+          <h2>Từ khoá:</h2>
           <ul className="flex flex-wrap">
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Dược sĩ
-            </li>
-            <li className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2">
-              Pharmacist
-            </li>
+            {jobView?.tag.map((item, index) => (
+              <li
+                className="bg-backgroundTag p-2 rounded-lg mb-2 mr-2"
+                index={index}
+              >
+                #{item.name}
+              </li>
+            ))}
           </ul>
-          <div className="flex justify-between items-center border-solid border-buttonSubmitBackground border h-14">
+          {/* <div className="flex justify-between items-center border-solid border-buttonSubmitBackground border h-14">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -325,16 +292,25 @@ function ViewDetailPage(props) {
               </svg>
             </div>
             <div>
-              <button className="bg-buttonSubmitBackground rounded-lg p-2">
-                Nộp đơn ứng tuyển
-              </button>
             </div>
-          </div>
+          </div> */}
+          <button
+            className="bg-buttonSubmitBackground rounded-lg p-2"
+            disabled={
+              (isLoggedIn && user?.is_active && !user?.is_staff) || isApply
+            }
+            onClick={handleApplyJob}
+          >
+            {isLoggedIn && isApply && "Đã nộp đơn ứng tuyển"}
+            {isLoggedIn && !isApply && "Nộp đơn ứng tuyển"}
+            {!isLoggedIn && (
+              <a href={"/login?next=/" + jobView?.slug}>Nộp đơn ứng tuyển</a>
+            )}
+          </button>
         </div>
       </div>
       <Footer></Footer>
-    </>
+    </div>
   );
-}
-
+};
 export default ViewDetailPage;
