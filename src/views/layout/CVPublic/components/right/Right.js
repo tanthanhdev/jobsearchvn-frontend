@@ -19,11 +19,16 @@ import styles from './Right.module.css';
 import { icons } from 'utils/icons';
 import dateUtils from "utils/date";
 import script from "utils/script";
+import QRCode from 'qrcode.react';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const Right = ({ Cv }) => {
   const { isLoading } = useSelector((state) => state.cv_template);
   const [isCvSaveExists, setIsCvSaveExists] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  console.log(location);
 
   useEffect(() => {
     CvService.getIsCVSaveExists(Cv.id).then(() => { setIsCvSaveExists(true); }).catch(() => { setIsCvSaveExists(false); });
@@ -186,6 +191,13 @@ export const Right = ({ Cv }) => {
             </div>
           </div>
           <div data-v-48d91b5b="">
+          <QRCode
+            id='qrcode'
+            value={'https://www.jobsearchdtu.site'+location.pathname}
+            size={290}
+            level={'H'}
+            includeMargin={true}
+          />
             {/* <div data-v-48d91b5b="" className={`${styles["mb-2"]} ${styles["font-weight-bold"]}`}>Mã ứng viên</div>
             <div data-v-48d91b5b="" className={`${styles["form-group"]}`}>
               <input data-v-48d91b5b="" disabled="disabled"
