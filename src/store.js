@@ -8,6 +8,7 @@ import searchesReducer from "./slices/searches";
 import searchNormalSlice from "./containers/HomePage/searchNormalSlice";
 import searchLocationSlice from "./containers/HomePage/searchLocationSlice";
 import viewDetailPageSlice from "./containers/HomePage/viewDetailPageSlice";
+import memberSlice from "./containers/ProfileMember/memberSlice";
 
 const reducer = {
   auth: authReducer,
@@ -18,7 +19,10 @@ const reducer = {
   searchNormalSlice: searchNormalSlice,
   searchLocationSlice: searchLocationSlice,
   viewDetailPageSlice: viewDetailPageSlice,
-  searches: searchesReducer
+  searches: searchesReducer,
+  // cua an
+  // memberSlice:memberSlice,
+  // cua an
 };
 
 const store = configureStore({

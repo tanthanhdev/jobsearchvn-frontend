@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-MyProfile.propTypes = {};
+MyProfile.propTypes = {
+  currentUser: PropTypes.object,
+};
 
-function MyProfile(props) {
+function MyProfile({ currentUser }) {
   return (
     <div className="w-[64%] mx-auto p-[20px] rounded border-2 border-solid border-border relative">
       <div className="flex justify-between">
@@ -23,16 +25,30 @@ function MyProfile(props) {
           />
         </svg>
       </div>
-      <p className="mb-[4px]">Đà Nẵng</p>
-      <p className="mb-[4px]">Anvo8222@gmail.com</p>
-      <p className="mb-[4px]">0387367435</p>
+      <p className="mb-[4px]">
+        Địa chỉ:{" "}
+        {currentUser?.address ? currentUser?.address : "Chưa có thông tin!"}
+      </p>
+      <p className="mb-[4px]">
+        Email: {currentUser?.email ? currentUser?.email : "Chưa có thông tin!"}
+      </p>
+      <p className="mb-[4px]">
+        Số diện thoại:{" "}
+        {currentUser?.phone_number
+          ? currentUser?.phone_number
+          : "Chưa có thông tin!"}
+      </p>
       <p className="font-bold">Địa chỉ</p>
       <div className="flex">
         <p className="font-bold min-w-[200px]">Địa chỉ đường phố</p>
         <input
           className="-mt-[14px] w-full p-0 pl-[20px] border-2 border-solid border-border "
           type="text"
-          defaultValue="Cẩm Lệ, Đà Nẵng, Việt Nam"
+          defaultValue={
+            currentUser?.street_Name
+              ? currentUser?.street_Name
+              : "Chưa có thông tin!"
+          }
         />
       </div>
       <div className="flex">
@@ -40,7 +56,9 @@ function MyProfile(props) {
         <input
           className="-mt-[14px] w-full p-0 pl-[20px] border-2 border-solid border-border "
           type="text"
-          defaultValue="Đà Nẵng"
+          defaultValue={
+            currentUser?.city ? currentUser?.city : "Chưa có thông tin!"
+          }
         />
       </div>
       <div className="flex">
@@ -48,7 +66,9 @@ function MyProfile(props) {
         <input
           className="-mt-[14px] w-full p-0 pl-[20px] border-2 border-solid border-border "
           type="text"
-          defaultValue="55000"
+          defaultValue={
+            currentUser?.zip_Code ? currentUser?.zip_Code : "Chưa có thông tin!"
+          }
         />
       </div>
 
@@ -58,25 +78,34 @@ function MyProfile(props) {
         <input
           className="-mt-[14px] w-full p-0 pl-[20px] border-2 border-solid border-border "
           type="text"
-          defaultValue="Web developer"
+          defaultValue={
+            currentUser?.position_Wanted
+              ? currentUser?.position_Wanted
+              : "Chưa có thông tin!"
+          }
         />
       </div>
       <p className="font-bold">Loại công việc mong muốn</p>
       <div className="flex">
-        <input className="mt-[6px]" type="checkbox" />
+        <input className="mt-[6px]" type="radio" name="time" />
         <span>Toàn thời gian</span>
       </div>
       <div className="flex">
-        <input className="mt-[6px]" type="checkbox" />
+        <input className="mt-[6px]" type="radio" name="time" />
         <span>thực tập sinh</span>
       </div>
       <div className="flex">
-        <input className="mt-[6px]" type="checkbox" />
+        <input className="mt-[6px]" type="radio" name="time" />
         <span>Nhân viên</span>
       </div>
       <p className="font-bold">Mức lương mong muốn</p>
       <div className="flex">
-        <input type="text" defaultValue="1500000" />
+        <input
+          type="text"
+          defaultValue={
+            currentUser?.salary ? currentUser?.salary : "Chưa có thông tin!"
+          }
+        />
       </div>
       <div className="flex">
         <button className="bg-primary p-[10px] text-text mr-[20px] rounded-full">
