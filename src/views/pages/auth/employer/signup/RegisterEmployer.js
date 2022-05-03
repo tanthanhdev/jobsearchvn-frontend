@@ -92,7 +92,7 @@ const RegisterEmployer = () => {
                 (val) =>
                     val &&
                     val.toString().length >= 1 &&
-                    val.toString().length <= 50
+                    val.toString().length <= 20
             )
             .required("This field is required!"),
         company_location: Yup.string()
