@@ -64,6 +64,7 @@ const App = () => {
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-member" element={<ProfileMember />} />
+        <Route path="/profile-member/:tab" element={<ProfileMember />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* <Route path="/view-detail" element={<ViewDetailPage />}>
           <Route path="/view-detail/:id" element={<ViewDetailPage />}></Route>
