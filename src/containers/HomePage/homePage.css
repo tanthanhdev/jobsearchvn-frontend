@@ -48,7 +48,7 @@
 .header__link:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
-  content: '';
+  content: "";
   display: block;
   height: 2px;
   left: 50%;
@@ -145,7 +145,7 @@
 /*  */
 
 .header__left__item:last-child::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   top: 10px;
@@ -179,6 +179,7 @@
   color: var(--color-hover);
 }
 .nav_content {
+  justify-content: center;
   width: 100%;
   max-height: 460px;
   overflow-y: auto;
@@ -245,7 +246,6 @@
 }
 .nav_sub-content-description header {
   display: block;
-  max-height: 40px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
