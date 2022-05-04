@@ -24,7 +24,6 @@ export const CompanyReviews = () => {
   const [showReviews, setShowReviews] = useState(true);
 
   useEffect(() => {
-    console.log('isReloadReview: ', isReloadReview);
     let slug = params.slug
     dispatch(get_public_employer_detail({ slug }))
       .unwrap()
@@ -61,6 +60,7 @@ export const CompanyReviews = () => {
               <RightSection
                 company={company}
                 setShowJobs={setShowJobs}
+                setShowReviews={setShowReviews}
                 isReloadReview={isReloadReview} />
             </div>
           </div>

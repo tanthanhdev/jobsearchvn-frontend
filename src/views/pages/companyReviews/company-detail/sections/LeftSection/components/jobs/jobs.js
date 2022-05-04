@@ -21,8 +21,8 @@ export const Jobs = (company) => {
                     return (
                         <div className={styles["job__item"]} index={index}>
                             <div className={styles["job"]}>
-                                <a  href={"/" + item.slug}>
-                                    <img className={styles["content__company-logo"]} src={company.company.logo} alt="logo" />
+                                <a  href={"/" + item.slug} style={{marginRight: '8px'}}>
+                                    <img className={styles["content__company-logo"]} src={company.company.logo} alt="logo" style={{borderRadius: '4px'}} />
                                 </a>
                                 <div className={styles["job__info"]}>
                                     <span className={styles["job-name"]}>{item.title ? item.title : ''}</span>
@@ -37,7 +37,7 @@ export const Jobs = (company) => {
                                 </div>
                                 <div className={styles["place-time"]}>
                                     <div className={styles["place"]}>{item.country.name ? item.country.name : ''}</div>
-                                    <div className={styles["time"]}>{dateUtils.timeSince(new Date(item.created_at))}</div>
+                                    <div className={styles["time"]} style={{whiteSpace: 'nowrap'}}>{dateUtils.timeSince(new Date(item.created_at))}</div>
                                 </div>
                             </div>
                         </div>
