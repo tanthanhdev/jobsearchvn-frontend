@@ -22,10 +22,12 @@ export const CVPublic = () => {
   return (
     <main className={styles.wrapper}>
       <section className={styles.container} id="divToPrint">
-        {Cv && (
+        {Cv ? (
           <div className={`${styles.container__content}`} >
             <CV Cv={Cv} />
           </div>
+        ): (
+          <h1 style={{color: 'red'}}>CV đã bị ẩn!</h1>
         )}
       </section>
       {Cv && (
