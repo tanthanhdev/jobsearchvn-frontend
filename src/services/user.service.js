@@ -35,7 +35,7 @@ const getPublicJobDetail = (slug) => {
 
 const saveEmployerProfile = (data) => {
   console.log(1111, data);
-  return axios.patch(API_URL + "/employers/", data, { headers: authHeaderFile() });
+  return axios.patch(API_URL + "/employers/", data, { headers: authHeader() });
 };
 
 const getJob = () => {
