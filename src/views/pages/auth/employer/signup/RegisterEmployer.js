@@ -291,7 +291,7 @@ const RegisterEmployer = () => {
                                         <Field
                                             name="group"
                                             type="text"
-                                            value="member"
+                                            value="employer"
                                             className="hide"
                                         />
                                     </div>
@@ -385,7 +385,7 @@ const RegisterEmployer = () => {
                                         <a href="/login" className={styles["container__footer-link"]}>Đăng nhập!</a>
                                     </div>
                                     <div className={styles["container__footer-box"]}>
-                                        <p>Nếu bạn đang có nhu cầu tuyển dụng, vui lòng đăng ký <a href="/sign-up/employer">Tại đây</a></p>
+                                        <p>Nếu bạn đang có nhu cầu tuyển dụng, vui lòng đăng ký <a href="/sign-up">Tại đây</a></p>
                                     </div>
                                 </div>
                             </div>
