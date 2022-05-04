@@ -1,0 +1,37 @@
+
+.cvo-block>div, .cvo-block>.block-content {
+    padding: 16px;
+}
+.cvo-block .cvo-block-header i {
+    padding-right: 10px;
+}
+.row {
+    margin-bottom: 28px;
+}
+.text-primary {
+    color: #0a84ff;
+}
+.cvo-experience-wrapper, .cvo-activity-wrapper, .cvo-award-wrapper, .cvo-skill-group-wrapper, .cvo-education-wrapper, .cvo-experience-wrapper {
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #333;
+}
+/* CVO Skills */
+.cvo-skill-name {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+
+.cvo-skill-description {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: 1pt dashed #77a5cc;
+}
+
+.cvo-skill-block {
+    margin-top: 24px;
+}
+/* CVO Skills end */

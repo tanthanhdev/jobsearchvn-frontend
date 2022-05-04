@@ -1,0 +1,266 @@
+body#cv-viewer.iframe {
+    background-color: transparent;
+}
+iframe #cv-layout-viewer {
+    width: auto;
+}
+.iframe #cv-layout-viewer {
+    padding-top: 0;
+}
+#cv-layout-viewer {
+    width: 1150px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 80px;
+}
+#cv-layout-viewer {
+    margin-bottom: 90px;
+    margin-top: 90px;
+}
+#cvo-document-root {
+    font-size: 12pt;
+    margin: 0 auto;
+    padding: 0;
+}
+#cvo-document-root {
+    margin: 0 auto;
+    padding: 0;
+    font-size: 12pt;
+    position: relative;
+}
+.iframe #cvo-document {
+    margin-bottom: 30px;
+}
+#cvo-document {
+    color: #000;
+}
+.cvo-document {
+    font-family: arial,sans-serif,tahoma;
+    font-size: 10pt;
+}
+.cvo-document {
+    width: 100%;
+}
+.cvo-document .cvo-page {
+    padding: 15mm;
+    margin: 0 auto;
+    box-shadow: 0 0 1px rgb(0 0 0 / 25%);
+    background-color: #fff;
+    position: relative;
+}
+.cvo-document .cvo-page {
+    width: 210mm;
+    min-height: 260mm;
+    padding: 20mm;
+    margin: 0 auto;
+    box-shadow: 0 0 1px rgb(0 0 0 / 25%);
+    background-color: #fff;
+}
+.cvo-document .cvo-subpage {
+    padding: 5mm;
+    min-height: 200mm;
+}
+.cvo-document #cvo-profile {
+    padding-top: 3mm;
+}
+.cvo-document .cvo-block {
+    padding-bottom: 0.7cm;
+    padding-left: 4mm;
+    padding-right: 4mm;
+}
+.cvo-document #cvo-profile table {
+    margin: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+.cvo-document #cvo-profile td.avatar-wraper {
+    width: 4.2cm;
+    min-height: 4.2cm;
+    vertical-align: top;
+}
+.cvo-document #cvo-profile th, .cvo-document #cvo-profile td {
+    padding: 0.1cm;
+    line-height: 14pt;
+    vertical-align: middle;
+}
+.cvo-document #cvo-profile-avatar {
+    border: 0;
+    width: 3cm;
+    height: auto;
+    margin: 0 auto;
+}
+.cvo-document #cvo-profile-fullname {
+    display: block;
+    font-size: 24pt;
+    line-height: 24pt;
+    font-weight: 700;
+    color: #0e2452;
+    text-transform: capitalize;
+}
+.cvo-document #cvo-profile-title {
+    display: block;
+    font-size: 11pt;
+    line-height: 12pt;
+    color: #000050;
+    vertical-align: top;
+}
+.cvo-document #cvo-profile span.profile-label {
+    display: inline-block;
+    width: 2.8cm;
+    font-weight: 700;
+    font-style: normal;
+    vertical-align: top;
+}
+.cvo-document #cvo-profile span.profile-field {
+    display: inline-block;
+    min-width: 3cm;
+    max-width: 8.7cm;
+}
+.cvo-document .cvo-block {
+    padding-bottom: 0.7cm;
+    padding-left: 4mm;
+    padding-right: 4mm;
+}
+.cvo-document .cvo-block-title {
+    color: #000;
+    font-size: 12pt;
+    line-height: 18pt;
+    margin-bottom: 5pt;
+    border-bottom: 1pt solid #333;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.cvo-document .cvo-block-body {
+    padding-top: 0.2cm;
+}
+.cvo-document .cvo-block-title span {
+    width: 100%;
+}
+.cvo-document #cvo-objective-objective {
+    display: block;
+    line-height: 15pt;
+    min-width: 12cm;
+    text-align: justify;
+}
+.cvo-document #education-table {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.2cm;
+}
+.cvo-document #education-table .row {
+    border-bottom: 0.05cm solid #eee;
+    line-height: 15pt;
+    padding: 0.15cm 0;
+}
+.cvo-document .cvo-block .row:last-child {
+    padding-bottom: 0;
+}
+.cvo-document #education-table .cvo-education-time {
+    padding: 1mm 0;
+    width: 5cm;
+    float: left;
+}
+.cvo-document #education-table .school {
+    width: 11cm;
+    float: left;
+}
+.cvo-document #education-table .cvo-education-school {
+    font-weight: 700;
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #education-table .cvo-education-name, .cvo-document #education-table .cvo-education-title, .cvo-document #education-table .cvo-education-details {
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #experience-table {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.2cm;
+}
+.cvo-document #experience-table .row {
+    border-bottom: 0.05cm solid #eee;
+    line-height: 15pt;
+    padding: 0.15cm 0;
+}
+
+.cvo-document #experience-table .row {
+    vertical-align: top;
+}
+.cvo-document #experience-table .cvo-experience-time {
+    padding: 1mm 0;
+    width: 5cm;
+    float: left;
+}
+.start, .end {
+    min-width: 30px;
+    display: inline-block;
+}
+.cvo-document #experience-table .company {
+    width: 11cm;
+    padding: 1pt;
+    float: left;
+}
+.cvo-document #experience-table .cvo-experience-company {
+    font-weight: 700;
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #experience-table .cvo-experience-position, .cvo-document #experience-table .cvo-experience-details {
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #activity-table {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.2cm;
+}
+.cvo-document #activity-table .cvo-activity-time {
+    padding: 1mm 0;
+    width: 5cm;
+    float: left;
+}
+.cvo-document #activity-table .organization {
+    width: 11cm;
+    float: left;
+    padding: 1pt;
+}
+.cvo-document #activity-table .cvo-activity-organization {
+    font-weight: 700;
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #activity-table .cvo-activity-position, .cvo-document #activity-table .cvo-activity-details {
+    min-width: 5cm;
+    display: block;
+}
+.cvo-document #certification-table, .cvo-document #award-table {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.2cm;
+}
+.cvo-document #award-table .cvo-award-time-wraper, .cvo-document #certification-table .cvo-certification-time-wraper {
+    padding: 1mm 0;
+    width: 5cm;
+    float: left;
+}
+.cvo-document #award-table .details, .cvo-document #certification-table .details {
+    width: 11cm;
+    float: left;
+}
+.cvo-document #skill-table {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.2cm;
+}
+.cvo-document #skill-table .cvo-skillgroup-area {
+    width: 5cm;
+    color: #000;
+    font-weight: 700;
+    float: left;
+    padding-right: 2mm;
+}
+.cvo-document #skill-table .cvo-skillgroup-skill-description {
+    float: left;
+    width: 11cm;
+}
