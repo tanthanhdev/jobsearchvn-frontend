@@ -44,7 +44,6 @@ const SearchPage = () => {
                     className="coll cursor-pointer l-6 h-[260px] border rounded-2xl group"
                     key={index}
                     href={"/" + job.slug}
-                    target="_blank"
                   >
                     <h2 className="font-bold text-base group-hover:text-red">
                       {job.title.toUpperCase()}
