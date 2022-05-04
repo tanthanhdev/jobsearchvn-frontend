@@ -2,9 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Header } from "components/header/Header";
 import { Footer } from "components/footer/Footer";
 import {
+  FacebookShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+import {
   AiOutlineHeart,
-  AiFillFacebook,
-  AiOutlineGoogle,
+  AiFillHeart,
+  // AiFillFacebook,
+  // AiOutlineGoogle,
   AiOutlineClockCircle,
 } from "react-icons/ai";
 import {
@@ -34,8 +42,10 @@ export const ViewDetailPage = (props) => {
   const user = localStorage.getItem('user');
   const isLoggedIn = authService.isLoggedIn(); //dont remove
   const [jobView, setJobView] = useState(null);
+  const [apply, setApply] = useState(null);
   const [isReloadReview, setIsReloadReview] = useState(false);
   const [isApply, setIsApply] = useState(false);
+  const [isSave, setIsSave] = useState(false);
   const [tabActive, setTabActive] = useState(0);
   let params = useParams();
 
@@ -44,11 +54,16 @@ export const ViewDetailPage = (props) => {
       setJobView(res.data);
       setIsReloadReview(false);
     });
-    userService.getApplyJobDetail(null, params.slug).then(() => {
+    userService.getApplyJobDetail(null, params.slug).then((res) => {
       setIsApply(true);
+      setApply(res.data);
       setIsReloadReview(false);
     });
-  }, [isReloadReview===true]);
+    userService.getSaveJobDetail(null, params.slug).then(() => {
+      setIsSave(true);
+      setIsReloadReview(false);
+    });
+  }, [isReloadReview === true]);
 
   const tab = [
     {
@@ -68,14 +83,35 @@ export const ViewDetailPage = (props) => {
   };
 
   const handleApplyJob = () => {
-    userService.createApplyJob(jobView?.id).then(() => {
-      console.log('thanh cong');
-      setIsReloadReview(true);
-    });
+    if (isApply) {
+      userService.deleteApplyJobDetail(jobView?.id).then(() => {
+        setIsReloadReview(true);
+      });
+      setIsApply(false);
+    } else {
+      userService.createApplyJob(jobView?.id).then(() => {
+        setIsReloadReview(true);
+      });
+      setIsApply(true);
+    }
   }
-  
+
+  const handleSaveJob = () => {
+    if (isSave) {
+      userService.deleteSaveJobDetail(jobView?.id).then(() => {
+        setIsReloadReview(true);
+        setIsSave(false);
+      });
+    } else {
+      userService.createSaveJob(jobView?.id).then(() => {
+        setIsReloadReview(true);
+        setIsSave(true);
+      });
+    }
+  }
+
   return (
-    <div style={{backgroundColor: 'rgb(249 249 249)'}}>
+    <div style={{ backgroundColor: 'rgb(249 249 249)' }}>
       <Header></Header>
       <div className="container wrapper-job-detail">
         <div className="text-sm pt-[100px]">
@@ -102,14 +138,58 @@ export const ViewDetailPage = (props) => {
             <div className="flex items-center">
               <div className="flex items-center">
                 <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
-                  <AiOutlineHeart />
-                  <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
-                    Lưu việc làm
-                  </div>
+                  {isLoggedIn && isSave && (
+                    <div onClick={handleSaveJob}>
+                      <AiFillHeart size={30} color="red" />
+                      <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
+                        Đã lưu việc làm
+                      </div>
+                    </div>
+                  )}
+                  {isLoggedIn && !isSave && (
+                    <div onClick={handleSaveJob}>
+                      <AiOutlineHeart size={30} />
+                      <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
+                        Lưu việc làm
+                      </div>
+                    </div>
+                  )}
+                  {!isLoggedIn && (
+                    <a href={'/login?next=/' + jobView?.slug}>
+                      <AiOutlineHeart size={30} />
+                      <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
+                        Lưu việc làm
+                      </div>
+                    </a>
+                  )}
                 </div>
                 <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
-                  <BsShare />
-                  <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500">
+                  {/* <BsShare /> */}
+                  <div style={{ display: 'flex' }}>
+                    <TwitterShareButton
+                      title={"Chia sẻ công việc từ jobsearchdtu.site"}
+                      url={"https://www.jobsearchdtu.site/" + jobView?.slug}
+                      hashtags={["jobsearchdtu.site", "job"]}
+                    >
+                      <TwitterIcon size={32} round={true} />
+                    </TwitterShareButton>
+                    <FacebookShareButton
+                      url={"https://www.jobsearchdtu.site/" + jobView?.slug}
+                      quote={"Chia sẻ công việc từ jobsearchdtu.site"}
+                      hashtag={"#jobsearchdtu.site"}
+                      description={"job"}
+                    >
+                      <FacebookIcon size={32} round={true} />
+                    </FacebookShareButton>
+                    <a
+                      target="_blank"
+                      href={"https://www.linkedin.com/sharing/share-offsite/?url=https://www.jobsearchdtu.site/" + jobView?.slug}
+                    >
+                      <LinkedinIcon size={32} round={true} />
+                    </a>
+                    <div className="zalo-share-button" data-href={"https://www.jobsearchdtu.site/" + jobView?.slug} data-oaid="579745863508352884" data-layout="3" data-color="blue" data-customize="false"></div>
+                  </div>
+                  {/* <div className="bg-white w-40 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500">
                     <div className="flex items-center py-2">
                       <AiFillFacebook className="mr-2 text-lg" />
                       <GrLinkedinOption className="mr-2 text-lg" />
@@ -117,14 +197,14 @@ export const ViewDetailPage = (props) => {
                       <SiZalo className="mr-2 text-lg" />
                       <AiOutlineGoogle className="mr-2 text-lg" />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
-                <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
+                {/* <div className="relative mr-3 hover:text-orange-500 cursor-pointer group">
                   <BsFlag />
                   <div className="bg-white w-24 hidden group-hover:flex rounded absolute -bottom-10 px-2 flex items-center justify-center text-xs border border-gray-500 py-2">
                     Báo Xấu
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -194,15 +274,15 @@ export const ViewDetailPage = (props) => {
                   <div>
                     <div className="font-bold">Lương</div>
                     <div className="text-gray-500 py-1">
-                        {jobView?.salary_type === "Lương" ? (
-                          " " + jobView?.salary + jobView?.currency
-                        ) : ""}
-                        {jobView?.salary_type === "Lương khoảng" ? (
-                          <span> {jobView?.salary_from} - {jobView?.salary_to} {jobView?.currency}</span>
-                        ) : ""}
-                        {jobView?.salary_type === "Thương lượng" ? (
-                          <span> Thương lượng</span>
-                        ) : ""}
+                      {jobView?.salary_type === "Lương" ? (
+                        " " + jobView?.salary + jobView?.currency
+                      ) : ""}
+                      {jobView?.salary_type === "Lương khoảng" ? (
+                        <span> {jobView?.salary_from} - {jobView?.salary_to} {jobView?.currency}</span>
+                      ) : ""}
+                      {jobView?.salary_type === "Thương lượng" ? (
+                        <span> Thương lượng</span>
+                      ) : ""}
                     </div>
                   </div>
                 </div>
@@ -230,7 +310,7 @@ export const ViewDetailPage = (props) => {
         <ul>
           {jobView?.job_benefits.map((item, index) => (
             <li key={index} className="flex w-[33%]">
-              <img width="16" height="16"src={item.icon === 'person' ? icons[1].code : icons[0].code}></img>
+              <img width="16" height="16" src={item.icon === 'person' ? icons[1].code : icons[0].code}></img>
               <span>{item.benefit}</span>
             </li>
           ))}
@@ -277,7 +357,7 @@ export const ViewDetailPage = (props) => {
             <div>
             </div>
           </div> */}
-          <button className="bg-buttonSubmitBackground rounded-lg p-2" disabled={isLoggedIn && user?.is_active && !user?.is_staff || isApply}
+          <button className="bg-buttonSubmitBackground rounded-lg p-2" disabled={isLoggedIn && user?.is_active && !user?.is_staff || (apply?.status && apply?.status != '0')}
             onClick={handleApplyJob}>
             {isLoggedIn && isApply && (
               'Đã nộp đơn ứng tuyển'

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 // Components
-import MyProfile from "./MyProfile";
+// import MyProfile from "./MyProfile";
 import ViewCv from "./ViewCv";
 import Notification from "./Notification";
 import { Wrap } from "components/wrap/Wrap";

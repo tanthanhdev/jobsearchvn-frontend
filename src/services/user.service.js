@@ -258,7 +258,7 @@ const deleteFollowOfCompanyDetail = (employer_id) => {
       return null;
     });
 };
-
+// Apply job for member
 const createApplyJob = (job_id) => {
   return axios
     .post(API_URL + "/apply/jobs/", {job_id}, { headers: authHeader() })
@@ -303,9 +303,29 @@ const deleteApplyJobDetail = (id) => {
     });
 };
 
+// Save jobs for member
+const createSaveJob = (job_id) => {
+  return axios
+    .post(API_URL + "/save/jobs/", {job_id}, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
 const getSaveJob = () => {
   return axios
     .get(API_URL + "/save/jobs/", { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const getSaveJobDetail = (id, slug) => {
+  return axios
+    .get(API_URL + "/save/jobs/" + (id ? id : slug ? slug : '') + '/', { headers: authHeader() })
     .then((response) => {
       return response;
     });
@@ -405,6 +425,8 @@ const userService = {
   getPublicJobDetail,
   getSaveJob,
   deleteSaveJobDetail,
+  getSaveJobDetail,
+  createSaveJob,
 };
 
 export default userService;
