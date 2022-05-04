@@ -34,6 +34,7 @@ import SearchPage from "containers/SearchPage";
 import ViewDetailPage from "containers/ViewDetailPage";
 import EmployerProfile from "views/pages/employer-profile";
 import NotFoundPage from "components/NotFoundPage";
+import Chart from "containers/Chart";
 
 const App = () => {
   const isLoggedIn = authService.isLoggedIn(); //dont remove
@@ -60,6 +61,7 @@ const App = () => {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/charts" element={<Chart />} />
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />

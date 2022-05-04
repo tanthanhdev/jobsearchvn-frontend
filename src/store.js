@@ -8,7 +8,7 @@ import searchesReducer from "./slices/searches";
 import searchNormalSlice from "./containers/HomePage/searchNormalSlice";
 import searchLocationSlice from "./containers/HomePage/searchLocationSlice";
 import viewDetailPageSlice from "./containers/HomePage/viewDetailPageSlice";
-import memberSlice from "./containers/ProfileMember/memberSlice";
+import chartSLice from "./containers/Chart/ChartSlice";
 
 const reducer = {
   auth: authReducer,
@@ -22,6 +22,7 @@ const reducer = {
   searches: searchesReducer,
   // cua an
   // memberSlice:memberSlice,
+  year: chartSLice,
   // cua an
 };
 
