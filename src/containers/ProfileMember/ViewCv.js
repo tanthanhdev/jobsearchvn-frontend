@@ -263,17 +263,17 @@ function ViewCv({ memberCurrent, setIsReload }) {
   const dispatch = useDispatch();
   const onSubmit = (data, { resetForm }) => {
     console.log("data formik", data);
-    let formData = new FormData();
-    formData.append("address", data.address);
-    formData.append("currency", data.currency);
-    formData.append("phone_number", data.phone_number);
-    formData.append("resume", data.resume);
-    formData.append("salary", data.salary);
-    formData.append("member_educations", data.member_educations);
-    formData.append("member_experiences", data.member_experiences);
-    formData.append("member_skills", data.member_skills);
+    // let formData = new FormData();
+    // formData.append("address", data.address);
+    // formData.append("currency", data.currency);
+    // formData.append("phone_number", data.phone_number);
+    // formData.append("resume", data.resume);
+    // formData.append("salary", data.salary);
+    // formData.append("member_educations", JSON.stringify(data.member_educations));
+    // formData.append("member_experiences", JSON.stringify(data.member_experiences));
+    // formData.append("member_skills", JSON.stringify(data.member_skills));
     dispatch(
-      update_member(formData)
+      update_member(data)
     )
       .unwrap()
       .then(() => {

@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { setMessage } from "../slices/message";
 import authHeaderFile from "services/auth-header-file";
-// import authHeader from "services/auth-header";
+import authHeader from "services/auth-header";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const memberApi = {
@@ -12,7 +12,7 @@ const memberApi = {
   },
   update(data) {
     return axios
-      .patch(API_URL + "/members/", data, { headers: authHeaderFile() })
+      .patch(API_URL + "/members/", data, { headers: authHeader() })
       .then((response) => {
         if (response) {
           return response;
@@ -55,5 +55,6 @@ export const update_member = createAsyncThunk(
     }
   }
 );
+
 
 export default memberApi;
