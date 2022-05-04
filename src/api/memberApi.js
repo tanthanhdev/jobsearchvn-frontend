@@ -1,6 +1,8 @@
+import axios from "axios";
 import axiosClient from "./axiosClient";
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { setMessage } from "../slices/message";
+import authHeaderFile from "services/auth-header-file";
 import authHeader from "services/auth-header";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -9,15 +11,12 @@ const memberApi = {
     return axiosClient.get(API_URL + "/members/");
   },
   update(data) {
-    console.log("data", data);
-    return axiosClient
-      .patch(API_URL + "/members/", { ...data })
+    return axios
+      .patch(API_URL + "/members/", data, { headers: authHeader() })
       .then((response) => {
-        console.log("response", response);
-        if (response.data) {
+        if (response) {
           return response;
         }
-        return null;
       })
       .catch((error) => {
         console.log("error");
@@ -43,20 +42,19 @@ const memberApi = {
 };
 export const update_member = createAsyncThunk(
   "members/update",
-  async ({ data }, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      console.log("data", data);
       const response = await memberApi.update(data);
-      thunkAPI.dispatch(setMessage(response.data.message));
-      console.log(response);
-      return response.data;
+      thunkAPI.dispatch(setMessage(response.data && response.data.message));
+      console.log('khong vao ak?')
+      return response;
     } catch (error) {
-      console.log("error", error);
       const message = error.response.data;
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue();
     }
   }
 );
+
 
 export default memberApi;

@@ -11,7 +11,7 @@ const getPublicContent = () => {
 // const getMemberBoard = (id) => {
 //   return axios.get(API_URL + "/members/" + id + "/", { headers: authHeader() });
 // };
-const getEmployerBoard = (id) => {
+const getEmployerBoard = () => {
   return axios.get(API_URL + "/employers/", { headers: authHeader() });
 };
 
@@ -35,7 +35,7 @@ const getPublicJobDetail = (slug) => {
 
 const saveEmployerProfile = (data) => {
   console.log(1111, data);
-  return axios.patch(API_URL + "/employers/", data, { headers: authHeaderFile() });
+  return axios.patch(API_URL + "/employers/", data, { headers: authHeader() });
 };
 
 const getJob = () => {
@@ -258,7 +258,7 @@ const deleteFollowOfCompanyDetail = (employer_id) => {
       return null;
     });
 };
-
+// Apply job for member
 const createApplyJob = (job_id) => {
   return axios
     .post(API_URL + "/apply/jobs/", {job_id}, { headers: authHeader() })
@@ -303,7 +303,94 @@ const deleteApplyJobDetail = (id) => {
     });
 };
 
+// Save jobs for member
+const createSaveJob = (job_id) => {
+  return axios
+    .post(API_URL + "/save/jobs/", {job_id}, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getSaveJob = () => {
+  return axios
+    .get(API_URL + "/save/jobs/", { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const getSaveJobDetail = (id, slug) => {
+  return axios
+    .get(API_URL + "/save/jobs/" + (id ? id : slug ? slug : '') + '/', { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const deleteSaveJobDetail = (id) => {
+  return axios
+    .delete(API_URL + "/save/jobs/" + id + "/", { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getCVs = (page) => {
+  return axios
+    .get(API_URL + "/cvs/?page=" + (page ? page : 1), { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getCVDetail = (slug) => {
+  return axios
+    .get(API_URL + "/cvs/?slug=" + slug, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const deleteCVDetail = (slug) => {
+  return axios
+    .delete(API_URL + "/cvs/?slug=" + slug, { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const updateCV = (slug, data) => {
+  return axios
+    .patch(API_URL + '/cvs/' + slug + '/', {...data} , { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    })
+}
+
 const userService = {
+  getCVs,
+  getCVDetail,
+  deleteCVDetail,
+  updateCV,
   getPublicContent,
   // getMemberBoard,
   getEmployerBoard,
@@ -336,6 +423,10 @@ const userService = {
   getApplyForCampaign,
   updateApplyForCampaign,
   getPublicJobDetail,
+  getSaveJob,
+  deleteSaveJobDetail,
+  getSaveJobDetail,
+  createSaveJob,
 };
 
 export default userService;

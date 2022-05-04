@@ -182,6 +182,14 @@
    color: rgba(62 135 177 / 50%);
 }
 
+.flex-dec-column {
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
 /* Responsive */
 /* mobile */
 @keyframes menu {

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Wrap } from 'components/wrap/Wrap';
 import { Header } from './sections/Header/Header'
 import { InfoCompany } from './sections/InfoCompany/InfoCompany'
-import { InformCompany } from './sections/InformCompany/InformCompany'
+// import { InformCompany } from './sections/InformCompany/InformCompany'
 // import { ManagerCompany } from './sections/ManagerCompany/ManagerCompany'
 import { SaveProfileCompany } from './sections/SaveProfileCompany/SaveProfileCompany'
 import { CampaignCompany } from './sections/CampaignCompany/CampaignCompany'

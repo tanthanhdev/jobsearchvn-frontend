@@ -717,7 +717,7 @@ export const JobModal = ({ job, campaign, slug, isEdit, setIsReload, showModal, 
                                   city_id: "",
                                 })}
                               >
-                                +
+                                Thêm địa chỉ mới
                               </Button>
                             ) : null}
                             {typeof errors.job_job_addresses === 'string' ? (

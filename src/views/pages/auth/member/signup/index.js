@@ -121,7 +121,7 @@ const Register = () => {
                                 </div>
                                 <div className={styles["container__center"]}>
                                     <div className={styles["container__center-input"]}>
-                                        <div className={`${styles["container__center-input-boxname"]} flex flex-dec-column`}>
+                                        <div className={`${styles["container__center-input-boxname"]} flex ${styles['flex-dec-column']}`}>
                                             <Field
                                                 name="first_name"
                                                 type="text"
@@ -141,26 +141,26 @@ const Register = () => {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className={`${styles["container__center-input-boxname-one"]} flex flex-dec-column`}>
+                                        <div className={`${styles["container__center-input-boxname-one"]} flex ${styles['flex-dec-column']}`}>
                                             <Field
                                                 name="last_name"
                                                 type="text"
                                                 className={styles["container__center-input--email-two"]}
                                                 placeholder="Họ"
                                             />
-                                        </div>
-                                        <ErrorMessage
-                                            name="last_name"
-                                            component="div"
-                                            className="alert alert-danger"
-                                        />
-                                        {isError && message.last_name && (
-                                            <div className="form-group">
-                                                <div className="alert alert-danger" role="alert">
-                                                    {message.last_name ? message.last_name : ""}
+                                            <ErrorMessage
+                                                name="last_name"
+                                                component="div"
+                                                className="alert alert-danger"
+                                            />
+                                            {isError && message.last_name && (
+                                                <div className="form-group">
+                                                    <div className="alert alert-danger" role="alert">
+                                                        {message.last_name ? message.last_name : ""}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
+                                            )}
+                                        </div>
                                     </div>
                                     <div className={`${styles["container__center-input"]} flex-dec-column`}>
                                         <span className={styles["icon-email"]}>
