@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import utilsDate from "utils/date";
 import userService from "services/user.service";
 
 MyJob.propTypes = {
@@ -14,27 +15,25 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
       <div className="flex">
         <p
           onClick={() => setToggleJob(1)}
-          className={`${
-            toggleJob === 1
-              ? "text-primary underline border-r px-[8px] cursor-pointer"
-              : "border-r px-[8px] cursor-pointer"
-          } `}
+          className={`${toggleJob === 1
+            ? "text-primary underline border-r px-[8px] cursor-pointer"
+            : "border-r px-[8px] cursor-pointer"
+            } `}
         >
           Việc đã lưu
         </p>
 
         <p
           onClick={() => setToggleJob(2)}
-          className={`${
-            toggleJob === 2
-              ? "text-primary underline px-[8px] text-borderListSearch cursor-pointer"
-              : "px-[8px] text-borderListSearch cursor-pointer"
-          }`}
+          className={`${toggleJob === 2
+            ? "text-primary underline px-[8px] text-borderListSearch cursor-pointer"
+            : "px-[8px] text-borderListSearch cursor-pointer"
+            }`}
         >
           Việc đã ứng tuyển
         </p>
       </div>
-      <table class="table-auto">
+      <table class="table-auto w-full">
         {saveJobs && toggleJob === 1 ? (
           <tbody className="w-full">
             {saveJobs.map((item, index) => (
@@ -46,11 +45,11 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
                     className="w-[80px] h-[80px]"
                   />
                 </td>
-                <td className="w-[40%]">
+                <td className="w-[30%]">
                   <div className="block">
                     <span className="block">{item.job.title}</span>
                     <span className="block">
-                      Lương: 
+                      Lương:
                       {item.job.salary_type === "Lương" ? (
                         " " + item.job.salary + item.job.currency
                       ) : ""}
@@ -66,11 +65,17 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
                 <td className="w-[20%]">
                   <div className="block">
                     <span className="block">Ngày hết hạn</span>
-                    <span className="block">{item.job.end_time}</span>
+                    <span className="block">{utilsDate.formatDate(item.job.end_time, 'DD/MM/YYYY')}</span>
+                  </div>
+                </td>
+                <td className="w-[10%]">
+                  <div className="block">
+                    <span className="block">Ngày tạo</span>
+                    <span className="block">{utilsDate.formatDate(item.created_at, 'DD/MM/YYYY')}</span>
                   </div>
                 </td>
                 <td className="w-[20%]">
-                  <a href={'/' + item.job.slug} target="_blank" className="cursor-pointer text-primari">Ứng tuyển</a>
+                  <a href={'/' + item.job.slug} target="_blank" className="cursor-pointer text-primari">Xem chi tiết</a>
                 </td>
                 <td className="w-[20%]">
                   <svg
@@ -81,7 +86,7 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
                     stroke="currentColor"
                     stroke-width="2"
                     onClick={() => {
-                      userService.deleteSaveJobDetail(item.id).then(() => {
+                      userService.deleteSaveJobDetail(item.job.id).then(() => {
                         setIsReload(true);
                       })
                     }}
@@ -110,7 +115,7 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
         {applyJobs && toggleJob === 2 ? (
           <tbody className="w-full">
             {applyJobs.map((item, index) => (
-              <tr className="w-full" key={index}>
+              <tr className="w-full" key={index} style={{textAlign: 'center'}}>
                 <td className="w-[20%]">
                   <img
                     src={item.member.avatar}
@@ -118,11 +123,11 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
                     className="w-[80px] h-[80px]"
                   />
                 </td>
-                <td className="w-[40%]">
+                <td className="w-[30%]">
                   <div className="block">
                     <span className="block">{item.job.title}</span>
                     <span className="block">
-                      Lương: 
+                      Lương:
                       {item.job.salary_type === "Lương" ? (
                         " " + item.job.salary + item.job.currency
                       ) : ""}
@@ -135,16 +140,38 @@ function MyJob({ saveJobs, applyJobs, setIsReload }) {
                     </span>
                   </div>
                 </td>
-                <td className="w-[20%]">
+                <td className="w-[10%]">
                   <div className="block">
                     <span className="block">Ngày hết hạn</span>
-                    <span className="block">{item.job.end_time}</span>
+                    <span className="block">{utilsDate.formatDate(item.job.end_time, 'DD/MM/YYYY')}</span>
                   </div>
                 </td>
-                <td className="w-[20%]">
+                <td className="w-[10%]">
+                  <div className="block">
+                    <span className="block">Ngày tạo</span>
+                    <span className="block">{utilsDate.formatDate(item.created_at, 'DD/MM/YYYY')}</span>
+                  </div>
+                </td>
+                <td className="w-[10%]">
+                  <div className="block">
+                    <span className="block">Tình trạng</span>
+                    <span className="block" style={{
+                      fontWeight: 'bold',
+                      backgroundColor: '#ff9200',
+                      borderRadius: '4px',
+                      textAlign: 'center',
+                      color: item.status === '1' ? 'red' : 'white'
+                    }}>
+                      {item.status === '1' ? 'Không đạt'
+                        : item.status === '2' ? 'Ứng viên từ chối'
+                          : item.status === '3' ? 'Đã tuyển' : 'Đang duyệt'}
+                    </span>
+                  </div>
+                </td>
+                <td className="w-[10%]">
                   <a href={'/' + item.job.slug} target="_blank" className="cursor-pointer text-primari">Xem chi tiết</a>
                 </td>
-                <td className="w-[20%]">
+                <td className="w-[10%]" style={{margin: '0 auto'}}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6 text-primary"

@@ -82,7 +82,7 @@ const CVTempManage = ({ cvs, setIsReload, setPage }) => {
                         <th data-v-14f1a322="" className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>CV Mẫu</th>
                         {/* <th data-v-14f1a322="" className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`}>Tối ưu</th> */}
                         <th data-v-14f1a322="" className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`} style={{ minWidth: '190px', }}>Trạng thái</th>
-                        <th data-v-14f1a322="" className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`} style={{ minWidth: '130px', }}>Xem chi tiết</th>
+                        <th data-v-14f1a322="" className={`${styles['text-nowrap']} ${styles['font-weight-bold']}`} style={{ minWidth: '130px', }}>Hành động</th>
                     </tr>
                 </thead>
                 <tbody data-v-14f1a322="">
