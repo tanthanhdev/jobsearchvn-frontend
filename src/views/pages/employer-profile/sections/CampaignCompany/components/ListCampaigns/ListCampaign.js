@@ -61,7 +61,7 @@ const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
                         <input data-v-14f1a322="" type="text"
                             placeholder="Tìm chiến dịch (Nhấn enter để tìm kiếm)"
                             className={`${styles['form-control']} ${styles['form-control-lg']}`}
-                            onChange={(e) => {setQueryString(e.target.value)}}
+                            onChange={(e) => { setQueryString(e.target.value) }}
                         />
                     </div>
                 </div>
@@ -85,11 +85,13 @@ const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
                         <tr data-v-14f1a322="" className="" index={index}>
                             <td data-v-14f1a322="" className={`${styles['border-right']}`}>
                                 <div data-v-13db6a09="" data-v-14f1a322="">
-                                    <div data-v-13db6a09="" className={`${styles['d-flex']}`}><label data-v-13db6a09="" className={`${styles['switch']} ${styles['mr-1']}`}>
-                                        <input
-                                            type="checkbox" custom-checked={campaign.status ? "true" : "false"} defaultChecked={campaign.status}
-                                            onClick={() => { handleStatus(campaign.status, campaign.slug) }} disabled={isLoading} /> <span
-                                                className={`${styles['slider']} ${styles['round']}`}></span></label>
+                                    <div data-v-13db6a09="" className={`${styles['d-flex']}`}>
+                                        <label data-v-13db6a09="" className={`${styles['switch']} ${styles['mr-1']}`}>
+                                            <input
+                                                type="checkbox" custom-checked={campaign.status ? "true" : "false"} defaultChecked={campaign.status}
+                                                onClick={() => { handleStatus(campaign.status, campaign.slug) }} disabled={isLoading} />
+                                            <span className={`${styles['slider']} ${styles['round']}`}></span>
+                                        </label>
                                         <div data-v-13db6a09="" className={`${styles['ml-2']}`}>
                                             <a data-v-13db6a09=""
                                                 href={`/employer/campaigns/${campaign.slug}`}

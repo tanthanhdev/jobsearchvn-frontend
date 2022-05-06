@@ -11,7 +11,6 @@ export const CVTemplate = () => {
   const [CvTemplates, setCvTemplates] = useState([]);
   
   useEffect(() => {
-    console.log(CvTemplates);
     CvTemplateService.getCvTemplates().then(data => {
       let resArr = [...data];
       resArr = resArr.map(e => {

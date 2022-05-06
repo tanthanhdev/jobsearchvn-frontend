@@ -386,7 +386,57 @@ const updateCV = (slug, data) => {
     })
 }
 
+// Register notification jobs
+const createRegisterNotificationsJob = (data) => {
+  return axios
+    .post(API_URL + "/register/jobs/", {...data}, { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const getRegisterNotificationJob = () => {
+  return axios
+    .get(API_URL + "/register/jobs/" , { headers: authHeader() })
+    .then((response) => {
+      if (response.data) {
+        return response;
+      }
+      return null;
+    });
+};
+
+const getRegisterNotificationJobDetail = (id) => {
+  return axios
+    .get(API_URL + "/register/jobs/" + id + '/', { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const deleteRegisterNotificationJobDetail = (id) => {
+  return axios
+    .delete(API_URL + "/register/jobs/" + id + '/', { headers: authHeader() })
+    .then((response) => {
+      return response;
+    });
+};
+
+const updateRegisterNotificationJob = (id, data) => {
+  return axios
+    .patch(API_URL + '/register/jobs/' + id + '/', {...data} , { headers: authHeader() })
+    .then((response) => {
+      return response;
+    })
+}
+
+
 const userService = {
+  createRegisterNotificationsJob,
+  getRegisterNotificationJob,
+  getRegisterNotificationJobDetail,
+  deleteRegisterNotificationJobDetail,
+  updateRegisterNotificationJob,
   getCVs,
   getCVDetail,
   deleteCVDetail,
