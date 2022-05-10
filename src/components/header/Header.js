@@ -34,36 +34,36 @@ export const Header = () => {
         <BrandSection />
         <ul className={`${styles.header__list} ${styles.header__right__list}`}>
           <li className={styles.header__right__item}>
-            <a
-              href="#"
+            <Link
+              to="#"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Tìm việc làm
-            </a>
+            </Link>
           </li>
           <li className={styles.header__right__item}>
-            <a
-              href="/companies"
+            <Link
+              to="/companies"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Đánh giá công ty
-            </a>
+            </Link>
           </li>
           <li className={styles.header__right__item}>
-            <a
-              href="/blogs"
+            <Link
+              to="/blogs"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Blog
-            </a>
+            </Link>
           </li>
           <li className={styles.header__right__item}>
-            <a
-              href="/cv-template"
+            <Link
+              to="/cv-template"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Mẫu CV
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -78,10 +78,10 @@ export const Header = () => {
                 src={icons.comment_alt_regular}
                 alt="comment_alt_regular"
               ></img>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className={`${styles.header__link} ${styles.header__left__item_link}`}
-              ></a>
+              ></Link>
             </div>
           </li>
           <li
@@ -94,10 +94,10 @@ export const Header = () => {
                 src={icons.bell_regular}
                 alt="bell_regular"
               />
-              <a
-                href="#"
+              <Link
+                to="#"
                 className={`${styles.header__link} ${styles.header__left__item_link}`}
-              ></a>
+              ></Link>
             </div>
             <div className={styles.header__notifi}>
               <header className={styles.header__notifi_header}>
@@ -113,26 +113,14 @@ export const Header = () => {
                     cập nhật nhiều hơn nữa ...
                   </a>
                 </li>
-                <li className={styles["header__notify-item"]}>
-                  <a href="#" className={styles["header__notify-link"]}>
-                    ảo ma ca na đa
-                  </a>
-                </li>
-                <li
-                  className={`${styles["header__notify-item"]} ${styles["header__notify-item-viewed"]}`}
-                >
-                  <a href="#" className={styles["header__notify-link"]}>
-                    Tôi không sao kê đâu
-                  </a>
-                </li>
               </ul>
               <footer className={styles["header__notify-footer"]}>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className={`${styles["header__notify-link"]} ${styles["header__notify-footer-btn"]}`}
                 >
                   Xem tất cả
-                </a>
+                </Link>
               </footer>
             </div>
           </li>
@@ -156,13 +144,13 @@ export const Header = () => {
                 class
                 Name={`${styles.header__left__item} ${styles["header-post-job"]}`}
               >
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   onClick={logOut}
                   className={`${styles["header__link"]} ${styles["header__left__item-link"]}`}
                 >
                   Đăng xuất
-                </a>
+                </Link>
               </li>
             </>
           ) : (
