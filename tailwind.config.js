@@ -40,6 +40,7 @@ module.exports = {
       backgroundTag: "#f1f1f1",
       buttonSubmitBackground: "#7ec84c",
       backgroundIsLoading: "#e2e8f0",
+      textYear: "rgb(59 130 246)",
     },
   },
   plugins: [],

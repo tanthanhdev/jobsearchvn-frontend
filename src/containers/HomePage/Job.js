@@ -30,25 +30,25 @@ function Job(props) {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   useEffect(() => {
@@ -71,54 +71,64 @@ function Job(props) {
       className="grid wide sub-content"
       style={{ backgroundImage: "url(./assets/img/Vector.png)" }}
     >
-
       <header className="sub-content__header">
         <h2>Việc Làm Hấp Dẫn</h2>
       </header>
       <Slider {...settings}>
-        {jobs && jobs.map((item, index) => (
-          <div key={index}>
-            <div
-              onClick={() => handleNavigateToViewDetail(item.slug)}
-              className="nav_sub-content-link"
-            >
-              <img
-                src={item.employer.logo ? item.employer.logo : icons.logo_default}
-                alt={item.employer.company_name}
-                className="nav_sub-content-logo"
-              />
-              <div className="nav_sub-content-description">
-                <header>
-                  <h3>{item.title.toUpperCase()}</h3>
-                </header>
-                <nav>
-                  <div className="nav_sub-content-pay">
-                    <i className="fas fa-dollar-sign" />
-                    <span>
-                      Lương: 
-                      {item.salary_type === "Lương" ? (
-                        " " + item.salary + item.currency
-                      ) : ""}
-                      {item.salary_type === "Lương khoảng" ? (
-                        <span> {item.salary_from} - {item.salary_to} {item.currency}</span>
-                      ) : ""}
-                      {item.salary_type === "Thương lượng" ? (
-                        <span> Thương lượng</span>
-                      ) : ""}
+        {jobs &&
+          jobs.map((item, index) => (
+            <div key={index} className="h-[200px] my-2">
+              <div
+                onClick={() => handleNavigateToViewDetail(item.slug)}
+                className="nav_sub-content-link"
+              >
+                <img
+                  src={
+                    item.employer.logo ? item.employer.logo : icons.logo_default
+                  }
+                  alt={item.employer.company_name}
+                  className="nav_sub-content-logo"
+                />
+                <div className="nav_sub-content-description">
+                  <header>
+                    <h3 className="text-base">{item.title.toUpperCase()}</h3>
+                  </header>
+                  <nav>
+                    <div className="nav_sub-content-pay">
+                      <i className="fas fa-dollar-sign" />
+                      <span>
+                        Lương:
+                        {item.salary_type === "Lương"
+                          ? " " + item.salary + item.currency
+                          : ""}
+                        {item.salary_type === "Lương khoảng" ? (
+                          <span>
+                            {" "}
+                            {item.salary_from} - {item.salary_to}{" "}
+                            {item.currency}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        {item.salary_type === "Thương lượng" ? (
+                          <span> Thương lượng</span>
+                        ) : (
+                          ""
+                        )}
+                      </span>
+                    </div>
+                    <div className="nav_sub-content-location">
+                      <i className="fas fa-map-marker-alt" />
+                      <span>{item.employer.company_location}</span>
+                    </div>
+                    <span className="nav_sub-content-name">
+                      {item.employer.company_name}
                     </span>
-                  </div>
-                  <div className="nav_sub-content-location">
-                    <i className="fas fa-map-marker-alt" />
-                    <span>{item.employer.company_location}</span>
-                  </div>
-                  <span className="nav_sub-content-name">
-                    {item.employer.company_name}
-                  </span>
-                </nav>
+                  </nav>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </Slider>
     </div>
   );
