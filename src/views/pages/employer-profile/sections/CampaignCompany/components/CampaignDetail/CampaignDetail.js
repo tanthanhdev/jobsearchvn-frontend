@@ -336,7 +336,7 @@ export const CampaignDetail = ({ slug }) => {
                     <div data-v-620e97db="" data-v-649e7bbb="" id="" role="tabpanel" className={`${styles['tab-pane']} ${styles['active']} ${styles['show']}`} campaign-id="731437">
                         <div data-v-620e97db="" className={`${styles['bg-white']} ${styles['shadow-sm']} ${styles['p-3']} ${styles['mb-3']}`}>
                             <div data-v-620e97db="" className={`${styles['filter']} ${styles['d-flex']} ${styles['align-items-center']} ${styles['mb-3']}`}>
-                                <div data-v-620e97db="" className={`${styles['mr-4']}`}>
+                                {/* <div data-v-620e97db="" className={`${styles['mr-4']}`}>
                                     <div data-v-17683809="" data-v-620e97db="">
                                         <div data-v-17683809="" className={`${styles['input-container']} ${styles['ml-auto']} ${styles['right-inner-addon']}`}>
                                             <i data-v-17683809="" className={`${styles['right']} ${styles['far']} ${styles['fa-search']}`}></i>
@@ -360,7 +360,7 @@ export const CampaignDetail = ({ slug }) => {
                                             Chỉ hiển thị CV chưa xem
                                         </label>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             {!matchCV ? (
                                 <div data-v-620e97db="" className={`${styles['text-center']} ${styles['p-3']}`}>
