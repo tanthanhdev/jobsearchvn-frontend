@@ -93,13 +93,18 @@ const ListCampaign = ({ campaigns, setIsReload, setQueryString }) => {
                                             <span className={`${styles['slider']} ${styles['round']}`}></span>
                                         </label>
                                         <div data-v-13db6a09="" className={`${styles['ml-2']}`}>
+                                            <span data-v-13db6a09="" className={`${styles['badge']} ${styles['badge-secondary']} ${styles['text-muted']} ${styles['font-weight-normal']} ${styles['small']}`}>#{campaign.id}</span>
                                             <a data-v-13db6a09=""
                                                 href={`/employer/campaigns/${campaign.slug}`}
                                                 className={`${styles['text-dark']} ${styles['text-decoration-none']} ${styles['font-weight-bold']}`}>
                                                 {campaign.name}
                                             </a>
-                                            <div data-v-13db6a09="" className={`${styles['mt-2']}`}><span data-v-13db6a09=""
-                                                className={`${styles['badge']} ${styles['badge-secondary']} ${styles['text-muted']} ${styles['font-weight-normal']} ${styles['small']}`}>#{campaign.id}</span>
+                                            <div data-v-13db6a09="" className={`${styles['mt-2']}`}>
+                                                <a
+                                                    data-v-14cf56b0=""
+                                                    href={"/employer/campaigns/" + campaign.slug}
+                                                    className={`${styles['btn']} ${styles['btn-xs']} ${styles['btn-primary']} ${styles['transparent-1']}`}>Danh Sách Công Việc
+                                                </a>
                                             </div>
                                             {/* <div data-v-13db6a09="" className={`${styles['mt-2']} ${styles['show-on-tr-hover']}`}>
                                                 <a data-v-13db6a09=""

@@ -279,13 +279,14 @@ export const PostJob = ({ slug }) => {
   const handleCreateJob = (formValue) => {
     dispatch(create_job({ data: formValue, campaign_id: campaign.id }))
       .unwrap()
-      .then((res) => {
+      .then(() => {
         // console.log(res);
         toast.success("Chúc mừng bạn đã tạo thành công công việc", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
         setTimeout(() => {
-          navigate('/employer/profile');
+          navigate("../employer/campaigns/" + slug, { replace: true });
+          window.location.reload();
         }, 1000);
       })
       .catch(() => {
@@ -1037,11 +1038,22 @@ export const PostJob = ({ slug }) => {
                   </div >
                 </div >
                 <div data-v-75adf416="" className={`${styles['d-flex']}`} >
-                  <Button label="Hủy" style={{ marginRight: '12px' }} onClick={() => {
+                  <div style={{
+                    marginRight: '12px',
+                    color: '#fff',
+                    backgroundColor: '#00b14f',
+                    borderColor: '#00b14f',
+                    cursor: 'pointer',
+                    boxShadow: '0 .125rem .25rem rgba(0,0,0,.075)',
+                    padding: '0.75rem 1.25rem',
+                    borderRadius: '6px',
+                    fontWeight: 'bold',
+                  }} onClick={() => {
                     if (window.confirm('Bạn có chắc muốn hủy bản tạo công việc này?')) {
-                      navigate(-1); 
+                      navigate("../employer/campaigns", { replace: true });
+                      window.location.reload();
                     }
-                  }}></Button >
+                  }}>Hủy</div >
                   <Button
                     disabled={isLoading} label="Lưu" type="submit"
                     className={`${styles['btn']} ${styles['min-width']} ${styles['btn']} ${styles['btn-primary']} ${styles['shadow-sm']}

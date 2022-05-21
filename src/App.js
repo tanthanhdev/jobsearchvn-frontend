@@ -101,6 +101,16 @@ const App = () => {
           }
         />
         <Route
+          path="/employer/campaigns"
+          element={
+            isLoggedIn ? (
+              <EmployerProfile active={4} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
           path="/employer/campaigns/:slug"
           element={
             isLoggedIn ? (
