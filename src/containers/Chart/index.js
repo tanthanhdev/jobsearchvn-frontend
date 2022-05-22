@@ -9,12 +9,16 @@ import Jobs from "./Jobs";
 import User from "./Users";
 import { Link, Route, Routes } from "react-router-dom";
 import Views from "./Views";
+import applyApi from "api/applyApi";
+import Apply from "./Apply";
 
 Chart.propTypes = {};
 
 function Chart(props) {
   const [jobsInYear, setJobsInYear] = useState([]);
   const [usersInYear, setUserInYear] = useState([]);
+  const [applyInYear, setApplyInYear] = useState([]);
+
   const [employerInYear, setEmployersInYear] = useState([]);
   const [memberInYears, setMemberInYear] = useState([]);
 
@@ -24,6 +28,10 @@ function Chart(props) {
     datasets: [],
   });
   const [dataUsers, setDataUsers] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [dataApply, setDataApply] = useState({
     labels: [],
     datasets: [],
   });
@@ -44,7 +52,7 @@ function Chart(props) {
   const year = useSelector((state) => state.year);
   //jobs
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchApi = async () => {
       const jobs = await jobApi.getAll();
       setJobsInYear(
         jobs.filter(
@@ -53,10 +61,12 @@ function Chart(props) {
       );
       console.log("jobs", jobs);
     };
-    fetchProducts();
+    fetchApi();
   }, [year]);
+
+  // user
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchApi = async () => {
       const users = await userApi.getAll();
       setUserInYear(
         users.filter(
@@ -79,9 +89,21 @@ function Chart(props) {
       );
     };
 
-    fetchProducts();
+    fetchApi();
   }, [year]);
-  console.log("userInyears", usersInYear);
+  // apply
+  useEffect(() => {
+    const fetchApi = async () => {
+      const applys = await applyApi.getAll();
+      setApplyInYear(
+        applys.filter(
+          (apply) => Number(apply.created_at.slice(0, 4)) === Number(year)
+        )
+      );
+    };
+    fetchApi();
+  }, [year]);
+  // job
   useEffect(() => {
     setDataJobs({
       labels: labels,
@@ -114,8 +136,9 @@ function Chart(props) {
             jobsInYear?.filter((item) => item.created_at.slice(5, 7) === "12")
               .length,
           ],
-          backgroundColor: ["rgba(75,192,192,1)"],
+          backgroundColor: ["rgba(75,192,192,0.5)"],
           borderColor: "black",
+          fill: true,
           borderWidth: 2,
         },
       ],
@@ -154,7 +177,8 @@ function Chart(props) {
             usersInYear?.filter((item) => item.date_joined.slice(5, 7) === "12")
               .length,
           ],
-          backgroundColor: ["rgba(75,192,192,1)"],
+          backgroundColor: "rgba(75,192,192,0.2)",
+          fill: true,
           borderColor: "green",
           borderWidth: 2,
         },
@@ -198,7 +222,9 @@ function Chart(props) {
               (item) => item.date_joined.slice(5, 7) === "12"
             ).length,
           ],
-          backgroundColor: ["rgba(75,192,192,1)"],
+          backgroundColor: ["rgba(75,192,192,0.1)"],
+
+          // fill: true,
           borderColor: "yellow",
           borderWidth: 2,
         },
@@ -249,6 +275,47 @@ function Chart(props) {
       ],
     });
   }, [usersInYear, employerInYear, memberInYears]);
+  // apply
+  useEffect(() => {
+    setDataApply({
+      labels: labels,
+      datasets: [
+        {
+          label: "Tổng: " + applyInYear.length,
+          data: [
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "01")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "02")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "03")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "04")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "05")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "06")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "07")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "08")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "09")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "10")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "11")
+              .length,
+            applyInYear?.filter((item) => item.created_at.slice(5, 7) === "12")
+              .length,
+          ],
+          backgroundColor: ["rgba(75,192,192,0.5)"],
+          borderColor: "black",
+          fill: true,
+          borderWidth: 2,
+        },
+      ],
+    });
+  }, [applyInYear]);
   return (
     <Wrap>
       <div className="flex container md:block sm:block">
@@ -278,6 +345,14 @@ function Chart(props) {
             >
               Thống kê lượt truy cập
             </li>
+            <li
+              onClick={() => setIsChose(4)}
+              className={`${
+                isChose === 4 ? "text-primari" : false
+              }  text-center cursor-pointer py-4 px-2`}
+            >
+              Thống kê lượt nộp CV
+            </li>
           </ul>
         </div>
         <div className="basis-3/4 pt-[100px]">
@@ -285,6 +360,7 @@ function Chart(props) {
             {isChose === 1 && <Jobs chartData={dataJobs} />}
             {isChose === 2 && <User chartData={dataUsers} />}
             {isChose === 3 && <Views chartData={dataUsers} />}
+            {isChose === 4 && <Apply chartData={dataApply} />}
           </div>
           <DropDown />
         </div>
