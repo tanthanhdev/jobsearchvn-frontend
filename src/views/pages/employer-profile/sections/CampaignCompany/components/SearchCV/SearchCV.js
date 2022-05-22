@@ -22,7 +22,7 @@ export const SearchCV = ({ slug }) => {
   const { isError, isLoading } = useSelector((state) => state.profileEmployer);
   const [CVs, setCVs] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-  // const [campaign, setCampaign] = useState([]);
+  // const [campaign, setCampaign] = useState(null);
   const [display_priority, setDisplayPriority] = useState("");
   const [showMore, setShowMore] = useState(false);
   // modal toggle
@@ -31,9 +31,10 @@ export const SearchCV = ({ slug }) => {
 
   useEffect(() => {
     if (!CVs) {
-      UserService.getCampaign(slug).then(() => {
+      UserService.getCampaign(slug).then((res) => {
         // setCampaign(res.data);
-        CvService.searchCV().then((res) => { setCVs(res.data); });
+        // console.log(res.data);
+        CvService.searchCV(res.data.name).then((res) => { setCVs(res.data); });
         // console.log(CVs)
       });
     }
