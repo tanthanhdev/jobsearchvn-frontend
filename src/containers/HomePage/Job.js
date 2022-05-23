@@ -75,8 +75,7 @@ function Job(props) {
         <h2>Việc Làm Hấp Dẫn</h2>
       </header>
       <Slider {...settings}>
-        {jobs &&
-          jobs.map((item, index) => (
+        {jobs?.map((item, index) => (
             <div key={index} className="h-[200px] my-2">
               <div
                 onClick={() => handleNavigateToViewDetail(item.slug)}
@@ -117,10 +116,12 @@ function Job(props) {
                         )}
                       </span>
                     </div>
-                    <div className="nav_sub-content-location">
-                      <i className="fas fa-map-marker-alt" />
-                      <span>{item.employer.company_location}</span>
-                    </div>
+                    {item.job_job_addresses?.map((adr, index) => (
+                      <div className="nav_sub-content-location" key={index}>
+                        <i className="fas fa-map-marker-alt" />
+                        <span>{adr.address}</span>
+                      </div>
+                    ))}
                     <span className="nav_sub-content-name">
                       {item.employer.company_name}
                     </span>
