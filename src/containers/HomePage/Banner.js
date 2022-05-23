@@ -10,7 +10,7 @@ const Banner = () => {
   const [inputSearchNormal, setInputSearchNormal] = useState("");
 
   let navigate = useNavigate();
-  
+
   useEffect(() => {
     PublicService.getCities().then((data) => setCities(data));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,7 +33,16 @@ const Banner = () => {
   };
 
   const onSubmitValueInput = () => {
-    navigate("/search/" + (inputSearchNormal ? inputSearchNormal : ' ') + '/' + (selectedCity ? selectedCity.name : ''));
+    navigate(
+      "/search/" +
+        (inputSearchNormal ? inputSearchNormal : " ") +
+        "/" +
+        (selectedCity
+          ? selectedCity.name
+            ? selectedCity.name
+            : selectedCity
+          : "")
+    );
   };
 
   return (
@@ -49,7 +58,9 @@ const Banner = () => {
           <div className="search__input-text">
             <i className="nav-search__icon fas fa-search"></i>
             <input
-              onChange={e => {setInputSearchNormal(e.target.value)}}
+              onChange={(e) => {
+                setInputSearchNormal(e.target.value);
+              }}
               className="input__search"
               type="text"
               placeholder="Tìm kiếm việc làm, kỹ năng, tên công ty"
@@ -76,5 +87,5 @@ const Banner = () => {
       </div>
     </div>
   );
-}
+};
 export default Banner;

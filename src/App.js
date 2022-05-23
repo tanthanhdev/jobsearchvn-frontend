@@ -67,8 +67,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-up/employer" element={<RegisterEmployer />} />
         <Route path="/profile" element={<Profile />} />
@@ -79,7 +78,7 @@ const App = () => {
           path="/admin"
           element={isLoggedIn ? <AdminPage /> : <Navigate to="/login" />}
         ></Route>
-        <Route path="/:slug" element={<ViewDetailPage />}></Route>
+        <Route path="/:slug" element={<ViewDetailPage />} />
         <Route path="/search/:q" element={<SearchPage />} />
         <Route path="/search/:q/:adr" element={<SearchPage />} />
         <Route
@@ -162,6 +161,7 @@ const App = () => {
             </h1>
           )}
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

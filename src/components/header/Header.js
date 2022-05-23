@@ -51,7 +51,7 @@ export const Header = () => {
           </li>
           <li className={styles.header__right__item}>
             <Link
-              to="/blogs"
+              to="#"
               className={`${styles.header__link} ${styles.header__right__item_link}`}
             >
               Blog
