@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 // import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
@@ -26,7 +26,7 @@ import { update_member } from "../../api/memberApi";
 function ProfileMember() {
   let params = useParams();
   const [option, setOption] = useState(() => {
-    if (params.tab === 'cvs') {
+    if (params.tab === "cvs") {
       return 0;
     }
     return 1;
@@ -51,24 +51,30 @@ function ProfileMember() {
       setIsReload(false);
     });
     // get save jobs and apply jobs
-    userService.getSaveJob().then((res) => {
-      setSaveJobs(res.data);
-      setIsReload(false);
-    }).catch((err) => {
-      if (err.response.status === 404) {
-        setSaveJobs(null);
+    userService
+      .getSaveJob()
+      .then((res) => {
+        setSaveJobs(res.data);
         setIsReload(false);
-      }
-    });
-    userService.getApplyJob().then((res) => {
-      setApplyJobs(res.data);
-      setIsReload(false);
-    }).catch((err) => {
-      if (err.response.status === 404) {
-        setApplyJobs(null);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setSaveJobs(null);
+          setIsReload(false);
+        }
+      });
+    userService
+      .getApplyJob()
+      .then((res) => {
+        setApplyJobs(res.data);
         setIsReload(false);
-      }
-    });
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setApplyJobs(null);
+          setIsReload(false);
+        }
+      });
   }, [dispatch, isReload === true]);
   // dispatch(setMemberSlice(memberCurrent1))
   // console.log("user: currentUser", currentUser);
@@ -84,22 +90,35 @@ function ProfileMember() {
   // console.log("memberrrrrrrrrr", member);
   // console.log("memberCurrent1", memberCurrent1);
 
-
   const initialValues = {
     // user
-    address: memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.address : null,
-    phone_number: memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.phone_number : null,
-    first_name: memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.first_name : null,
-    last_name: memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.last_name : null,
-    gender: memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.gender : null,
+    address:
+      memberCurrent1 && memberCurrent1.user
+        ? memberCurrent1.user.address
+        : null,
+    phone_number:
+      memberCurrent1 && memberCurrent1.user
+        ? memberCurrent1.user.phone_number
+        : null,
+    first_name:
+      memberCurrent1 && memberCurrent1.user
+        ? memberCurrent1.user.first_name
+        : null,
+    last_name:
+      memberCurrent1 && memberCurrent1.user
+        ? memberCurrent1.user.last_name
+        : null,
+    gender:
+      memberCurrent1 && memberCurrent1.user ? memberCurrent1.user.gender : null,
     // member
-    avatar: memberCurrent1 && memberCurrent1.user ? memberCurrent1.avatar : null,
+    avatar:
+      memberCurrent1 && memberCurrent1.user ? memberCurrent1.avatar : null,
   };
 
   const onSubmit = (data, { resetForm }) => {
     console.log("data formik", data);
     let formData = new FormData();
-    if (typeof (data.avatar) === 'object') {
+    if (typeof data.avatar === "object") {
       formData.append("avatar", data.avatar);
     }
     formData.append("address", data.address);
@@ -107,9 +126,7 @@ function ProfileMember() {
     formData.append("first_name", data.first_name);
     formData.append("last_name", data.last_name);
     formData.append("gender", data.gender);
-    dispatch(
-      update_member(formData)
-    )
+    dispatch(update_member(formData))
       .unwrap()
       .then(() => {
         toast.success("Chúc mừng bạn cập nhật thành công thông tin", {
@@ -136,11 +153,11 @@ function ProfileMember() {
             initialValues={initialValues}
             // validationSchema={validationSchema}
             onSubmit={onSubmit}
-          // onSubmit={async (values) => {
-          //   await new Promise((r) => setTimeout(r, 500));
-          //   console.log(JSON.stringify(values, null, 2));
-          //   update_member(values);
-          // }}
+            // onSubmit={async (values) => {
+            //   await new Promise((r) => setTimeout(r, 500));
+            //   console.log(JSON.stringify(values, null, 2));
+            //   update_member(values);
+            // }}
           >
             {({ values, setFieldValue }) => (
               <Form>
@@ -163,9 +180,12 @@ function ProfileMember() {
                           </div>
                         ) : (
                           <h3>
-                            {memberCurrent1.user ? memberCurrent1.user.first_name : ''}
-                            {' '}
-                            {memberCurrent1.user ? memberCurrent1.user.last_name : ''}
+                            {memberCurrent1.user
+                              ? memberCurrent1.user.first_name
+                              : ""}{" "}
+                            {memberCurrent1.user
+                              ? memberCurrent1.user.last_name
+                              : ""}
                           </h3>
                         )}
                         <div className="flex mt-[20px]">
@@ -190,7 +210,11 @@ function ProfileMember() {
                           </svg>
                           <span className=" flex">
                             {isEdit ? (
-                              <Field name="address" type="text" className="max-w-[100px] px-2" />
+                              <Field
+                                name="address"
+                                type="text"
+                                className="max-w-[100px] px-2"
+                              />
                             ) : (
                               <span className="mr-2">
                                 {memberCurrent1.user
@@ -209,7 +233,9 @@ function ProfileMember() {
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                           stroke-width="2"
-                          onClick={() => { setIsEdit(!isEdit) }}
+                          onClick={() => {
+                            setIsEdit(!isEdit);
+                          }}
                         >
                           <path
                             strokeLinecap="round"
@@ -238,23 +264,40 @@ function ProfileMember() {
                               <>
                                 <label>
                                   Nam
-                                  <Field name="gender" type="radio" value="1" className="max-w-[60px] px-2" />
+                                  <Field
+                                    name="gender"
+                                    type="radio"
+                                    value="1"
+                                    className="max-w-[60px] px-2"
+                                  />
                                 </label>
                                 <label>
                                   Nữ
-                                  <Field name="gender" type="radio" value="0" className="max-w-[60px] px-2" />
+                                  <Field
+                                    name="gender"
+                                    type="radio"
+                                    value="0"
+                                    className="max-w-[60px] px-2"
+                                  />
                                 </label>
                                 <label>
                                   Khác
-                                  <Field name="gender" type="radio" value="2" className="max-w-[60px] px-2" />
+                                  <Field
+                                    name="gender"
+                                    type="radio"
+                                    value="2"
+                                    className="max-w-[60px] px-2"
+                                  />
                                 </label>
                               </>
-                            ) : memberCurrent1.user && memberCurrent1.user.gender === '1' ? (
-                              'Nam'
-                            ) : memberCurrent1.user && memberCurrent1.user.gender === '0' ? (
-                              'Nữ'
+                            ) : memberCurrent1.user &&
+                              memberCurrent1.user.gender === "1" ? (
+                              "Nam"
+                            ) : memberCurrent1.user &&
+                              memberCurrent1.user.gender === "0" ? (
+                              "Nữ"
                             ) : (
-                              'Khác'
+                              "Khác"
                             )}
                           </span>
                         </div>
@@ -262,13 +305,25 @@ function ProfileMember() {
                       <div className="top-[30%] -left-[8%] absolute w-[80px] h-[80px]">
                         {isEdit && (
                           <input
-                            id="avatar" name="avatar" type="file" onChange={(event) => {
-                              setFieldValue("avatar", event.currentTarget.files[0]);
-                            }} className="form-control" />
+                            id="avatar"
+                            name="avatar"
+                            type="file"
+                            onChange={(event) => {
+                              setFieldValue(
+                                "avatar",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            className="form-control"
+                          />
                         )}
                         <img
-                          className="object-contain rounded-full"
-                          src={memberCurrent1.avatar ? memberCurrent1.avatar : icons.logo_default}
+                          className=" rounded-full w-[70px] h-[70px]"
+                          src={
+                            memberCurrent1.avatar
+                              ? memberCurrent1.avatar
+                              : icons.logo_default
+                          }
                           alt="avatar"
                         />
                       </div>
@@ -277,7 +332,7 @@ function ProfileMember() {
                       <button
                         type="submit"
                         // onClick={() => onSaveSkills()}
-                        style={{float: 'right'}}
+                        style={{ float: "right" }}
                         className="bg-primary hover:bg-hover-btn rounded-xl mr-2 text-[#fff] py-1 cursor-pointer px-[14px]"
                       >
                         Save
@@ -295,7 +350,7 @@ function ProfileMember() {
             <li
               onClick={() => {
                 toggle(0);
-                window.history.pushState('', '', '/profile-member/cvs');
+                window.history.pushState("", "", "/profile-member/cvs");
               }}
               className={
                 option === 0
@@ -308,33 +363,21 @@ function ProfileMember() {
             <li
               onClick={() => {
                 toggle(1);
-                window.history.pushState('', '', '/profile-member');
+                window.history.pushState("", "", "/profile-member");
               }}
               className={
                 option === 1
-                  ? "mr-[16px] underline decoration-primary decoration-solid underline-offset-4 text-primary"
-                  : "mr-[16px] cursor-pointer]"
+                  ? "mr-[16px] underline decoration-primary cursor-pointer decoration-solid underline-offset-4 text-primary"
+                  : "mr-[16px] cursor-pointer"
               }
             >
               CV Hồ Sơ
             </li>
-            {/* <li
-              onClick={() => {
-                toggle(2);
-                window.history.pushState('', '', '/profile-member');
-              }}
-              className={
-                option === 2
-                  ? "mr-[16px] underline decoration-primary decoration-solid underline-offset-4 text-primary"
-                  : "mr-[16px] cursor-pointer"
-              }
-            >
-              Quản lý hồ sơ
-            </li> */}
+
             <li
               onClick={() => {
                 toggle(3);
-                window.history.pushState('', '', '/profile-member');
+                window.history.pushState("", "", "/profile-member");
               }}
               className={
                 option === 3
@@ -347,7 +390,7 @@ function ProfileMember() {
             <li
               onClick={() => {
                 toggle(4);
-                window.history.pushState('', '', '/profile-member');
+                window.history.pushState("", "", "/profile-member");
               }}
               className={
                 option === 4

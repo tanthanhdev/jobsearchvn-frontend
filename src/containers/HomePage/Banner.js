@@ -33,8 +33,7 @@ const Banner = () => {
   };
 
   const onSubmitValueInput = () => {
-    navigate("/search/" + (inputSearchNormal ? inputSearchNormal : ' ') + '/'
-      + (selectedCity ? selectedCity.name ? selectedCity.name : selectedCity  : ''));
+    navigate("/search/" + (inputSearchNormal ? inputSearchNormal : ' ') + '/' + (selectedCity ? selectedCity.name : ''));
   };
 
   return (
