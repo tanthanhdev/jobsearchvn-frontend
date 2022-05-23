@@ -235,6 +235,7 @@ const Register = () => {
                                         name="group"
                                         type="text"
                                         value="member"
+                                        hidden="True"
                                         className="hide"
                                     />
                                     {message && typeof(message) === "string" && (
