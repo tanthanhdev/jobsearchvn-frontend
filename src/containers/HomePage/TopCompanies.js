@@ -15,10 +15,10 @@ function TopCompanies(props) {
     };
     fetchProducts();
   }, []);
-
+  console.log("companies", companies);
   return (
     <>
-      <div className="grid wide content" style={{flexDirection: 'column'}}>
+      <div className="grid wide content" style={{ flexDirection: "column" }}>
         <header className="content__header">
           <h2>Nhà tuyển dụng hàng đầu</h2>
         </header>
@@ -37,12 +37,18 @@ function TopCompanies(props) {
                     src={company.logo ? company.logo : icons.logo_default}
                     alt={company.company_name}
                   />
-                  <span className="nav__description">
-                    {company.description}
+                  <span className="block text-center font-bold text-xl mt-2">
+                    {company.company_name}
+                  </span>
+                  <span className="nav__description text-primary text-xl text-center">
+                    {company.employer_job.length}{" "}
+                    <span className="text-primary text-xl">
+                      việc đang tuyển
+                    </span>
                   </span>
                   <footer className="nav__footer">
                     <span className="nav_quantity">
-                      {company.employer_job.length} jobs
+                      {company.employer_reviews.length} đánh giá
                     </span>
                     -
                     <span className="nav_location">
