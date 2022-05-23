@@ -937,7 +937,7 @@ function ViewCv({ memberCurrent, setIsReload }) {
                             <Field
                               disabled={!isShowEducation}
                               name={`member_educations.${index}.gpa`}
-                              type="number"
+                              type="text"
                               className="border my-2 border-solid border-slate-400 focus:outline-none py-2 px-4 w-full rounded"
                               placeholder="thang điểm 4"
                             />
