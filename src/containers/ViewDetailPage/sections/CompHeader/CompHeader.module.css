@@ -1,0 +1,77 @@
+/* header */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    -moz-box-shadow: 0px 0px 8px #000000;
+    -webkit-box-shadow: 0px 0px 8px #c5c5c5;
+    box-shadow: 0px 0px 8px #939393;
+}
+.header-left {
+    width: 200px;
+    height: 150px;
+    border: 1px solid lightgray;
+}
+.company-logo {
+    width: 100%;
+    margin: 10px 0;
+    height: 130px;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    max-width: 200px;
+}
+.header-center {
+    width: 100%;
+    max-width: 599px;
+    margin: 0 20px;
+    font-size: 1.4rem;
+}
+.header-center__name {
+    display: grid;
+    color: #353535;
+}
+.company-name,
+.company-address {
+    margin-bottom: 25px;
+}
+
+.company-specialization {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.company-specialization__left,
+.company-specialization__center {
+    margin-right: 100px;
+}
+
+.work-schedule__left {
+    margin-right: 76px;
+}
+
+.btn {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 8px 20px;
+    line-height: 1.42857143;
+    border-radius: 2px;
+    font-size: 14px;
+    transition: background-color .3s, border-color .3s;
+    cursor: pointer;
+}
+.btn:nth-child(1):hover {
+    background-color: #ff8c00;
+}
+.btn:nth-child(2):hover {
+    color: #ffffff;
+    background-color: #f0d808;
+}
+.btn-selected {
+    color: #fff;
+    background-color: #f7941d;
+    border-color: #f28809;
+}

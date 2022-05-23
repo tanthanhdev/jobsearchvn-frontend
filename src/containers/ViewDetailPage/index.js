@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Header } from "components/header/Header";
 import { Footer } from "components/footer/Footer";
 import {
@@ -16,8 +17,6 @@ import {
   AiOutlineClockCircle,
 } from "react-icons/ai";
 import {
-  BsShare,
-  BsFlag,
   BsFillBagFill,
   BsBagXFill,
   BsCurrencyDollar,
@@ -30,40 +29,52 @@ import classNames from "classnames";
 import { useParams, Navigate } from "react-router-dom";
 // import Map from "react-map-gl";
 // services
+import { get_public_employer_detail } from "slices/company-reviews"
 import userService from "services/user.service";
 import authService from "services/auth.service";
 // Utils
 import { icons as iconsUtil } from 'utils/icons';
 // Css
 import "./viewDetailPage.css";
-
+// Components
+import { CompHeader } from './sections/CompHeader';
 
 export const ViewDetailPage = (props) => {
   const user = localStorage.getItem('user');
   const isLoggedIn = authService.isLoggedIn(); //dont remove
   const [jobView, setJobView] = useState(null);
   const [apply, setApply] = useState(null);
-  const [isReloadReview, setIsReloadReview] = useState(false);
+  const [isReload, setIsReload] = useState(false);
   const [isApply, setIsApply] = useState(false);
   const [isSave, setIsSave] = useState(false);
   const [tabActive, setTabActive] = useState(0);
+  const [company, setCompany] = useState([]);
   let params = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     userService.getPublicJobDetail(params.slug).then((res) => {
       setJobView(res.data);
-      setIsReloadReview(false);
+      setIsReload(false);
+      // company
+      dispatch(get_public_employer_detail({ slug: res.data.employer.slug }))
+        .unwrap()
+        .then((res) => {
+          setCompany(res);
+          setIsReload(false);
+        })
+        .catch(() => {});
     });
     userService.getApplyJobDetail(null, params.slug).then((res) => {
       setIsApply(true);
       setApply(res.data);
-      setIsReloadReview(false);
+      setIsReload(false);
     });
     userService.getSaveJobDetail(null, params.slug).then(() => {
       setIsSave(true);
-      setIsReloadReview(false);
+      setIsReload(false);
     });
-  }, [isReloadReview === true]);
+  }, [isReload === true]);
 
   const tab = [
     {
@@ -82,29 +93,15 @@ export const ViewDetailPage = (props) => {
     setTabActive(index);
   };
 
-  const handleApplyJob = () => {
-    if (isApply) {
-      userService.deleteApplyJobDetail(jobView?.id).then(() => {
-        setIsReloadReview(true);
-      });
-      setIsApply(false);
-    } else {
-      userService.createApplyJob(jobView?.id).then(() => {
-        setIsReloadReview(true);
-      });
-      setIsApply(true);
-    }
-  }
-
   const handleSaveJob = () => {
     if (isSave) {
       userService.deleteSaveJobDetail(jobView?.id).then(() => {
-        setIsReloadReview(true);
+        setIsReload(true);
         setIsSave(false);
       });
     } else {
       userService.createSaveJob(jobView?.id).then(() => {
-        setIsReloadReview(true);
+        setIsReload(true);
         setIsSave(true);
       });
     }
@@ -113,7 +110,15 @@ export const ViewDetailPage = (props) => {
   return (
     <div style={{ backgroundColor: 'rgb(249 249 249)' }}>
       <Header></Header>
-      <div className="container wrapper-job-detail">
+      <div className="container wrapper-job-detail" style={{paddingTop: '120px'}}>
+        <CompHeader company={company} setIsReload={setIsReload} isReload={isReload}
+          jobView={jobView}
+          isApply={isApply}
+          setIsApply={setIsApply}
+          apply={apply}
+          user={user}
+          isLoggedIn={isLoggedIn}
+        />
         <div className="text-sm pt-[100px]">
           <div className="py-2 flex justify-between items-center border-b-2 border-gray-300 pb-1 mb-3">
             <div className="flex items-center">
@@ -357,18 +362,6 @@ export const ViewDetailPage = (props) => {
             <div>
             </div>
           </div> */}
-          <button className="bg-buttonSubmitBackground rounded-lg p-2" disabled={isLoggedIn && user?.is_active && !user?.is_staff || (apply?.status && apply?.status != '0')}
-            onClick={handleApplyJob}>
-            {isLoggedIn && isApply && (
-              'Đã nộp đơn ứng tuyển'
-            )}
-            {isLoggedIn && !isApply && (
-              'Nộp đơn ứng tuyển'
-            )}
-            {!isLoggedIn && (
-              <a href={'/login?next=/' + jobView?.slug}>Nộp đơn ứng tuyển</a>
-            )}
-          </button>
         </div>
       </div>
       <Footer></Footer>
