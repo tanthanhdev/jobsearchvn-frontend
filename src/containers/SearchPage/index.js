@@ -44,15 +44,20 @@ const SearchPage = () => {
                     className="coll cursor-pointer l-6 h-[260px] border rounded-2xl group"
                     key={index}
                     href={"/" + job.slug}
+                    style={{padding: '16px'}}
                   >
-                    <h2 className="font-bold text-base group-hover:text-red">
+                    <h3 className="font-bold group-hover:text-red">
                       {job.title.toUpperCase()}
-                    </h2>
+                    </h3>
                     <h3>{job.employer.company_name}</h3>
                     <h3 className="text-base">{job.country.name}</h3>
                     <ul className="max-h-[80px] overflow-y-auto">
                       {job.description.split("\r\n").map((value) => (
-                        <li className="text-[#6F6F6F]">{value}</li>
+                        <div className="text-[#6F6F6F]"
+                        dangerouslySetInnerHTML={{
+                          __html: value
+                        }}></div>
+                        // <li className="text-[#6F6F6F]">{value}</li>
                       ))}
                     </ul>
                     <div className="flex">
