@@ -277,6 +277,7 @@ function ProfileMember() {
                       <button
                         type="submit"
                         // onClick={() => onSaveSkills()}
+                        style={{float: 'right'}}
                         className="bg-primary hover:bg-hover-btn rounded-xl mr-2 text-[#fff] py-1 cursor-pointer px-[14px]"
                       >
                         Save

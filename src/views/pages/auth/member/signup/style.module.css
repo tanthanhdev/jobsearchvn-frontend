@@ -314,3 +314,7 @@
         padding-left: 40%;
     }
 }
+
+.hide {
+    display: none;
+}

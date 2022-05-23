@@ -162,12 +162,12 @@ export const SearchCompanyReviews = () => {
                                         </a>
                                     ))}
                                 </div>
-                                <div className={`${styles["show-more text-center"]} `}>
+                                {/* <div className={`${styles["show-more text-center"]} `}>
                                     <a className={`${styles["d-inline-flex"]} `} data-action="popular-companies#showMore"
                                         data-popular-companies-target="showMoreText">
                                         <span>See more</span>
                                     </a>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
