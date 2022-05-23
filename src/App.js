@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ReactGA from "react-ga";
 // css module
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
@@ -45,6 +46,12 @@ const App = () => {
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
+
+  useEffect(() => {
+    ReactGA.initialize("G-VTB3N62VQH");
+    // To Report Page View
+    ReactGA.pageview("/");
+  }, []);
 
   useEffect(() => {
     EventBus.on("logout", () => {
