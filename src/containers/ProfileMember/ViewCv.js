@@ -233,7 +233,14 @@ function ViewCv({ memberCurrent, setIsReload }) {
           .max(255, 'Tên bằng cấp được chứa tối đa 255 ký tự'),
         major: Yup.string().required("Chuyên ngành vui lòng không để trống!")
           .max(255, 'Chuyên ngành được chứa tối đa 255 ký tự'),
-        gpa: Yup.number().required("Vui lòng không để trống!").min(0).max(4),
+        gpa: Yup.number()
+          .required("Vui lòng không để trống!")
+          .min(0.0).max(4.0)
+          .test(
+            'is-decimal',
+            'Số thập phân không hợp lệ, chỉ chứa 1 số thập phân',
+            value => (value + "").match(/^[1-9]\d?(?:\.\d{0,1})?$/),
+        ),
         starting_date: Yup.date().default(() => {
           return new Date();
         }),
@@ -845,7 +852,7 @@ function ViewCv({ memberCurrent, setIsReload }) {
                             <Field
                               disabled={!isShowEducation}
                               name={`member_educations.${index}.gpa`}
-                              type="number"
+                              type="text"
                               className="border my-2 border-solid border-slate-400 focus:outline-none py-2 px-4 w-full rounded"
                               placeholder="thang điểm 4"
                             />
