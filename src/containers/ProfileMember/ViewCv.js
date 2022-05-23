@@ -56,7 +56,6 @@ function ViewCv({ memberCurrent, setIsReload }) {
     // publicService.getCountries().then((res) => { setCountries(res.data); });
   }, []);
 
-
   //button
   // const onSaveSkills = () => {
   //   const newInputSkills = inputSkill.split(",");
@@ -141,38 +140,40 @@ function ViewCv({ memberCurrent, setIsReload }) {
     //         yean: null,
     //       },
     //     ],
-    member_educations: memberCurrent ? member_edu()
+    member_educations: memberCurrent
+      ? member_edu()
       : [
-        {
-          degree_name: null,
-          major: null,
-          university_name: null,
-          gpa: null,
-          starting_date: null,
-          completion_date: null,
-        },
-      ],
-    member_experiences: memberCurrent ? member_exp()
+          {
+            degree_name: null,
+            major: null,
+            university_name: null,
+            gpa: null,
+            starting_date: null,
+            completion_date: null,
+          },
+        ],
+    member_experiences: memberCurrent
+      ? member_exp()
       : [
-        {
-          job_title: null,
-          company_name: null,
-          job_location: null,
-          job_state: null,
-          job_country: null,
-          description: null,
-          start_date: null,
-          end_date: null,
-        },
-      ],
+          {
+            job_title: null,
+            company_name: null,
+            job_location: null,
+            job_state: null,
+            job_country: null,
+            description: null,
+            start_date: null,
+            end_date: null,
+          },
+        ],
     member_skills: memberCurrent
       ? member_skill()
       : [
-        {
-          name: "",
-          description: "",
-        },
-      ],
+          {
+            name: "",
+            description: "",
+          },
+        ],
     // member_social_activities: memberCurrent
     //   ? memberCurrent.member_social_activities
     //   : [],
@@ -206,51 +207,72 @@ function ViewCv({ memberCurrent, setIsReload }) {
 
   const validationSchema = Yup.object().shape({
     member_experiences: Yup.array()
-      .of(Yup.object().shape({
-        job_title: Yup.string().required("Tên vị trí vui lòng không để trống!")
-          .max(255, 'Tên vị trí được chứa tối đa 255 ký tự'),
-        company_name: Yup.string().required("Tên công ty vui lòng không để trống!")
-          .max(255, 'Tên công ty được chứa tối đa 255 ký tự'),
-        job_location: Yup.string().required("Địa chỉ công việc vui lòng không để trống!")
-          .max(255, 'Địa chỉ công việc được chứa tối đa 255 ký tự'),
-        job_state: Yup.boolean().required("Tình trạng công việc vui lòng không để trống!"),
-        // job_country: Yup.string().required("Quốc gia vui lòng không để trống!")
-        //   .max(255, 'Quốc gia được chứa tối đa 255 ký tự'),
-        description: Yup.string().required("Mô tả vui lòng không để trống!")
-          .max(1000, 'Mô tả được chứa tối đa 1000 ký tự'),
-        start_date: Yup.date().default(() => {
-          return new Date();
-        }),
-        end_date: Yup.string()
-          .required("Vui lòng không để trống!"),
-      }))
-      .max(5, 'Bạn chỉ có thể cung cấp 5 kinh nghiệm'),
-    member_educations: Yup.array()
-      .of(Yup.object().shape({
-        university_name: Yup.string().required("Tên trường vui lòng không để trống!")
-          .max(255, 'Tên trường được chứa tối đa 255 ký tự'),
-        degree_name: Yup.string().required("Tên bằng cấp vui lòng không để trống!")
-          .max(255, 'Tên bằng cấp được chứa tối đa 255 ký tự'),
-        major: Yup.string().required("Chuyên ngành vui lòng không để trống!")
-          .max(255, 'Chuyên ngành được chứa tối đa 255 ký tự'),
-        gpa: Yup.number().required("Vui lòng không để trống!").min(0).max(4),
-        starting_date: Yup.date().default(() => {
-          return new Date();
-        }),
-        completion_date: Yup.date()
-          .required("Vui lòng không để trống!")
-          .min(
-            Yup.ref('starting_date'),
-            "Ngày kết thúc không được trước ngày bắt đầu"
+      .of(
+        Yup.object().shape({
+          job_title: Yup.string()
+            .required("Tên vị trí vui lòng không để trống!")
+            .max(255, "Tên vị trí được chứa tối đa 255 ký tự"),
+          company_name: Yup.string()
+            .required("Tên công ty vui lòng không để trống!")
+            .max(255, "Tên công ty được chứa tối đa 255 ký tự"),
+          job_location: Yup.string()
+            .required("Địa chỉ công việc vui lòng không để trống!")
+            .max(255, "Địa chỉ công việc được chứa tối đa 255 ký tự"),
+          job_state: Yup.boolean().required(
+            "Tình trạng công việc vui lòng không để trống!"
           ),
-      }))
-      .max(5, 'Bạn chỉ có thể cung cấp 5 học vấn'),
+          // job_country: Yup.string().required("Quốc gia vui lòng không để trống!")
+          //   .max(255, 'Quốc gia được chứa tối đa 255 ký tự'),
+          description: Yup.string()
+            .required("Mô tả vui lòng không để trống!")
+            .max(1000, "Mô tả được chứa tối đa 1000 ký tự"),
+          start_date: Yup.date().default(() => {
+            return new Date();
+          }),
+          end_date: Yup.string().required("Vui lòng không để trống!"),
+        })
+      )
+      .max(5, "Bạn chỉ có thể cung cấp 5 kinh nghiệm"),
+    member_educations: Yup.array()
+      .of(
+        Yup.object().shape({
+          university_name: Yup.string()
+            .required("Tên trường vui lòng không để trống!")
+            .max(255, "Tên trường được chứa tối đa 255 ký tự"),
+          degree_name: Yup.string()
+            .required("Tên bằng cấp vui lòng không để trống!")
+            .max(255, "Tên bằng cấp được chứa tối đa 255 ký tự"),
+          major: Yup.string()
+            .required("Chuyên ngành vui lòng không để trống!")
+            .max(255, "Chuyên ngành được chứa tối đa 255 ký tự"),
+          gpa: Yup.number()
+            .test(
+              "is-decimal",
+              "Số thập phân không hợp lệ, chỉ chứa 1 số thập phân",
+              (value) => (value + "").match(/^[1-9]\d?(?:\.\d{0,1})?$/)
+            )
+            .required("Vui lòng không để trống!"),
+          starting_date: Yup.date().default(() => {
+            return new Date();
+          }),
+          completion_date: Yup.date()
+            .required("Vui lòng không để trống!")
+            .min(
+              Yup.ref("starting_date"),
+              "Ngày kết thúc không được trước ngày bắt đầu"
+            ),
+        })
+      )
+      .max(5, "Bạn chỉ có thể cung cấp 5 học vấn"),
     member_skills: Yup.array()
-      .of(Yup.object().shape({
-        name: Yup.string().required("Vui lòng không để trống!")
-          .max(255, 'Tên kỹ năng được chứa tối đa 255 ký tự'),
-      }))
-      .max(10, 'Bạn chỉ có thể cung cấp 5 kỹ năng'),
+      .of(
+        Yup.object().shape({
+          name: Yup.string()
+            .required("Vui lòng không để trống!")
+            .max(255, "Tên kỹ năng được chứa tối đa 255 ký tự"),
+        })
+      )
+      .max(10, "Bạn chỉ có thể cung cấp 5 kỹ năng"),
   });
 
   // const {
@@ -272,9 +294,7 @@ function ViewCv({ memberCurrent, setIsReload }) {
     // formData.append("member_educations", JSON.stringify(data.member_educations));
     // formData.append("member_experiences", JSON.stringify(data.member_experiences));
     // formData.append("member_skills", JSON.stringify(data.member_skills));
-    dispatch(
-      update_member(data)
-    )
+    dispatch(update_member(data))
       .unwrap()
       .then(() => {
         toast.success("Chúc mừng bạn cập nhật thành công thông tin", {
@@ -306,11 +326,11 @@ function ViewCv({ memberCurrent, setIsReload }) {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
-      // onSubmit={async (values) => {
-      //   await new Promise((r) => setTimeout(r, 500));
-      //   console.log(JSON.stringify(values, null, 2));
-      //   update_member(values);
-      // }}
+        // onSubmit={async (values) => {
+        //   await new Promise((r) => setTimeout(r, 500));
+        //   console.log(JSON.stringify(values, null, 2));
+        //   update_member(values);
+        // }}
       >
         {({ values, errors, isSubmitting, setFieldValue }) => (
           <Form>
@@ -356,20 +376,24 @@ function ViewCv({ memberCurrent, setIsReload }) {
                 </div> */}
               </div>
               <div className="flex justify-between">
-                <h3>{memberCurrent.user.first_name + " " + memberCurrent.user.last_name}</h3>
+                <h3>
+                  {memberCurrent.user.first_name +
+                    " " +
+                    memberCurrent.user.last_name}
+                </h3>
               </div>
               <div className="flex justify-between mt-4">
                 {isShowEditProfile ? (
                   <>
                     <Field
                       disabled={!isShowEditProfile}
-                      name='resume'
+                      name="resume"
                       type="text"
                       className="font-bold"
                       placeholder="Giới thiệu về bản thân"
                     />
                     <ErrorMessage
-                      name='resume'
+                      name="resume"
                       component="div"
                       className="alert alert-danger"
                     />
@@ -436,7 +460,9 @@ function ViewCv({ memberCurrent, setIsReload }) {
               <div className="flex">
                 {isShowEditProfile ? (
                   <>
-                    <p className="font-bold" style={{width: '100%'}}>Lương mong muốn: </p>
+                    <p className="font-bold" style={{ width: "100%" }}>
+                      Lương mong muốn:{" "}
+                    </p>
                     <Field
                       className="-mt-[14px] w-full p-0 pl-[20px] border-2 border-solid border-border "
                       type="number"
@@ -454,12 +480,11 @@ function ViewCv({ memberCurrent, setIsReload }) {
                     <p className="font-bold">Lương mong muốn: </p>
                     <p className="mb-[4px]">
                       {memberCurrent.salary
-                        ? memberCurrent.salary + ' ' + memberCurrent.currency
+                        ? memberCurrent.salary + " " + memberCurrent.currency
                         : " [Chưa bổ xung]"}
                     </p>
                   </>
                 )}
-
               </div>
               <div className="flex pb-[12px] justify-between flex border-b-2 border-solid border-border mt-3">
                 <div className="flex">
@@ -544,7 +569,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                     {values?.member_experiences?.length > 0 &&
                       values?.member_experiences?.map((_, index) => (
                         <div key={index}>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Tên vị trí</span>
                             <Field
                               disabled={!isShowPosition}
@@ -559,7 +590,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Công ty</span>
                             <Field
                               disabled={!isShowPosition}
@@ -574,7 +611,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Địa chỉ</span>
                             <Field
                               disabled={!isShowPosition}
@@ -589,7 +632,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Tình trạng công việc</span>
                             <Field
                               disabled={!isShowPosition}
@@ -622,7 +671,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div> */}
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Mô tả</span>
                             <Field
                               disabled={!isShowPosition}
@@ -637,7 +692,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Ngày bắt đầu</span>
                             <Field
                               disabled={!isShowPosition}
@@ -652,7 +713,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Ngày kết thúc</span>
                             <Field
                               disabled={!isShowPosition}
@@ -678,21 +745,22 @@ function ViewCv({ memberCurrent, setIsReload }) {
                             </Button>
                           )}
                           {values.member_experiences.length >= 1 &&
-                            values.member_experiences.length === index + 1 && isShowPosition ? (
+                          values.member_experiences.length === index + 1 &&
+                          isShowPosition ? (
                             <Button
                               type="button"
                               className="p-button-sm ml-8"
                               disabled={isSubmitting}
                               onClick={() =>
                                 push({
-                                  job_title: '',
-                                  company_name: '',
-                                  job_location: '',
-                                  job_state: '',
-                                  job_country: '',
-                                  description: '',
-                                  start_date: '',
-                                  end_date: '',
+                                  job_title: "",
+                                  company_name: "",
+                                  job_location: "",
+                                  job_state: "",
+                                  job_country: "",
+                                  description: "",
+                                  start_date: "",
+                                  end_date: "",
                                 })
                               }
                             >
@@ -701,21 +769,22 @@ function ViewCv({ memberCurrent, setIsReload }) {
                           ) : null}
                         </div>
                       ))}
-                    {values.member_experiences.length === 0 && isShowPosition ? (
+                    {values.member_experiences.length === 0 &&
+                    isShowPosition ? (
                       <Button
                         type="button"
                         className="p-button-sm"
                         disabled={isSubmitting}
                         onClick={() =>
                           push({
-                            job_title: '',
-                            company_name: '',
-                            job_location: '',
-                            job_state: '',
-                            job_country: '',
-                            description: '',
-                            start_date: '',
-                            end_date: '',
+                            job_title: "",
+                            company_name: "",
+                            job_location: "",
+                            job_state: "",
+                            job_country: "",
+                            description: "",
+                            start_date: "",
+                            end_date: "",
                           })
                         }
                       >
@@ -730,7 +799,6 @@ function ViewCv({ memberCurrent, setIsReload }) {
                   </div>
                 )}
               </FieldArray>
-
 
               {/* {isShowPosition ? (
                 <input className="block px-1 py-[1px] mb-[2px]" />
@@ -795,7 +863,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                     {values?.member_educations?.length > 0 &&
                       values?.member_educations?.map((_, index) => (
                         <div key={index ? index : null}>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Tên trường</span>
                             <Field
                               disabled={!isShowEducation}
@@ -810,7 +884,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Tên bằng cấp</span>
                             <Field
                               disabled={!isShowEducation}
@@ -825,7 +905,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Chuyên ngành</span>
                             <Field
                               disabled={!isShowEducation}
@@ -840,7 +926,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Điểm GPA</span>
                             <Field
                               disabled={!isShowEducation}
@@ -855,7 +947,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Ngày bắt đầu</span>
                             <Field
                               disabled={!isShowEducation}
@@ -870,7 +968,13 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               className="alert alert-danger"
                             />
                           </div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              width: "100%",
+                            }}
+                          >
                             <span>Ngày hoàn thành</span>
                             <Field
                               disabled={!isShowEducation}
@@ -896,19 +1000,20 @@ function ViewCv({ memberCurrent, setIsReload }) {
                             </Button>
                           )}
                           {values.member_educations.length >= 1 &&
-                            values.member_educations.length === index + 1 && isShowEducation ? (
+                          values.member_educations.length === index + 1 &&
+                          isShowEducation ? (
                             <Button
                               type="button"
                               className="p-button-sm ml-8"
                               disabled={isSubmitting}
                               onClick={() =>
                                 push({
-                                  degree_name: '',
-                                  major: '',
-                                  university_name: '',
-                                  gpa: '',
-                                  starting_date: '',
-                                  completion_date: '',
+                                  degree_name: "",
+                                  major: "",
+                                  university_name: "",
+                                  gpa: "",
+                                  starting_date: "",
+                                  completion_date: "",
                                 })
                               }
                             >
@@ -917,19 +1022,20 @@ function ViewCv({ memberCurrent, setIsReload }) {
                           ) : null}
                         </div>
                       ))}
-                    {values.member_educations.length === 0 && isShowEducation ? (
+                    {values.member_educations.length === 0 &&
+                    isShowEducation ? (
                       <Button
                         type="button"
                         className="p-button-sm"
                         disabled={isSubmitting}
                         onClick={() =>
                           push({
-                            degree_name: '',
-                            major: '',
-                            university_name: '',
-                            gpa: '',
-                            starting_date: '',
-                            completion_date: '',
+                            degree_name: "",
+                            major: "",
+                            university_name: "",
+                            gpa: "",
+                            starting_date: "",
+                            completion_date: "",
                           })
                         }
                       >
@@ -1074,7 +1180,8 @@ function ViewCv({ memberCurrent, setIsReload }) {
                               </Button>
                             )}
                             {values.member_skills.length >= 1 &&
-                              values.member_skills.length === index + 1 && isShowEditSkill ? (
+                            values.member_skills.length === index + 1 &&
+                            isShowEditSkill ? (
                               <Button
                                 type="button"
                                 className="p-button-sm ml-8"

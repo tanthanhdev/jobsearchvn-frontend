@@ -367,25 +367,13 @@ function ProfileMember() {
               }}
               className={
                 option === 1
-                  ? "mr-[16px] underline decoration-primary decoration-solid underline-offset-4 text-primary"
-                  : "mr-[16px] cursor-pointer]"
+                  ? "mr-[16px] underline decoration-primary cursor-pointer decoration-solid underline-offset-4 text-primary"
+                  : "mr-[16px] cursor-pointer"
               }
             >
               CV Hồ Sơ
             </li>
-            {/* <li
-              onClick={() => {
-                toggle(2);
-                window.history.pushState('', '', '/profile-member');
-              }}
-              className={
-                option === 2
-                  ? "mr-[16px] underline decoration-primary decoration-solid underline-offset-4 text-primary"
-                  : "mr-[16px] cursor-pointer"
-              }
-            >
-              Quản lý hồ sơ
-            </li> */}
+
             <li
               onClick={() => {
                 toggle(3);
