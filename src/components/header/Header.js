@@ -131,7 +131,9 @@ export const Header = () => {
               >
                 <Link
                   to={
-                    currentUser.is_staff
+                    currentUser.is_superuser
+                      ? "/admin"
+                      : currentUser.is_staff
                       ? "/employer/profile"
                       : "/profile-member"
                   }
