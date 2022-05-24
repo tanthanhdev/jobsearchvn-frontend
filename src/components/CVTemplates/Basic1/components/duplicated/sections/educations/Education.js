@@ -56,6 +56,7 @@ export const Education = ({ values, errors, isSubmitting, setFieldValue }) => {
                         </span>
                       </div>
                       <div className={`${styles["cvo-education-time"]}`}>
+                        YYYY-DD-MM
                         <span className={`${styles["time-background"]}`}>
                           <span className={`${styles["cvo-education-start"]}`}>
                             <Field

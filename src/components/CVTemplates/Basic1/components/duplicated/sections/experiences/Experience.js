@@ -36,6 +36,7 @@ export const Experience = ({ values, errors, isSubmitting }) => {
                         </span>
                       </div>
                       <div className={`${styles["cvo-experience-time"]}`}>
+                        YYYY-DD-MM
                         <span className={`${styles["time-background"]}`}>
                           <span className={`${styles["cvo-experience-start"]}`}>
                             <Field

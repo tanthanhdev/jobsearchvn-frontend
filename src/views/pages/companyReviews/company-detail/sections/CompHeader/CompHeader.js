@@ -77,7 +77,7 @@ export const CompHeader = ({company, setIsReloadReview}) => {
           <span className={styles["company-name"]}>{company.company_name ? company.company_name : 'Chưa bổ xung'}</span>
           <span className={styles["company-address"]}>{company.company_location ? company.company_location : 'Chưa bổ xung'}</span>
           <div className={styles["company-specialization"]}>
-            <span className={styles["company-specialization__left"]}>Outsourcing</span>
+            {/* <span className={styles["company-specialization__left"]}>Outsourcing</span> */}
             <span className={styles["company-specialization__center"]}>{company.company_size ? company.company_size : 'Chưa bổ xung'}+</span>
             <span className={styles["company-specialization__right"]}>Vietnam</span>
           </div>

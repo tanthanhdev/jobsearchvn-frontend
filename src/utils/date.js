@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { parse, isDate } from "date-fns";
 
 var timeSince = date => {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -58,11 +59,18 @@ var timeSinceStartDate = (start, end) => {
 var formatDate = (dateString, type) => {
   return moment(dateString).format(type);
 }
+function parseDateString(value, originalValue) {
+  const parsedDate = isDate(originalValue)
+  ? originalValue  // this make sure that a value is provided
+  : parse(originalValue, "YYYY-MM-DD", new Date());
 
+  return parsedDate;
+}
 const dateUtils = {
     timeSince,
     formatDate,
     timeSinceStartDate,
+    parseDateString,
   };
   
 export default dateUtils;

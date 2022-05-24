@@ -111,7 +111,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   <div className={`${styles["cvo-profile-info-row"]}  ${styles["cvo-profile-address-wraper"]}`}>
                                     {/* <i className={`${styles.custommodal}`}"fa fa-location-arrow" aria-hidden="true"></i> */}
                                     <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-address"]}`} >
-                                      Số 10, đường 10, TopCV
+                                      Số 10, đường 10, JobSearchVN
                                     </span>
                                   </div>
                                   <div className={`${styles["cvo-profile-info-row"]}  ${styles["cvo-profile-gender-wraper"]}`}>
@@ -180,7 +180,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                 <div className={`${styles.row}`}>
                                   <div className={`${styles["cvo-section-info"]}`}>
                                     <div className={`${styles["cvo-experience-company-wraper"]}`}>
-                                      <span className={`${styles["cvo-experience-company"]}`}>Công ty TOPCV</span>
+                                      <span className={`${styles["cvo-experience-company"]}`}>Công ty JobSearchVN</span>
                                     </div>
                                     <div className={`${styles["cvo-experience-time"]}`}>
                                       <span className={`${styles["time-background"]}`}>
@@ -196,7 +196,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                 <div className={`${styles.row}`}>
                                   <div className={`${styles["cvo-section-info"]}`}>
                                     <div className={`${styles["cvo-experience-company-wraper"]}`}>
-                                      <span className={`${styles["cvo-experience-company"]}`}>Cửa hàng TOPCV</span>
+                                      <span className={`${styles["cvo-experience-company"]}`}>Cửa hàng JobSearchVN</span>
                                     </div>
                                     <div className={`${styles["cvo-experience-time"]}`}>
                                       <span className={`${styles["time-background"]}`}>
@@ -220,7 +220,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                 <div className={`${styles.row}`}>
                                   <div className={`${styles["cvo-section-info"]}`}>
                                     <div className={`${styles["cvo-activity-organization-wraper"]}`}>
-                                      <span className={`${styles["cvo-activity-organization"]}`}>Nhóm tình nguyện TOPCV</span>
+                                      <span className={`${styles["cvo-activity-organization"]}`}>Nhóm tình nguyện JobSearchVN</span>
                                     </div>
                                     <div className={`${styles["cvo-activity-time"]}`}>
                                       <span className={`${styles["time-background"]}`}>
@@ -251,7 +251,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                 <div className={`${styles["skill-table"]}`}>
 
                                   <div className={`${styles.row}`}>
-                                    <div className={`${styles["cvo-skill-group-wrapper"]}`}><span className={`${styles["cvo-skillgroup-area"]}`}>Tin học văn phòng TOPCV</span></div>
+                                    <div className={`${styles["cvo-skill-group-wrapper"]}`}><span className={`${styles["cvo-skillgroup-area"]}`}>Tin học văn phòng JobSearchVN</span></div>
                                     <div className={`${styles["cvo-skillgroup-skill-description"]}`}>- Sử dụng thành thạo các công cụ Word, Excel, Power Point</div>
                                   </div>
 
@@ -274,7 +274,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                               <div className={`${styles["cvo-block-body"]} ${styles["award-table"]}`}>
                                 <div className={`${styles.row}`}>
                                   <div className={`${styles["cvo-award-wrapper"]}`}><span className={`${styles["cvo-award-time"]}`}>2014</span></div>
-                                  <div className={`${styles["cvo-award-title"]}`}>Nhân viên xuất sắc năm công ty TOPCV</div>
+                                  <div className={`${styles["cvo-award-title"]}`}>Nhân viên xuất sắc năm công ty JobSearchVN</div>
                                   <div className={styles.clear}></div>
                                 </div>
                               </div>

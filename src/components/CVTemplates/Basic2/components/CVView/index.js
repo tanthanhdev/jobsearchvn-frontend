@@ -77,14 +77,14 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   <td>
                                     <span className="profile-label">Email: </span>
                                     <span className="profile-field"
-                                      id="cvo-profile-email">hotro@topcv.vn</span>
+                                      id="cvo-profile-email">hotro@JobSearchVN.vn</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
                                     <span className="profile-label">Địa chỉ: </span>
                                     <span className="profile-field" id="cvo-profile-address">Số 10,
-                                      đường 10, TopCV</span>
+                                      đường 10, JobSearchVN</span>
                                   </td>
                                 </tr>
                                 <tr>
@@ -93,7 +93,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                     <span className="profile-field" id="cvo-profile-website"><a
                                       href="https://fb.com/topcv.vn" target="_blank"
                                       className="cvo-clickable-link"
-                                      rel="noreferrer noopener">https://fb.com/topcv.vn</a></span>
+                                      rel="noreferrer noopener">https://fb.com/JobSearchVN.vn</a></span>
                                   </td>
                                 </tr>
                               </tbody>
@@ -125,7 +125,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   <span className="cvo-education-end end">05/2014</span>
                                 </div>
                                 <div className="school">
-                                  <span className="cvo-education-school">Đại học TOPCV</span>
+                                  <span className="cvo-education-school">Đại học JobSearchVN</span>
                                   <span className="cvo-education-title">Quản trị Doanh nghiệp</span>
                                   <span className="cvo-education-details">Tốt nghiệp loại Giỏi, điểm
                                     trung bình 8.0</span>
@@ -145,7 +145,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   <span className="cvo-experience-end end">Hiện tại</span>
                                 </div>
                                 <div className="company">
-                                  <span className="cvo-experience-company">Công ty TOPCV</span>
+                                  <span className="cvo-experience-company">Công ty JobSearchVN</span>
                                   <span className="cvo-experience-position">Nhân viên bán hàng</span>
                                   <div className="cvo-experience-details">- Hỗ trợ viết bài quảng cáo
                                     sản phẩm qua kênh facebook, các forum,...<br/>- Giới thiệu,
@@ -161,7 +161,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   <span className="cvo-experience-end end">02/2015</span>
                                 </div>
                                 <div className="company">
-                                  <span className="cvo-experience-company">Cửa hàng TOPCV</span>
+                                  <span className="cvo-experience-company">Cửa hàng JobSearchVN</span>
                                   <span className="cvo-experience-position">Nhân viên bán hàng</span>
                                   <div className="cvo-experience-details">- Bán hàng trực tiếp tại cửa
                                     hàng cho người nước ngoài và người Việt.<br/>- Quảng bá sản
@@ -184,7 +184,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   </div>
                                   <div className="organization">
                                     <span className="cvo-activity-organization">Nhóm tình nguyện
-                                      TOPCV</span>
+                                    JobSearchVN</span>
                                     <span className="cvo-activity-position">Tình nguyện viên</span>
                                     <div className="cvo-activity-details">Tập hợp các món quà và phân
                                       phát tới người vô gia cư.<br/>- Chia sẻ, động viên họ vượt
@@ -205,7 +205,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   </div>
                                   <div className="details">
                                     <span className="cvo-certification-title">Giải nhất Tài năng
-                                      TOPCV</span>
+                                    JobSearchVN</span>
                                   </div>
                                   <div style={{clear: 'both'}}></div>
                                 </div>
@@ -221,7 +221,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                                   </div>
                                   <div className="details">
                                     <span className="cvo-award-title">Nhân viên xuất sắc năm công ty
-                                      TOPCV</span>
+                                    JobSearchVN</span>
                                   </div>
                                   <div style={{clear: 'both'}}></div>
                                 </div>
@@ -233,7 +233,7 @@ export const CVView = ({ showModal, toggleShow, CvTemplate }) => {
                               <div id="skill-table">
                                 <div className="row">
                                   <div>
-                                    <span className="cvo-skillgroup-area">Tin học văn phòng TOPCV</span>
+                                    <span className="cvo-skillgroup-area">Tin học văn phòng JobSearchVN</span>
                                   </div>
                                   <div>
                                     <span className="cvo-skillgroup-skill-description">- Sử dụng thành

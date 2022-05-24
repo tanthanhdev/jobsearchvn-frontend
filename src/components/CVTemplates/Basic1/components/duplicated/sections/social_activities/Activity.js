@@ -33,6 +33,7 @@ export const Activity = ({ values, errors, isSubmitting }) => {
                                                 </span>
                                             </div>
                                             <div className={`${styles["cvo-activity-time"]}`}>
+                                                YYYY-DD-MM
                                                 <span className={`${styles["time-background"]}`}>
                                                     <span className={`${styles["cvo-activity-start"]}`}>
                                                         <Field

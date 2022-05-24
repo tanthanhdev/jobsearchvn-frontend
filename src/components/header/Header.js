@@ -58,12 +58,14 @@ export const Header = () => {
             </Link>
           </li>
           <li className={styles.header__right__item}>
-            <Link
-              to="/cv-template"
-              className={`${styles.header__link} ${styles.header__right__item_link}`}
-            >
-              Mẫu CV
-            </Link>
+            {!(currentUser && currentUser.is_active && currentUser.is_staff) && (
+              <Link
+                to="/cv-template"
+                className={`${styles.header__link} ${styles.header__right__item_link}`}
+              >
+                Mẫu CV
+              </Link>
+            )}
           </li>
         </ul>
       </div>

@@ -360,7 +360,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                               <span className={`${styles["cvo-profile-info-value"]}  ${styles["cvo-profile-dob"]}`}>
                                                 {(user && (
                                                   <>
-                                                    {user.birthday ? user.birthday : "19/05/1992"}
+                                                    {user.birthday ? user.birthday : "[Bổ xung sau]"}
                                                   </>
                                                 ))}
                                               </span>
@@ -369,7 +369,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                               {/* <i className={`${styles.custommodal}`}"fa fa-phone" aria-hidden="true"></i> */}
                                               <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-phone"]}`} >{(user && (
                                                 <>
-                                                  {user.phone_number ? user.phone_number : "(024) 6680 5588"}
+                                                  {user.phone_number ? user.phone_number : "[Bổ xung sau]"}
                                                 </>
                                               ))}</span>
                                             </div>
@@ -390,7 +390,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                               <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-address"]}`} >
                                                 {(user && (
                                                   <>
-                                                    {user.address ? user.adress : "Số 10, đường 10, TopCV"}
+                                                    {user.address ? user.adress : "[Bổ xung sau]"}
                                                   </>
                                                 ))}
                                               </span>

@@ -404,7 +404,7 @@ export const Duplicated = ({ showModal, toggleShow, isLoggedIn, setIsLoggedIn, C
                                               <span className={`${styles["cvo-profile-info-value"]} ${styles["cvo-profile-address"]}`} >
                                                 {(user && (
                                                   <>
-                                                    {user.address ? user.adress : "Số 10, đường 10, TopCV"}
+                                                    {user.address ? user.adress : "Số 10, đường 10, JobSearchVN"}
                                                   </>
                                                 ))}
                                               </span>
